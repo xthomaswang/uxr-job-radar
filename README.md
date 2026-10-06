@@ -2,9 +2,9 @@
 
 High-recall UXR and related research opportunity pool, assessed with self-hosted Qwen3.8-27B: on a local Mac, and for large backlogs on a rented notebook GPU running the official release of the same weights. Each positions.jsonl row names the exact weights. Applications are handled separately.
 
-Generated: 2026-10-06 11:20 EDT · Model: `mlx-community/Qwen3.8-27B-8bit` · Prompt: `uxr-v7-anonymous-concise-overview` · Policy: `ac752ab36eab37d0d0abd1cfa925a81408ca621c899575e322582571565f96ef`
+Generated: 2026-10-06 12:20 EDT · Model: `mlx-community/Qwen3.8-27B-8bit` · Prompt: `uxr-v7-anonymous-concise-overview` · Policy: `ac752ab36eab37d0d0abd1cfa925a81408ca621c899575e322582571565f96ef`
 
-Tracked: 16520 · Pending current model/policy review: **16174** · Sources with errors: **1** · Jobs with inference errors: **3**
+Tracked: 16541 · Pending current model/policy review: **16175** · Sources with errors: **1** · Jobs with inference errors: **4**
 
 **★ LARGE** is a curated company-priority label, not a model judgment. Startups and AI startups remain eligible.
 
@@ -21,6 +21,7 @@ This is information retrieval, not final eligibility screening. Relevant roles s
 | **★ LARGE · Amazon** | [Research Operations Manager , Research Services](https://www.amazon.jobs/en/jobs/10535782/research-operations-manager-research-services) | Junior | full_time | US, CA, Culver City | AI role label: adjacent_research; mandatory minimum years: 3; preferred years: unknown; source title seniority: lead.  Evidence: Research Operations Manager to join our operations team supporting customer-focused primary research across global markets / 3+ years of project management experience in a research field / owning the technical execution of surveys from programming through to deployment, managing panel operations. Model notes to verify: withheld as unverified narrative. Source quotes are not a complete eligibility check. | 2026-10-06 11:04 EDT (verified) |
 | **★ LARGE · Amazon** | [Research Strategist, PXTCS Experience Research](https://www.amazon.jobs/en/jobs/10531743/research-strategist-pxtcs-experience-research) | Junior | full_time | US, CA, San Francisco | AI role label: uxr; mandatory minimum years: 3; preferred years: unknown; source title seniority: unknown.  Evidence: Lead research initiatives that align with business strategy using behavioral science research methods and experimental design / 3+ years of proven success leading User Research projects with demonstrated impact experience / Bachelor's degree in HCDE, Human Factors, Cognitive Psychology, or a related field. Model notes to verify: withheld as unverified narrative. Source quotes are not a complete eligibility check. | 2026-10-06 11:04 EDT (verified) |
 | **★ LARGE · Amazon** | [UX Researcher II, Global Procurement Technology](https://www.amazon.jobs/en/jobs/10433838/ux-researcher-ii-global-procurement-technology) | Junior | full_time | US, WA, Bellevue | AI role label: uxr; mandatory minimum years: 3; preferred years: unknown; source title seniority: unknown.  Evidence: Lead end-to-end UX research and design for both external-facing and internal-facing procurement tools / 3+ years of proven success leading User Research projects with demonstrated impact experience / Plan and execute research studies using a range of qualitative and quantitative methods (usability testing, interviews, surveys, diary studies). Model notes to verify: withheld as unverified narrative. Source quotes are not a complete eligibility check. | 2026-10-06 09:48 EDT (verified) |
+| **★ LARGE · NielsenIQ** | [Research Executive](https://jobs.smartrecruiters.com/NielsenIQ/744000148668886-research-executive) | Junior | full_time | Pasig City, 00, ph | AI role label: adjacent_research; mandatory minimum years: 1; preferred years: unknown; source title seniority: unknown.  Evidence: help design surveys, manage project execution, analyze data, and translate findings into meaningful insights for clients / Approximately 1 year of experience in market research, consumer insights, analytics, or a related field.. Model notes to verify: withheld as unverified narrative. Source quotes are not a complete eligibility check. | 2026-10-06 12:20 EDT (verified) |
 | **★ LARGE · NielsenIQ** | [SA&I Team Lead, Consumer Insights & Quantitative Research](https://jobs.smartrecruiters.com/NielsenIQ/744000152228919-sa-i-team-lead-consumer-insights-quantitative-research) | Junior | full_time | Almaty, 75, kz | AI role label: uxr; mandatory minimum years: 3; preferred years: unknown; source title seniority: lead.  Evidence: Selecting appropriate research tools that will address the client’s business questions / At least 3 years of experience in consumer research (quantitative), in various sectors and methodologies. Model notes to verify: withheld as unverified narrative. Source quotes are not a complete eligibility check. | 2026-10-06 11:04 EDT (verified) |
 | **★ LARGE · NielsenIQ** | [Senior Analyst (Quantitative Research) - Consumer Insights & Brand](https://jobs.smartrecruiters.com/NielsenIQ/744000138791550-senior-analyst-quantitative-research-consumer-insights-brand) | Junior | full_time | Pasig City, 00, ph | AI role label: uxr; mandatory minimum years: 2; preferred years: unknown; source title seniority: senior. Title label is senior; explicit mandatory years map to junior. Both source facts are retained.  Evidence: supports the delivery of quantitative research projects in the Philippines , while contributing to broader initiatives across the SEA CBI& Brand Customer Success team. / 2- 4 years of relevant experience working in a similar position in Quantitative Research, Analytics, Consulting, or Consumer Insights. / Familiarity with Quantitative Research methodologies such as Concept Testing, Brand Health Measurement, Usage & Attitude Studies, Customer Satisfaction, Segmentation, and Tracking Studies.. Model notes to verify: withheld as unverified narrative. Source quotes are not a complete eligibility check. | 2026-10-06 11:04 EDT (verified) |
 | **★ LARGE · NielsenIQ** | [Senior Analyst, Qualitative Research](https://jobs.smartrecruiters.com/NielsenIQ/744000152345259-senior-analyst-qualitative-research) | Junior | full_time | Guangzhou, GD, cn | AI role label: uxr; mandatory minimum years: 2.5; preferred years: unknown; source title seniority: senior. Title label is senior; explicit mandatory years map to junior. Both source facts are retained.  Evidence: Independently conduct IDIs (In-Depth Interview) and FGDs (Focus Group Discussion) across different cities and regions / At least 2.5 years of Qualitative Research experience, a sophisticated IDIs and FGDs moderator / Handle qualitative research project from end to end with full responsibility of client interface. Model notes to verify: withheld as unverified narrative. Source quotes are not a complete eligibility check. | 2026-10-06 11:04 EDT (verified) |
@@ -88,6 +89,7 @@ This is information retrieval, not final eligibility screening. Relevant roles s
 | **★ LARGE · Amazon** | [Sr. UX Researcher, AFT - Experience Design](https://www.amazon.jobs/en/jobs/10499121/sr-ux-researcher-aft-experience-design) | Senior | full_time | US, TX, Austin | AI role label: uxr; mandatory minimum years: 5; preferred years: unknown; source title seniority: senior. Retained at its stated experience level.  Evidence: We are seeking a Senior UX Researcher who is passionate about the intersection of the physical and virtual worlds / 5+ years of experience leading end-to-end user research programs with demonstrated business or product impact. / Bachelor's degree in HCDE, Human Factors, Cognitive Psychology, or a related field. Model notes to verify: withheld as unverified narrative. Source quotes are not a complete eligibility check. | 2026-10-06 10:03 EDT (verified) |
 | **★ LARGE · Figma** | [Researcher - Rapid Research](https://boards.greenhouse.io/figma/jobs/6204360004?gh_jid=6204360004) | Senior | full_time | San Francisco, CA • New York, NY • United States | AI role label: uxr; mandatory minimum years: 7; preferred years: unknown; source title seniority: unknown. Retained at its stated experience level.  Evidence: The Figma Research team is hiring an experienced researcher for our Rapid Research program. / 7+ years of experience in research at high-growth product organizations, UX/design agencies, or strategic consultancies / Proficiency in mixed methods research, including qualitative approaches such as interviews and quantitative approaches such as surveys. Model notes to verify: withheld as unverified narrative. Source quotes are not a complete eligibility check. | 2026-10-06 09:48 EDT (verified) |
 | **★ LARGE · Figma** | [Researcher, Figma Agentic Experiences](https://boards.greenhouse.io/figma/jobs/5651744004?gh_jid=5651744004) | Senior | full_time | San Francisco, CA • New York, NY • United States | AI role label: uxr; mandatory minimum years: 7; preferred years: unknown; source title seniority: unknown. Retained at its stated experience level.  Evidence: The Figma Research team is hiring a seasoned researcher to support Figma’s Agentic Experiences, and actively shape and execute research / 7+ years of experience in UX research or user insights at a high growth B2B SaaS company / Expertise in utilizing a variety of research methodologies, including both qualitative and quantitative techniques. Model notes to verify: withheld as unverified narrative. Source quotes are not a complete eligibility check. | 2026-10-06 09:48 EDT (verified) |
+| **★ LARGE · Figma** | [Researcher, Figma Design](https://boards.greenhouse.io/figma/jobs/6212642004?gh_jid=6212642004) | Senior | full_time | San Francisco, CA • New York, NY • United States | AI role label: uxr; mandatory minimum years: 7; preferred years: 2; source title seniority: unknown. Retained at its stated experience level.  Evidence: The Figma Research team is hiring an experienced researcher to support our core product, Figma Design, and actively shape and execute research to drive scale / 7+ years of experience in UX research or user insights at a high growth B2B SaaS company / 2+ years in product design, user centric product management, product development, and/or front end engineering. Model notes to verify: withheld as unverified narrative. Source quotes are not a complete eligibility check. | 2026-10-06 09:48 EDT (verified) |
 | **★ LARGE · Google** | [Senior Interaction Designer, Google Health](https://www.google.com/about/careers/applications/jobs/results/117436605244809926) | Senior | full_time | Mountain View, CA, USA | AI role label: adjacent_research; mandatory minimum years: 6; preferred years: unknown; source title seniority: senior. Retained at its stated experience level.  Evidence: As an Interaction Designer, you'll apply user-centered design methods to craft industry-leading user experiences from concept to execution / Serving as a critical bridge between UX, Product Management, Engineering, Data Science, and Clinical Research / 6 years of interaction design experience in product design or UX design.. Model notes to verify: withheld as unverified narrative. Source quotes are not a complete eligibility check. | 2026-10-06 09:48 EDT (verified) |
 | **★ LARGE · Google** | [Senior UX Researcher, Hardware XR](https://www.google.com/about/careers/applications/jobs/results/93683782535520966) | Senior | full_time | San Jose, CA, USA | AI role label: uxr; mandatory minimum years: 6; preferred years: 5; source title seniority: senior. Retained at its stated experience level.  Evidence: Lead and scope research initiatives across multiple XR products. / 6 years of experience of experience in an applied research setting (e.g., product or academic), or similar. / 5 years of experience conducting UX research on products and working with executive leadership (e.g., Director level and above).. Model notes to verify: withheld as unverified narrative. Source quotes are not a complete eligibility check. | 2026-10-06 11:04 EDT (verified) |
 | **★ LARGE · Google** | [Senior UX Researcher, Learning Frontiers, LearnX](https://www.google.com/about/careers/applications/jobs/results/125278429548290758) | Senior | full_time | Mountain View, CA, USA / New York, NY, USA | AI role label: uxr; mandatory minimum years: 6; preferred years: 5; source title seniority: senior. Retained at its stated experience level.  Evidence: Drive an impactful research agenda focused on LearnX's new product initiatives. / 6 years of experience in an applied research setting (e.g., product or academic), or similar. / 5 years of experience conducting UX research on products and working with executive leadership. Model notes to verify: withheld as unverified narrative. Source quotes are not a complete eligibility check. | 2026-10-06 11:04 EDT (verified) |
@@ -123,6 +125,7 @@ This is information retrieval, not final eligibility screening. Relevant roles s
 |---|---|---|---|---|---|---|
 | **★ LARGE · NielsenIQ** | [Analyst, Consumer Insights (6 month contract) ](https://jobs.smartrecruiters.com/NielsenIQ/744000134420729-analyst-consumer-insights-6-month-contract-) | Unknown — model pending | Full-time | Bangkok, th | Model validation pending; source facts only. Failed stage stays in the persistent retry queue. | 2026-10-06 11:04 EDT (verified) |
 | **★ LARGE · NielsenIQ** | [Qualitative Research Manager, Tech & Durable Industry](https://jobs.smartrecruiters.com/NielsenIQ/744000148684195-qualitative-research-manager-tech-durable-industry) | Unknown — model pending | Full-time | Beijing, BJ, cn | Model validation pending; source facts only. Failed stage stays in the persistent retry queue. | 2026-10-06 11:04 EDT (verified) |
+| **★ LARGE · NielsenIQ** | [Research Executive](https://jobs.smartrecruiters.com/NielsenIQ/744000152610309-research-executive) | Unknown — model pending | Full-time | Karachi, Sindh, pk | Model validation pending; source facts only. Failed stage stays in the persistent retry queue. | 2026-10-06 12:20 EDT (verified) |
 | **★ LARGE · NielsenIQ** | [Senior Research Executive, Consumer Insights (FMCG)](https://jobs.smartrecruiters.com/NielsenIQ/744000153400639-senior-research-executive-consumer-insights-fmcg-) | Unknown — model pending | Full-time | Singapore, 01, sg | Model validation pending; source facts only. Failed stage stays in the persistent retry queue. | 2026-10-06 11:20 EDT (verified) |
 
 ## Link/source verification needed
@@ -158,65 +161,65 @@ This is information retrieval, not final eligibility screening. Relevant roles s
 | PradeepIT Consulting Services Pvt Ltd · unknown · via [Himalayas](https://himalayas.app/companies/pradeepit-consulting-services-pvt-ltd/jobs/vice-president-product-iit-nit-bits) | [Vice President - Product - IIT/NIT/BITS](https://himalayas.app/companies/pradeepit-consulting-services-pvt-ltd/jobs/vice-president-product-iit-nit-bits) | Staff | full_time | India | AI role label: adjacent_research; mandatory minimum years: 9; preferred years: unknown; source title seniority: unknown. Retained at its stated experience level.  Evidence: Perform Market Research and analysis (both primary and secondary research). Performance optimization, behavioral profiling, audience segmentation and classification. / 9-12 years exp. in Product Management. Model notes to verify: withheld as unverified narrative. Source quotes are not a complete eligibility check. | 2026-10-06 09:48 EDT (unverified) |
 | SAMC SitusAMC Holdings Corp · unknown · via [Himalayas](https://himalayas.app/companies/samc-situsamc-holdings-corp/jobs/vice-president-product-management) | [Vice President, Product Management](https://himalayas.app/companies/samc-situsamc-holdings-corp/jobs/vice-president-product-management) | Staff | full_time | United States | AI role label: adjacent_research; mandatory minimum years: 8; preferred years: unknown; source title seniority: unknown. Retained at its stated experience level.  Evidence: Conduct user interviews to gain a deeper understanding of customer problems / Experience in conducting user interviews and generative or evaluative research to inform decision-making / Minimum of 8+ years of industry and/or relevant experience, typically with 2+ years in an AVP level role or external equivalent.. Model notes to verify: withheld as unverified narrative. Source quotes are not a complete eligibility check. | 2026-10-06 09:48 EDT (unverified) |
 
-Reviewed with current configuration: 219; clearly unrelated: 103; failed attempts retained without fit claims: 3. All judgments and raw model outputs are retained locally in SQLite; relevant fit-gap roles remain above.
+Reviewed with current configuration: 220; clearly unrelated: 102; failed attempts retained without fit claims: 4. All judgments and raw model outputs are retained locally in SQLite; relevant fit-gap roles remain above.
 
 ## Source health
 
 | Source | Last successful fetch | Jobs | Error |
 |---|---|---|---|
 | adobe | 2026-10-06 09:36 EDT | 236 | none |
-| affirm | 2026-10-06 10:55 EDT | 186 | none |
-| airbnb | 2026-10-06 10:55 EDT | 152 | none |
-| airtable | 2026-10-06 10:55 EDT | 4 | none |
-| amazon | 2026-10-06 10:55 EDT | 1028 | none |
-| anthropic | 2026-10-06 10:55 EDT | 642 | none |
+| affirm | 2026-10-06 11:56 EDT | 186 | none |
+| airbnb | 2026-10-06 11:55 EDT | 154 | none |
+| airtable | 2026-10-06 11:56 EDT | 4 | none |
+| amazon | 2026-10-06 11:56 EDT | 1029 | none |
+| anthropic | 2026-10-06 11:56 EDT | 639 | none |
 | arbeitnow | 2026-10-06 09:37 EDT | 2970 | none |
-| asana | 2026-10-06 10:55 EDT | 101 | none |
-| backmarket | 2026-10-06 10:55 EDT | 35 | none |
-| bpcs | 2026-10-06 10:55 EDT | 26 | none |
-| bunq | 2026-10-06 10:55 EDT | 19 | none |
-| cohere | 2026-10-06 10:55 EDT | 130 | none |
-| coinbase | 2026-10-06 10:55 EDT | 226 | none |
-| coursera | 2026-10-06 10:55 EDT | 17 | none |
-| cursor | 2026-10-06 10:55 EDT | 132 | none |
-| databricks | 2026-10-06 10:55 EDT | 887 | none |
-| discord | 2026-10-06 10:55 EDT | 51 | none |
-| doordash | 2026-10-06 10:55 EDT | 461 | none |
-| dropbox | 2026-10-06 10:55 EDT | 40 | none |
-| duolingo | 2026-10-06 10:55 EDT | 60 | none |
-| elastic | 2026-10-06 10:55 EDT | 400 | none |
-| elevenlabs | 2026-10-06 10:55 EDT | 142 | none |
-| emergent | 2026-10-06 10:55 EDT | 43 | none |
-| figma | 2026-10-06 10:55 EDT | 161 | none |
-| google | 2026-10-06 10:55 EDT | 60 | none |
+| asana | 2026-10-06 11:55 EDT | 101 | none |
+| backmarket | 2026-10-06 11:55 EDT | 36 | none |
+| bpcs | 2026-10-06 11:55 EDT | 26 | none |
+| bunq | 2026-10-06 11:56 EDT | 19 | none |
+| cohere | 2026-10-06 11:56 EDT | 130 | none |
+| coinbase | 2026-10-06 11:56 EDT | 226 | none |
+| coursera | 2026-10-06 11:56 EDT | 17 | none |
+| cursor | 2026-10-06 11:55 EDT | 132 | none |
+| databricks | 2026-10-06 11:55 EDT | 888 | none |
+| discord | 2026-10-06 11:55 EDT | 51 | none |
+| doordash | 2026-10-06 11:56 EDT | 462 | none |
+| dropbox | 2026-10-06 11:55 EDT | 38 | none |
+| duolingo | 2026-10-06 11:55 EDT | 60 | none |
+| elastic | 2026-10-06 11:56 EDT | 400 | none |
+| elevenlabs | 2026-10-06 11:56 EDT | 140 | none |
+| emergent | 2026-10-06 11:55 EDT | 43 | none |
+| figma | 2026-10-06 11:55 EDT | 161 | none |
+| google | 2026-10-06 11:55 EDT | 60 | none |
 | himalayas | 2026-10-05 22:58 EDT | 825 | none |
-| hoyoverse | 2026-10-06 10:55 EDT | 15 | none |
-| instacart | 2026-10-06 10:55 EDT | 122 | none |
+| hoyoverse | 2026-10-06 11:55 EDT | 15 | none |
+| instacart | 2026-10-06 11:56 EDT | 122 | none |
 | jobicy | 2026-10-06 09:36 EDT | 735 | none |
-| linear | 2026-10-06 10:55 EDT | 31 | none |
-| lyft | 2026-10-06 10:55 EDT | 190 | none |
-| mongodb | 2026-10-06 10:55 EDT | 395 | none |
+| linear | 2026-10-06 11:56 EDT | 31 | none |
+| lyft | 2026-10-06 11:55 EDT | 192 | none |
+| mongodb | 2026-10-06 11:56 EDT | 392 | none |
 | nielseniq | 2026-10-06 09:36 EDT | 313 | none |
-| notion | 2026-10-06 10:55 EDT | 134 | none |
+| notion | 2026-10-06 11:55 EDT | 133 | none |
 | nvidia | 2026-10-05 23:03 EDT | 948 | source_fetch_failed |
-| okta | 2026-10-06 10:55 EDT | 373 | none |
-| openai | 2026-10-06 10:55 EDT | 819 | none |
-| perplexity | 2026-10-06 10:55 EDT | 130 | none |
-| pinterest | 2026-10-06 10:55 EDT | 175 | none |
-| ramp | 2026-10-06 10:55 EDT | 160 | none |
-| reddit | 2026-10-06 10:55 EDT | 151 | none |
+| okta | 2026-10-06 11:56 EDT | 376 | none |
+| openai | 2026-10-06 11:55 EDT | 820 | none |
+| perplexity | 2026-10-06 11:56 EDT | 130 | none |
+| pinterest | 2026-10-06 11:55 EDT | 175 | none |
+| ramp | 2026-10-06 11:56 EDT | 160 | none |
+| reddit | 2026-10-06 11:55 EDT | 152 | none |
 | remoteok | 2026-10-06 09:36 EDT | 99 | none |
 | remotive | 2026-10-06 09:36 EDT | 18 | none |
-| replit | 2026-10-06 10:55 EDT | 70 | none |
-| roblox | 2026-10-06 10:55 EDT | 255 | none |
-| saviynt | 2026-10-06 10:55 EDT | 69 | none |
-| scale | 2026-10-06 10:55 EDT | 188 | none |
+| replit | 2026-10-06 11:56 EDT | 70 | none |
+| roblox | 2026-10-06 11:55 EDT | 255 | none |
+| saviynt | 2026-10-06 11:55 EDT | 69 | none |
+| scale | 2026-10-06 11:56 EDT | 188 | none |
 | servicenow | 2026-10-06 09:39 EDT | 706 | none |
-| spotify | 2026-10-06 10:55 EDT | 75 | none |
-| stripe | 2026-10-06 10:55 EDT | 721 | none |
-| twilio | 2026-10-06 10:55 EDT | 132 | none |
+| spotify | 2026-10-06 11:56 EDT | 75 | none |
+| stripe | 2026-10-06 11:56 EDT | 723 | none |
+| twilio | 2026-10-06 11:56 EDT | 130 | none |
 | ubisoft | 2026-10-06 09:35 EDT | 219 | none |
-| vanta | 2026-10-06 10:55 EDT | 82 | none |
+| vanta | 2026-10-06 11:56 EDT | 82 | none |
 
 ## Run locally
 
