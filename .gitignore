@@ -9,3 +9,7 @@ work/
 models/
 *.log
 .DS_Store
+
+# Local development records (feasibility notes, experiments, benchmarks); not product docs.
+docs/FEASIBILITY.md
+docs/benchmark-summary.json

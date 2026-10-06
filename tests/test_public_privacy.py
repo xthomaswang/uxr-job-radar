@@ -179,3 +179,18 @@ def test_experience_mapping_rejects_ambiguous_or_personal_fields(files):
     policy=json.loads(files[audit.POLICY_PATH]);policy["experience_levels"]={"junior_max":5,"senior_min":3,"staff_min":8}
     files[audit.POLICY_PATH]=json.dumps(policy).encode()
     assert any(e["path"]==audit.POLICY_PATH for e in audit.audit_files(files))
+
+
+@pytest.mark.parametrize("text,flagged", [("Join QZX alumni events.", True), ("qzx-2027 cohort", True),
+    ("Lead aqzxb discussions with partners.", False), ("Fictional QZXcorp campus", False)])
+def test_short_denylist_terms_match_whole_tokens_only(files, text, flagged):
+    """A fictional three-letter code must not fail on ordinary words that contain it."""
+    files["README.md"] += text.encode()
+    issues = audit.audit_files(files, ["QZX"])
+    assert any("denied" in e["reason"] for e in issues) is flagged
+    assert "QZX" not in json.dumps(issues)
+
+
+def test_longer_denylist_terms_still_match_anywhere(files):
+    files["README.md"] += b"See fictionalprivatemarkerxyz.example for details."
+    assert any("denied" in e["reason"] for e in audit.audit_files(files, ["fictionalprivatemarker"]))

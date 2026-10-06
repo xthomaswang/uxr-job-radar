@@ -26,6 +26,7 @@ def assessment_key(job, profile, model):
 
 def fetch_all(store, sources, raw_dir):
     Path(raw_dir).mkdir(parents=True, exist_ok=True)
+    summary={"fetched":0,"cached":0,"failed":[],"jobs":0,"new":0,"changed":0}
     def one(s):
         with httpx.Client(headers=HEADERS, timeout=45, follow_redirects=True) as c:
             return fetch_feed(c, s)
@@ -35,6 +36,7 @@ def fetch_all(store, sources, raw_dir):
             interval=source.get("min_fetch_interval_seconds",0)
             if not store.claim_source_attempt(source["id"],interval):
                 print(json.dumps({"source":source["id"],"status":"cached","minimum_interval_seconds":interval}),flush=True)
+                summary["cached"]+=1
                 continue
             eligible.append(source)
         futures = {pool.submit(one,s):s for s in eligible}
@@ -43,11 +45,15 @@ def fetch_all(store, sources, raw_dir):
             try:
                 jobs, raw = f.result()
                 Path(raw_dir, s["id"]+".json").write_text(json.dumps(raw,ensure_ascii=False))
-                store.snapshot(s["id"],jobs,membership_mode=s.get("membership_mode","snapshot"))
-                print(json.dumps({"source":s["id"],"fetched":len(jobs)}),flush=True)
+                counts=store.snapshot(s["id"],jobs,membership_mode=s.get("membership_mode","snapshot"))
+                summary["fetched"]+=1
+                for field in ("jobs","new","changed"):summary[field]+=counts[field]
+                print(json.dumps({"source":s["id"],"fetched":len(jobs),"new":counts["new"],"changed":counts["changed"]}),flush=True)
             except Exception as e:
                 store.source_error(s["id"],e)
+                summary["failed"].append(s["id"])
                 print(json.dumps({"source":s["id"],"error":str(e)}),flush=True)
+    return summary
 
 
 def infer(client, base, model, job, profile, max_tokens=1100, *, stage="details", overview=None, feedback=None, attempt=0):
@@ -66,12 +72,21 @@ def infer(client, base, model, job, profile, max_tokens=1100, *, stage="details"
     return raw, time.perf_counter()-start, data.get("usage",{})
 
 
-def priority(row):
+# Score cut-offs for the optional CLM relevance screen (screen.py), best band first.
+# On 400 random queued postings about 6% scored >=0.5 and 22% >=0.2 (2026-10-06).
+SCREEN_BANDS = (0.5, 0.2)
+
+
+def priority(row, score=None):
     j=Job.model_validate_json(row["data"])
     # Ordering ONLY; no fetched title is discarded before model review.
     direct=bool(re.search(r"user (?:experience )?research|ux research|design research|usability|human factors|research operations|researcher.*figma|researcher.*rapid research|consumer insight|product insight|product research|market research|behavioral|social research|product analy|customer.*analy|program evaluat|design strateg|service strateg",j.title,re.I))
     research=bool(re.search(r"research|insight|customer experience|strateg|analy|evaluat|behavior|programme?",j.title,re.I))
-    return (0 if direct else 1 if research else 2,j.company_kind!="large",row["first_seen"],j.key)
+    tier=0 if direct else 1 if research else 2
+    if score is not None:
+        # A screen score can promote a job above its title tier, never demote it.
+        tier=min(tier,next((band for band,cut in enumerate(SCREEN_BANDS) if score>=cut),len(SCREEN_BANDS)))
+    return (tier,j.company_kind!="large",-(score or 0.0),row["first_seen"],j.key)
 
 
 def validation_feedback(error):
@@ -99,21 +114,26 @@ def validation_feedback(error):
     return "Model response could not be validated: "+type(error).__name__
 
 
-def pending_tasks(store, profile, model, *, retries_only=False, force=False, job_keys=None):
-    fresh=[];retry=[];timestamp=now()
+def pending_tasks(store, profile, model, *, retries_only=False, force=False, job_keys=None, scores=None):
+    """Due work, ordered: retries interleaved with fresh jobs; scores (job key -> screen
+    relevance) only reorder, every pending job stays in the list."""
+    fresh=[];retry=[];timestamp=now();candidates=[];scores=scores or {}
     for row in store.rows():
         if row["missing"] or (job_keys is not None and row["key"] not in job_keys):continue
         job=Job.model_validate_json(row["data"]);key=assessment_key(job,profile,model)
         if row["assessment_key"]==key:continue
-        task=store.enqueue(job.key,key)
+        candidates.append((row,key))
+    tasks=store.enqueue_many([(row["key"],key) for row,key in candidates])
+    for row,key in candidates:
+        task=tasks[(row["key"],key)]
         is_retry=task["status"]=="retry" or bool(task["error"])
         if retries_only and not is_retry:continue
         if is_retry:
             if not force and task["next_retry_at"] and task["next_retry_at"]>timestamp:continue
             retry.append((row,key,task))
         else:fresh.append((row,key,task))
-    retry.sort(key=lambda item:(item[2]["next_retry_at"] or "",priority(item[0])))
-    fresh.sort(key=lambda item:priority(item[0]))
+    retry.sort(key=lambda item:(item[2]["next_retry_at"] or "",priority(item[0],scores.get(item[0]["key"]))))
+    fresh.sort(key=lambda item:priority(item[0],scores.get(item[0]["key"])))
     # Give eligible retries an immediate slot and 1/4 of a busy mixed queue, without starving new jobs.
     ordered=[];ri=fi=0
     while ri<len(retry) or fi<len(fresh):
@@ -121,6 +141,27 @@ def pending_tasks(store, profile, model, *, retries_only=False, force=False, job
         for _ in range(3):
             if fi<len(fresh):ordered.append(fresh[fi]);fi+=1
     return ordered
+
+
+class BackendUnavailable(RuntimeError):
+    """The shared model host is down or dropped a request; pause the queue."""
+
+
+def unreachable(error):
+    """The request never reached a working model host, so it is not this job's failure."""
+    if isinstance(error,(httpx.ConnectError,httpx.ConnectTimeout,httpx.PoolTimeout)):return True
+    return isinstance(error,httpx.HTTPStatusError) and error.response.status_code in {502,503,504}
+
+
+def schedule_retry(store, job, key, stage, feedback):
+    task=store.task(job.key,key)
+    rounds=task["failure_rounds"]+1
+    delay=min(21600,30*(2**min(rounds-1,10)))
+    due=(datetime.now(timezone.utc)+timedelta(seconds=delay)).isoformat(timespec="seconds")
+    with store.db:
+        store.db.execute("UPDATE inference_queue SET status='retry',failure_rounds=?,next_retry_at=?,error=?,updated_at=? WHERE job_key=? AND input_key=?",
+            (rounds,due,feedback,now(),job.key,key))
+    print(json.dumps({"job":job.key,"stage":stage,"status":"retry","next_retry_at":due}),flush=True)
 
 
 def process_task(store, client, profile, base, model, row, key, attempts_per_stage):
@@ -132,14 +173,18 @@ def process_task(store, client, profile, base, model, row, key, attempts_per_sta
     while stage in {"overview","details"}:
         for _ in range(attempts_per_stage):
             task=store.task(job.key,key)
-            raw="";duration=0;usage={};error=None;result=None
+            raw="";duration=0;usage={};error=None;result=None;dropped=False
             try:
                 budget=min(2000,(450 if stage=="overview" else 1100)+200*task["stage_attempts"])
                 raw,duration,usage=infer(client,base,model,job,profile,budget,stage=stage,
                     overview=overview,feedback=feedback,attempt=task["stage_attempts"])
                 result=validate_overview(raw,job) if stage=="overview" else validate_assessment(raw,job)
             except Exception as exc:
+                if unreachable(exc):raise BackendUnavailable(validation_feedback(exc)) from exc
                 error=validation_feedback(exc)
+                # The host died mid-request: charge this job once and cool it down, so a
+                # request that crashes the shared server cannot be replayed in a loop.
+                dropped=isinstance(exc,(httpx.RemoteProtocolError,httpx.ReadError,httpx.WriteError))
             with store.db:
                 store.db.execute("INSERT INTO reviews(job_key,at,model,input_key,duration,usage,raw,error,stage) VALUES (?,?,?,?,?,?,?,?,?)",
                     (job.key,now(),model,key,duration,json.dumps(usage),raw,error,stage))
@@ -177,15 +222,11 @@ def process_task(store, client, profile, base, model, row, key, attempts_per_sta
             with store.db:
                 store.db.execute("UPDATE jobs SET error=?,attempts=attempts+1 WHERE key=? AND content_hash=?",(error,job.key,job.content_hash()))
             print(json.dumps({"job":job.key,"stage":stage,"attempt":task["stage_attempts"]+1,"error":error},ensure_ascii=False),flush=True)
+            if dropped:
+                schedule_retry(store,job,key,stage,feedback)
+                raise BackendUnavailable(error)
         else:
-            task=store.task(job.key,key)
-            rounds=task["failure_rounds"]+1
-            delay=min(21600,30*(2**min(rounds-1,10)))
-            due=(datetime.now(timezone.utc)+timedelta(seconds=delay)).isoformat(timespec="seconds")
-            with store.db:
-                store.db.execute("UPDATE inference_queue SET status='retry',failure_rounds=?,next_retry_at=?,error=?,updated_at=? WHERE job_key=? AND input_key=?",
-                    (rounds,due,feedback,now(),job.key,key))
-            print(json.dumps({"job":job.key,"stage":stage,"status":"retry","next_retry_at":due}),flush=True)
+            schedule_retry(store,job,key,stage,feedback)
             return False
     return False
 
@@ -200,10 +241,14 @@ def review_pending(store, profile, base, model, limit, *, retries_only=False, fo
     return count
 
 
-def verify_links(store):
+def verify_links(store, *, min_age_seconds=0):
+    """Check candidate links; rows checked within min_age_seconds keep their result."""
+    summary={}
+    recent=(datetime.now(timezone.utc)-timedelta(seconds=min_age_seconds)).isoformat(timespec="seconds")
     with httpx.Client(headers=HEADERS,timeout=30,follow_redirects=True) as c:
         for row in store.rows():
             if row["missing"] or not (row["assessment"] or row["error"]):continue
+            if min_age_seconds and row["checked_at"] and row["checked_at"]>recent:continue
             a=Assessment.model_validate_json(row["assessment"]) if row["assessment"] else None
             if a and publication_decision(a)=="reject" and not row["error"]:continue
             j=Job.model_validate_json(row["data"])
@@ -214,7 +259,13 @@ def verify_links(store):
                 state="unverified"
             with store.db:
                 store.db.execute("UPDATE jobs SET link_state=?,checked_at=? WHERE key=?",(state,now(),j.key))
+            summary[state]=summary.get(state,0)+1
             print(json.dumps({"job":j.key,"link":state}),flush=True)
+    return summary
+
+
+# Keeps the auto-published README renderable on GitHub; positions.jsonl stays complete.
+README_ROWS_PER_SECTION = 100
 
 
 def safe_md(value):
@@ -276,7 +327,7 @@ def render(store,profile,model,path):
       f"Tracked: {len(rows)} · Pending current model/policy review: **{pending}** · Sources with errors: **{sum(bool(s['error']) for s in sources)}** · Jobs with inference errors: **{sum(bool(r['error']) for r in rows if not r['missing'])}**", "",
       "**★ LARGE** is a curated company-priority label, not a model judgment. Startups and AI startups remain eligible.", "",
       "Experience levels use explicit mandatory years only: **Junior ≤3**, **Mid >3 and <5**, **Senior ≥5 and <8**, **Staff ≥8**, **Unknown** when unstated. Mid is an explicit intermediate bin added for the otherwise uncovered range. Preferred years and title seniority remain separate; discrepancies are labeled. Every relevant level stays in the recall pool.", "",
-      "Every public posting returned by configured feeds enters the model queue. Title terms affect processing order only. Cached judgments are reused only for identical content, anonymous collection policy, model and prompt. A partial queue is not complete coverage.", "",
+      "Every public posting returned by configured feeds enters the model queue. Title terms and, when installed, an on-device CLM-v0.1-8B relevance score affect processing order only; neither rejects a posting. Cached judgments are reused only for identical content, anonymous collection policy, model and prompt. A partial queue is not complete coverage.", "",
       "This is information retrieval, not final eligibility screening. Relevant roles stay visible even with unknown experience or qualification gaps. Free-text model reasons, notes and uncertainties are withheld. Source quotes are not a complete eligibility check; downstream reviewers must inspect the original posting. No applicant eligibility is inferred. Links come only from source feeds; the model cannot create or edit them. Verified means recent source membership and a matching reachable listing at check time. Aggregator records verify the provider listing, not the employer application page; JSONL distinguishes verification_scope and employer_verified.", ""]
     sections={"Priority opportunities — verified links":[],"More relevant opportunities — verified links":[],"Stretch opportunities — verified links":[],"Model validation needed — source facts only":[],"Link/source verification needed":[]}
     exported=[]
@@ -310,7 +361,8 @@ def render(store,profile,model,path):
         sections[section].append((j,a,r))
     for name,items in sections.items():
         lines += [f"## {name}","","| Company | Position | Experience level | Type | Location | AI labels & source evidence | Link checked |","|---|---|---|---|---|---|---|"]
-        for j,a,r in sorted(items,key=lambda x:(x[0].company_kind!="large", {"junior":0,"unknown":1,"mid":2,"senior":3,"staff":4}[experience_level(x[1].required_years if x[1] else None,profile)], x[0].company,x[0].title)):
+        ranked=sorted(items,key=lambda x:(x[0].company_kind!="large", {"junior":0,"unknown":1,"mid":2,"senior":3,"staff":4}[experience_level(x[1].required_years if x[1] else None,profile)], x[0].company,x[0].title))
+        for j,a,r in ranked[:README_ROWS_PER_SECTION]:
             company=f"**★ LARGE · {safe_md(j.company)}**" if j.company_kind=="large" else f"{safe_md(j.company)} · {j.company_kind}"
             url=j.url.replace("(","%28").replace(")","%29")
             if j.source_kind=="aggregator":
@@ -332,10 +384,12 @@ def render(store,profile,model,path):
             if publication_decision(a,profile)=="stretch":reason+="Retained at its stated experience level. "
             lines.append(f"| {company} | [{safe_md(j.title)}]({url}) | {level} | {a.employment} | {safe_md(short_location(j.location))} | {safe_md(reason)} Evidence: {evidence}. Model notes to verify: withheld as unverified narrative. Source quotes are not a complete eligibility check. | {display_time(r['checked_at'])} ({r['link_state']}) |")
         if not items:lines += ["","No verified entries in this section yet."]
+        if len(ranked)>README_ROWS_PER_SECTION:
+            lines += ["",f"{len(ranked)-README_ROWS_PER_SECTION} more in this section are listed in [positions.jsonl](positions.jsonl); the table shows the first {README_ROWS_PER_SECTION} in this order."]
         lines += [""]
     lines += [f"Reviewed with current configuration: {reviewed}; clearly unrelated: {rejected}; failed attempts retained without fit claims: {failed_attempts}. All judgments and raw model outputs are retained locally in SQLite; relevant fit-gap roles remain above.","","## Source health","","| Source | Last successful fetch | Jobs | Error |","|---|---|---|---|"]
     lines += [f"| {s['id']} | {display_time(s['succeeded_at'])} | {s['count']} | {'source_fetch_failed' if s['error'] else 'none'} |" for s in sources]
-    lines += ["","## Run locally","","See [setup and commands](docs/SETUP.md) and [feasibility results](docs/FEASIBILITY.md).","","The public collection policy contains no candidate dossier. Application decisions belong to downstream humans or agents."]
+    lines += ["","## Run locally","","See [setup and commands](docs/SETUP.md).","","The public collection policy contains no candidate dossier. Application decisions belong to downstream humans or agents."]
     output=Path(path)
     output.parent.mkdir(parents=True,exist_ok=True)
     lines += ["", "Machine-readable handoff: [positions.jsonl](positions.jsonl). Includes relevant reviewed roles and source-only records for failed model attempts, with explicit validation status, source IDs, links and verification times. Never-attempted jobs stay queued and are not mislabeled as reviewed."]

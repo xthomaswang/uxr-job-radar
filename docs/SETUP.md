@@ -20,10 +20,13 @@ uv run uxr-radar watch --interval 3600 --limit 50
 ```
 
 Set `UXR_LLM_BASE_URL` and `UXR_LLM_MODEL` in `.envrc` to reuse a local compatible
-`/v1/chat/completions` host. Requests are serial; this client does not load a second
-copy of the model. The optional MLX server binds only to loopback and is intended
-for local development, with no production authentication or priority scheduler.
-Other projects and their backend configuration are not modified.
+`/v1/chat/completions` host. The default is the shared loopback endpoint
+`http://127.0.0.1:8013/v1`; `scripts/serve-local.sh` binds the same port, so it
+fails instead of starting a second copy when another project already serves it.
+Requests are serial; this client does not load a second copy of the model. The
+optional MLX server binds only to loopback and is intended for local development,
+with no production authentication or priority scheduler. Other projects and their
+backend configuration are not modified.
 
 ## Stages and retries
 
@@ -55,9 +58,40 @@ uv run pytest -q
 `--job-key` is repeatable for targeted validation. `--limit` counts jobs attempted,
 not HTTP requests. Changing job content, anonymous policy, model name or prompt
 invalidates the stage cache. A process lock prevents overlapping inference workers;
-saved stages survive a crash. Due retries are serviced when a worker runs, not by
-a hidden daemon. Replacing weights behind the same model alias requires a new alias
-or prompt version to invalidate cached assessments.
+saved stages survive a crash. Due retries are serviced whenever a worker runs: the
+background analyzer below, or a manual command. A manual review waits up to ten
+minutes for the analyzer to finish its current batch. Replacing weights behind the
+same model alias requires a new alias or prompt version to invalidate cached
+assessments.
+
+An unreachable model host (connection refused, timeout before connecting, HTTP
+502/503/504) pauses the run without charging the job an attempt. A host that drops
+the connection mid-request charges that job once and puts it on retry cooldown, so
+a request that crashes a shared server is not replayed in a tight loop.
+
+### Optional relevance ordering (CLM)
+
+The analyzer can order its queue with
+[CLM-v0.1-8B](https://huggingface.co/Contrastive-LM/CLM-v0.1-8B) (Apache-2.0): two
+small projection heads over frozen Qwen3-8B last-token embeddings. `screen.py` runs
+it in-process with MLX on the cached `mlx-community/Qwen3-8B-8bit`, asks one yes/no
+question per posting ("mainly UX research or research-adjacent work on people,
+customers or products?") and uses P(yes) as a score. The score only reorders work:
+a score of at least 0.5 or 0.2 can lift a posting into the first or second title
+tier, a direct research title is never demoted, and every posting still receives
+the validated Qwen assessment. Scores are cached per content hash and screen
+version, so changed postings are rescored.
+
+The heads live in `~/Developer/ml_source/clm/`; `scripts/convert_clm_heads.py`
+documents the one-time download and torch-free-runtime conversion. Without the heads
+or the `inference` extra, the worker falls back to title ordering; `--no-screen`
+disables it. `uxr-radar screen --limit 0` precomputes scores for the whole queue
+without a model host. The encoder needs about 9 GB while scoring and is released
+when no unscored posting remains. On a small stratified sample judged by the
+production model (2026-10-06), this ordering reached about 85% of relevant postings
+within the first 20% of the queue, against about 47% for title terms alone; a hard
+cutoff at 0.2 would have dropped an estimated 13% of relevant postings, so the score
+only orders work. `scripts/clm_eval.py` reruns the evaluation locally.
 
 ## Anonymous policy and experience bands
 
@@ -137,7 +171,79 @@ policy/prompt metadata and applicant-specific narratives. Local SQLite, raw feed
 model outputs and weights are ignored. Public history is initialized from the
 sanitized tree, with no prior private profile commit attached.
 
-`watch` is a foreground loop; stop it with Ctrl-C. It is not installed as a login
-service. A sleeping Mac cannot process jobs. Local updates do not automatically
-push to GitHub, send notifications or submit applications. Large initial backlogs
-remain visible; do not interpret the processed sample as the entire job market.
+## Background service
+
+Three per-user LaunchAgents run the pipeline unattended (no sudo, no cloud LLM):
+
+| Agent | Schedule | Work |
+|---|---|---|
+| `io.github.xthomaswang.uxr-radar.collector` | at login, then hourly | `uxr-radar collect`: fetch due sources (6/24-hour source minima still apply); new and changed postings enter the queue |
+| `io.github.xthomaswang.uxr-radar.analyzer` | always on, restarted at most once a minute | `uxr-radar worker`: CLM ordering, then serial staged review in batches of 10, retries first; waits 5 minutes when idle |
+| `io.github.xthomaswang.uxr-radar.publisher` | hourly, first run one hour after load | `uxr-radar publish`: recheck links older than 6 hours, render, audit, commit and push |
+
+```sh
+uv sync --extra inference
+.venv/bin/uxr-radar agents install    # uses UXR_LLM_BASE_URL / UXR_LLM_MODEL from the shell
+uv run uxr-radar status               # components, queue, sources, Git, agents, model host
+tail -f state/logs/analyzer.log       # rotating logs; *.launchd.log only receives crashes
+.venv/bin/uxr-radar agents uninstall  # stop and remove every installed agent
+```
+
+launchd reads neither shell profiles nor `.envrc`; the installed plists carry PATH,
+`HF_HOME`, `HF_HUB_OFFLINE=1`, the model endpoint and model name, and run the
+project's `.venv/bin/uxr-radar` from the repository root. Reinstall after moving the
+repository or changing the endpoint. macOS lists the agents under Login Items &
+Extensions → Allow in the Background.
+
+The analyzer keeps the 27B model resident only while it has work. When jobs are
+due and nothing answers on the loopback endpoint, it starts `scripts/serve-local.sh`
+itself, and stops that server after 10 minutes without due jobs
+(`--idle-stop-minutes`), on battery, or when the agent stops. A host it did not
+start, such as another project's, is used but never stopped. On a loopback port it
+also reads the listening `mlx_lm.server` command line: `mlx_lm.server` reloads
+weights when a request names a different model, so the analyzer sends nothing when
+the shared host serves another model.
+
+`mlx_lm.server` has no request priorities. Instead, before each job and between CLM
+chunks the analyzer checks for other processes connected to the model port (for
+example a game client) and pauses while any are connected, so their requests go
+first; at most one in-flight request (typically 10–30 seconds) can overlap.
+`uxr-radar status` lists the PIDs it is yielding to. A client that keeps an idle
+connection open also pauses the analyzer; `--no-yield` disables this.
+
+Model work (CLM scoring and Qwen) runs only on AC power (`--allow-battery` to
+override); the collector and publisher are light and keep running. While the
+analyzer has due work on AC power, it holds a `caffeinate -s` assertion and
+releases it when idle. A closed lid, sleep, logout or a missing network still pause
+the pipeline; the queue resumes afterwards. The collector skips a run when no job
+host is reachable, so an outage does not consume source intervals.
+
+The publisher commits only `README.md` and `positions.jsonl`. It builds the commit in
+a temporary index from HEAD plus those two files, runs `scripts/audit_public.py`
+(with `state/publication-denylist.json` when present) on exactly that tree, then
+commits with the `Uxr-Radar-Publish: auto` trailer. It commits when the content
+changes materially (observation timestamps are ignored) and otherwise refreshes at
+least every six hours. It never force-pushes, merges or rebases. It skips or blocks,
+recording the reason in `uxr-radar status`, when:
+
+- source, config, prompt or audit files have uncommitted changes (published output
+  must come from committed code);
+- HEAD is not `main`, a merge/rebase is in progress, or `user.email` is not a GitHub
+  noreply address;
+- `origin/main` has commits HEAD lacks, or HEAD has unpushed commits that the
+  publisher did not create (push or drop them manually);
+- no source succeeded in the last three hours, or more than half are failing;
+- the audit fails (no commit is made).
+
+A failed push keeps the local commit and is retried on the next run. Generated
+files belong to the publisher; do not edit them by hand. Run `uxr-radar publish
+--dry-run` to see the audited diff without committing, or `--no-push` to commit
+locally only. Do not run `watch` while the agents are installed.
+
+Throughput depends on the shared host. With a dedicated host the earlier benchmark
+measured about 17.5 seconds per single-stage judgment. On 2026-10-06, sharing the
+8013 host with another project's long reasoning batch, two relevant postings took
+about 3.5 minutes each across both stages. The initial backlog therefore takes days,
+not hours; the README pending count shows progress. Nothing here sends
+notifications or submits applications. Do not interpret the processed sample as the
+entire job market.

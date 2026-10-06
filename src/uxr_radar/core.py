@@ -11,7 +11,7 @@ from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 from pydantic import BaseModel, ConfigDict, Field
 
-PROMPT_VERSION = "uxr-v6-anonymous-experience-levels"
+PROMPT_VERSION = "uxr-v7-anonymous-concise-overview"
 EXPERIENCE_LEVELS = {"junior_max": 3, "senior_min": 5, "staff_min": 8}
 
 
@@ -187,7 +187,7 @@ def messages(job: Job, profile: dict, *, stage="details", overview=None, feedbac
 Target UX/user/design research, mixed-methods research, behavioral and social research, usability, human factors, research operations, consumer/product/customer/market insights, product and customer-experience analytics, service/design strategy, research-adjacent program evaluation and applied research roles. Include mixed design/research roles and roles applying interviews, surveys, experiments, qualitative synthesis or R/Python/SQL analysis to human behavior, products, services or programs. Broad capability-related research and analytics roles are adjacent_research even without a UX title. Keep uncertain but plausibly related work for further review. Seniority, years of experience, education, enrollment, location, language, work authorization and timing are informational tags, NEVER reasons to mark relevant work non_target. Only clearly unrelated jobs should be non_target; software or ML engineering/research without human-centered research, pure visual design without research, sales and customer support are generally unrelated. Never classify from a title alone: inspect the actual duties.
 """
     if stage == "overview":
-        instructions = common + """STAGE 1: Identify broad research relevance. Use uncertain if the duties could plausibly be relevant but evidence is incomplete. Give a brief factual summary of the work and ONE short exact verbatim quote from title or description supporting your classification. Do not extract applicant qualifications yet. Never reject a research role because it asks for many years or a degree.
+        instructions = common + """STAGE 1: Identify broad research relevance. Use uncertain if the duties could plausibly be relevant but evidence is incomplete. Give a one-sentence factual summary of the work, at most 200 characters, and ONE short exact verbatim quote from title or description supporting your classification. Do not extract applicant qualifications yet. Never reject a research role because it asks for many years or a degree.
 """
         schema = Overview.model_json_schema()
     elif stage == "details":

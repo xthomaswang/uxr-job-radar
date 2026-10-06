@@ -10,7 +10,9 @@ applicant profile. Downstream agents provide their own private applicant context
 - Search policy: https://raw.githubusercontent.com/xthomaswang/uxr-job-radar/main/config/search_policy.json
 - Sources: https://raw.githubusercontent.com/xthomaswang/uxr-job-radar/main/config/sources.json
 
-Each nonempty JSONL line is one opportunity record. Deduplicate by `key`, not title;
+README tables show at most 100 rows per section (large employers and lower
+experience levels first) so the page keeps rendering; positions.jsonl lists every
+record. Each nonempty JSONL line is one opportunity record. Deduplicate by `key`, not title;
 use `source_id` and `url` for the official listing. Keep application state in the
 consumer's own database, separate from discovery state. Different providers may
 syndicate the same opening: resolve the employer destination/ID before submitting;
@@ -59,6 +61,12 @@ credentials, resume, private candidate details or automatic-application permissi
 
 ## Updates
 
-Local `watch` collects and processes the queue while the Mac is running. Publishing
-to GitHub is a separate audited push; this repository does not silently push local
-state or applicant data. Check the README generation timestamp before using a feed.
+When the LaunchAgents described in [SETUP.md](SETUP.md) are installed, a local
+publisher refreshes README.md and positions.jsonl while the host Mac is awake and
+online. It commits only those two generated files, after a privacy audit of the
+exact commit tree, when their content materially changes and at least every six
+hours otherwise. Publisher commits carry the `Uxr-Radar-Publish: auto` trailer. A
+stalled collector or a majority of failing sources blocks publication instead of
+publishing a degraded snapshot; local state and applicant data are never pushed.
+A sleeping, offline or logged-out Mac pauses updates. Check the README generation
+time and per-record `link_checked_at` / `last_seen` before using a feed.

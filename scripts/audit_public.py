@@ -129,6 +129,16 @@ def valid_policy_types(policy: dict) -> bool:
     return True
 
 
+def denied(folded: str, term: str) -> bool:
+    """Short ASCII terms (abbreviations such as a school code) match whole tokens only,
+    so ordinary words that contain the letters do not fail the audit; longer or
+    non-ASCII terms match anywhere."""
+    term = term.casefold().strip()
+    if len(term) <= 4 and term.isascii() and term.isalnum():
+        return re.search(r"(?<![0-9a-z])" + re.escape(term) + r"(?![0-9a-z])", folded) is not None
+    return term in folded
+
+
 def audit_files(files: dict[str, bytes], denylist: list[str] | tuple[str, ...] = ()) -> list[dict[str, str]]:
     errors = []
     def fail(path, reason):
@@ -161,7 +171,7 @@ def audit_files(files: dict[str, bytes], denylist: list[str] | tuple[str, ...] =
             fail(path, "Binary artifact requires a separate public-content review")
             continue
         folded = text.casefold()
-        if any(term.casefold() in folded for term in denylist):
+        if any(denied(folded, term) for term in denylist):
             fail(path, "Contains a locally denied private identifier")
         if any(pattern.search(text) for pattern in CREDENTIALS):
             fail(path, "Possible credential or private key")

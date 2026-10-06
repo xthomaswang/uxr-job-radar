@@ -22,3 +22,9 @@
   metadata, input versions, source timestamps and validation status explicit.
 - Before any public push, audit the staged tree and reachable Git history for
   applicant data and secrets. Never make private historical profile data public.
+- The background publisher commits only README.md and positions.jsonl, audits the
+  exact commit tree first, and never force-pushes, merges, rebases or pushes commits
+  it did not create. Published output must come from committed code and config.
+- A model-host outage must not consume job attempts. Never send a model name other
+  than the one a shared local host serves: mlx_lm.server would reload weights and
+  evict another project's model.
