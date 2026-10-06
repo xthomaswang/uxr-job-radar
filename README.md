@@ -2,13 +2,13 @@
 
 A live list of UX research and adjacent research openings, screened by a self-hosted Qwen3.8-27B model and refreshed hourly while the host Mac is online. Roles with unknown experience or qualification gaps stay in the list; a person or an agent decides whether to apply.
 
-Generated: 2026-10-06 14:04 EDT · Model: `mlx-community/Qwen3.8-27B-8bit` · Prompt: `uxr-v7-anonymous-concise-overview` · Policy: `ac752ab36eab37d0d0abd1cfa925a81408ca621c899575e322582571565f96ef`
+Generated: 2026-10-06 14:29 EDT · Model: `mlx-community/Qwen3.8-27B-8bit` · Prompt: `uxr-v7-anonymous-concise-overview` · Policy: `ac752ab36eab37d0d0abd1cfa925a81408ca621c899575e322582571565f96ef`
 
 Tracked: 16572 · Pending current model/policy review: **121** · Sources with errors: **1** · Jobs with inference errors: **2**
 
 ---
 
-### Browse 2040 roles by category
+### Browse 2016 roles by category
 
 🌱 **[UXR Junior](#-uxr-junior)** (10)
 
@@ -24,13 +24,13 @@ Tracked: 16572 · Pending current model/policy review: **121** · Sources with e
 
 🔁 **[Model validation pending](#-model-validation-pending)** (2)
 
-⏳ **[Link check pending](#-link-check-pending)** (886)
+⏳ **[Link check pending](#-link-check-pending)** (862)
 
 Each table shows up to 100 roles, model-recommended first and then newest; every role is in [positions.jsonl](positions.jsonl).
 
 ---
 
-> 🤖 **AI agents** (auto-apply, triage, matching): read [docs/HANDOFF.md](docs/HANDOFF.md) first. It says what to load, how to filter and what to recheck before submitting. The complete feed is [positions.jsonl](positions.jsonl) (2040 records, one JSON object per line): https://raw.githubusercontent.com/xthomaswang/uxr-job-radar/main/positions.jsonl
+> 🤖 **AI agents** (auto-apply, triage, matching): read [docs/HANDOFF.md](docs/HANDOFF.md) first. It says what to load, how to filter and what to recheck before submitting. The complete feed is [positions.jsonl](positions.jsonl) (2016 records, one JSON object per line): https://raw.githubusercontent.com/xthomaswang/uxr-job-radar/main/positions.jsonl
 
 ---
 
@@ -247,7 +247,6 @@ Roles outside core UX research that the model judged related, such as research o
 | ↳ | Sr. Author Experience Manager, Amazon Books<br><sub>Senior · req 6y</sub> | US, SC, Charleston | [Apply](https://www.amazon.jobs/en/jobs/10570351/sr-author-experience-manager-amazon-books) | 0d |
 | **Databricks** | Data+AI Workforce Transformation Practitioner — Customer Delivery<br><sub>Staff · req 8y</sub> | United States | [Apply](https://databricks.com/company/careers/open-positions/job?gh_jid=8859666002) | 0d |
 | **DoorDash** | Director, Merchant Acquisition & Success - Strategy & Operations<br><sub>Staff · req 10y</sub> | New York City, NY<br>San Francisco, CA<br><sub>+6 more</sub> | [Apply](https://job-boards.greenhouse.io/doordashusa/jobs/8257295) | 0d |
-| **Elastic** | Analytics Engineer, HR Analytics<br><sub>Junior · req 2y</sub> | United States | [Apply](https://jobs.elastic.co/jobs?gh_jid=8244449&gh_jid=8244449) | 0d |
 | **Lyft** | Analytics Lead, Decisions & Insights<br><sub>Senior · req 5y</sub> | New York, NY | [Apply](https://app.careerpuck.com/job-board/lyft/job/8868958002?gh_jid=8868958002) | 0d |
 | **NielsenIQ** | (Junior) Analytic Consultant (m/w/d)<br><sub>level unstated</sub> | Lucerne, LU, CH | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000153699204--junior-analytic-consultant-m-w-d-) | 0d |
 | ↳ | Bidding Specialist<br><sub>Junior · req 3y</sub> | Mumbai, IN | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000153718121-bidding-specialist) | 0d |
@@ -286,6 +285,7 @@ Roles outside core UX research that the model judged related, such as research o
 | **limehome** 🌐<br><sub>via Arbeitnow</sub> | Data Scientist (m/f/d)<br><sub>Junior · req 3y</sub> | München, Bayern, Germany | [Apply](https://www.arbeitnow.com/jobs/companies/limehome/data-scientist-munchen-120982) | 0d |
 | **Airbnb** | Senior Analytics Engineer, Airbnb.org<br><sub>Senior · req 5y</sub> | United States | [Apply](https://careers.airbnb.com/positions/8249633?gh_jid=8249633) | 1d |
 | **Amazon** 🔥 | Product Designer, AWS Security, Search, Observability & Governance<br><sub>Senior · req 7y</sub> | US, WA, Seattle | [Apply](https://www.amazon.jobs/en/jobs/10569855/product-designer-aws-security-search-observability-governance) | 1d |
+| ↳ | Senior Product Marketing Manager, IN Pricing<br><sub>Senior · req 5y</sub> | IN, KA, Bengaluru | [Apply](https://www.amazon.jobs/en/jobs/10568621/senior-product-marketing-manager-in-pricing) | 1d |
 
 969 more in this section are listed in [positions.jsonl](positions.jsonl); the table shows the first 100 in this order.
 
@@ -310,7 +310,7 @@ Source facts only: the model output failed validation and the stage is being ret
 
 Relevant roles whose link or source feed was not rechecked in the last 24 hours. They move up once verified.
 
-<details><summary>Show 886 roles</summary>
+<details><summary>Show 862 roles</summary>
 
 | Company | Role | Location | Application | Age |
 |:---|:---|:---|:---:|:---:|
@@ -323,27 +323,23 @@ Relevant roles whose link or source feed was not rechecked in the last 24 hours.
 | **Pinnacle Lead Consulting Limited** 🌐<br><sub>via Himalayas</sub> | Associate Principal, UX Research<br><sub>level unstated</sub> | Hong Kong | [Apply](https://himalayas.app/companies/pinnacle-lead-consulting-limited/jobs/associate-principal-ux-research) | 2d |
 | **Ramp106 Gmbh** 🌐<br><sub>via Arbeitnow</sub> | Werkstudent\*In (M/W/D) Market Research & Data Insights<br><sub>Intern · level unstated</sub> | Hamburg | [Apply](https://www.arbeitnow.com/jobs/companies/ramp106-gmbh/werkstudentin-market-research-data-insights-hamburg-408090) | 2d |
 | **Spotify** 🌐<br><sub>via Jobicy</sub> | Data Scientist - Music Promotion<br><sub>level unstated</sub> | USA | [Apply](https://jobicy.com/jobs/154477-data-scientist-music-promotion) | 2d |
-| **Canonical** 🌐<br><sub>via Himalayas</sub> | Senior Design Researcher - User Science<br><sub>level unstated</sub> | Worldwide | [Apply](https://himalayas.app/companies/canonical/jobs/senior-design-researcher-user-science) | 3d |
-| ↳ 🌐<br><sub>via Himalayas</sub> | Usability Engineer - User Science<br><sub>level unstated</sub> | Worldwide | [Apply](https://himalayas.app/companies/canonical/jobs/usability-engineer-user-science) | 3d |
+| **Canonical** 🌐<br><sub>via Himalayas</sub> | Usability Engineer - User Science<br><sub>level unstated</sub> | Worldwide | [Apply](https://himalayas.app/companies/canonical/jobs/usability-engineer-user-science) | 3d |
 | **Civey GmbH** 🌐<br><sub>via Arbeitnow</sub> | Research Consultant im Bereich Marktforschung (w/m/d)<br><sub>level unstated</sub> | Berlin | [Apply](https://www.arbeitnow.com/jobs/companies/civey-gmbh/junior-research-consultant-im-bereich-marktforschung-berlin-262548) | 3d |
 | **Clay** 🌐<br><sub>via Himalayas</sub> | Contract UX Researcher<br><sub>Contract · Junior · req 3y</sub> | United States | [Apply](https://himalayas.app/companies/clay/jobs/contract-ux-researcher) | 3d |
-| **Digital Forms** 🌐<br><sub>via Himalayas</sub> | UI/UX Designer<br><sub>Contract · level unstated</sub> | Worldwide | [Apply](https://himalayas.app/companies/digitalforms/jobs/ui-ux-designer) | 3d |
-| **ELEKS** 🌐<br><sub>via Himalayas</sub> | Senior Customer Experience Expert, JR625 ⚠️<br><sub>Contract · Junior · req 3y</sub> | Ukraine | [Apply](https://himalayas.app/companies/eleks/jobs/senior-customer-experience-expert-jr625) | 3d |
 | **Kainos** 🌐<br><sub>via Himalayas</sub> | UX Designer<br><sub>level unstated</sub> | United Kingdom | [Apply](https://himalayas.app/companies/kainos/jobs/ux-designer-750916462) | 3d |
-| ↳ 🌐<br><sub>via Himalayas</sub> | User Researcher (Public)<br><sub>level unstated</sub> | United Kingdom | [Apply](https://himalayas.app/companies/kainos/jobs/user-researcher-public) | 3d |
 | **Netflix** 🔥 🌐<br><sub>via Himalayas</sub> | Senior Researcher - Ads Experiences<br><sub>level unstated</sub> | United States | [Apply](https://himalayas.app/companies/netflix/jobs/senior-researcher-ads-experiences) | 3d |
 | **Pavago** 🌐<br><sub>via Himalayas</sub> | Product Designer - UX/UI & Design Systems<br><sub>Junior · req 2y</sub> | Honduras | [Apply](https://himalayas.app/companies/pavago/jobs/product-designer-ux-ui-design-systems-7347784044) | 3d |
 | **Pinterest** 🌐<br><sub>via Himalayas</sub> | UX Quantitative Research Intern (USA)  \*Remote<br><sub>Intern · level unstated</sub> | United States | [Apply](https://himalayas.app/companies/pinterestcareers/jobs/ux-quantitative-research-intern-usa-remote) | 3d |
-| **Rubicon Path** 🌐<br><sub>via Himalayas</sub> | RQ07976: Sr. UX Designer<br><sub>level unstated</sub> | Canada | [Apply](https://himalayas.app/companies/rubicon-path/jobs/rq07976-sr-ux-designer) | 3d |
-| ↳ 🌐<br><sub>via Himalayas</sub> | RQ08741 - UX Designer - Senior ⚠️<br><sub>Junior · req 3y</sub> | Canada | [Apply](https://himalayas.app/companies/rubicon-path/jobs/rq08741-ux-designer-senior) | 3d |
-| ↳ 🌐<br><sub>via Himalayas</sub> | RQ09321 - UX Designer - Intermediate<br><sub>level unstated</sub> | Canada | [Apply](https://himalayas.app/companies/rubicon-path/jobs/rq09321-ux-designer-intermediate) | 3d |
 | **iRhythm** 🌐<br><sub>via Himalayas</sub> | Human Factors Engineer I<br><sub>Junior · req 1y</sub> | United States | [Apply](https://himalayas.app/companies/irhythm/jobs/human-factors-engineer-i) | 3d |
 | **ASRC Federal** 🌐<br><sub>via Himalayas</sub> | Interaction Designer/User Researcher/Usability Tester<br><sub>Junior · req 3y</sub> | United States | [Apply](https://himalayas.app/companies/asrc-federal/jobs/interaction-designer-user-researcher-usability-tester) | 4d |
 | **Binance** 🌐<br><sub>via Jobicy</sub> | Binance Acceleration Program - Product Data Analyst<br><sub>Intern · level unstated</sub> | Hong Kong | [Apply](https://jobicy.com/jobs/152312-binance-acceleration-program-product-data-analyst) | 4d |
+| **Canonical** 🌐<br><sub>via Himalayas</sub> | Senior Design Researcher - User Science<br><sub>level unstated</sub> | Worldwide | [Apply](https://himalayas.app/companies/canonical/jobs/senior-design-researcher-user-science) | 4d |
+| **Digital Forms** 🌐<br><sub>via Himalayas</sub> | UI/UX Designer<br><sub>Contract · level unstated</sub> | Worldwide | [Apply](https://himalayas.app/companies/digitalforms/jobs/ui-ux-designer) | 4d |
+| **ELEKS** 🌐<br><sub>via Himalayas</sub> | Senior Customer Experience Expert, JR625 ⚠️<br><sub>Contract · Junior · req 3y</sub> | Ukraine | [Apply](https://himalayas.app/companies/eleks/jobs/senior-customer-experience-expert-jr625) | 4d |
 | **Gather AI** 🌐<br><sub>via Himalayas</sub> | UX Designer<br><sub>level unstated · pref 5–10y</sub> | United States | [Apply](https://himalayas.app/companies/gather-ai/jobs/ux-designer) | 4d |
 | **Grupo SysMap** 🌐<br><sub>via Himalayas</sub> | UX Designer SR<br><sub>level unstated</sub> | Brazil | [Apply](https://himalayas.app/companies/grupo-sysmap/jobs/ux-designer-sr) | 4d |
+| **Kainos** 🌐<br><sub>via Himalayas</sub> | User Researcher (Public)<br><sub>level unstated</sub> | United Kingdom | [Apply](https://himalayas.app/companies/kainos/jobs/user-researcher-public) | 4d |
 | **PEX** 🌐<br><sub>via Himalayas</sub> | Product Manager<br><sub>Junior · req 2y</sub> | Worldwide | [Apply](https://himalayas.app/companies/pexcard/jobs/product-manager) | 4d |
-| **Rubicon Path** 🌐<br><sub>via Himalayas</sub> | RQ08750 - UX Designer - Senior ⚠️<br><sub>Junior · req 3y</sub> | Canada | [Apply](https://himalayas.app/companies/rubicon-path/jobs/rq08750-ux-designer-senior) | 4d |
 | **Scrumconnect Limited** 🌐<br><sub>via Himalayas</sub> | Senior User Researcher<br><sub>Contract · level unstated</sub> | United States | [Apply](https://himalayas.app/companies/scrumconnect-limited/jobs/senior-user-researcher) | 4d |
 | **1KOMMA5˚** 🌐<br><sub>via Arbeitnow</sub> | Working Student - AI Product Designer (m/f/d)<br><sub>Intern · level unstated</sub> | Berlin | [Apply](https://www.arbeitnow.com/jobs/companies/1komma50/working-student-ai-product-designer-berlin-58805) | 5d |
 | **Aprende Institute** 🌐<br><sub>via Himalayas</sub> | UX Designer Lead<br><sub>level unstated · pref 5y</sub> | Argentina | [Apply](https://himalayas.app/companies/aprende-institute/jobs/ux-designer-lead) | 5d |
@@ -403,19 +399,23 @@ Relevant roles whose link or source feed was not rechecked in the last 24 hours.
 | **Pavago** 🌐<br><sub>via Himalayas</sub> | UX/UI Designer<br><sub>Junior · req 2y</sub> | Pakistan | [Apply](https://himalayas.app/companies/pavago/jobs/ux-ui-designer-1790003597) | 21d |
 | ↳ 🌐<br><sub>via Himalayas</sub> | UX/UI Designer<br><sub>Junior · req 2y</sub> | South Africa | [Apply](https://himalayas.app/companies/pavago/jobs/ux-ui-designer-8092600539) | 21d |
 | **Motorola Solutions** 🌐<br><sub>via Himalayas</sub> | UX Researcher<br><sub>level unstated</sub> | United Kingdom | [Apply](https://himalayas.app/companies/motorola-solutions/jobs/ux-researcher) | 22d |
-| **Pavago** 🌐<br><sub>via Himalayas</sub> | Product Designer<br><sub>Junior · req 2y</sub> | South Africa | [Apply](https://himalayas.app/companies/pavago/jobs/product-designer-9461724372) | 22d |
+| **Pavago** 🌐<br><sub>via Himalayas</sub> | Product Designer<br><sub>Junior · req 2y</sub> | South Africa | [Apply](https://himalayas.app/companies/pavago/jobs/product-designer-9461724372) | 23d |
 | **XAD Technologies** 🌐<br><sub>via Himalayas</sub> | UI/UX Designer - Remote<br><sub>Junior · req 3y</sub> | Poland | [Apply](https://himalayas.app/companies/xad-technologies/jobs/ui-ux-designer-remote) | 24d |
 | **Pavago** 🌐<br><sub>via Himalayas</sub> | Product Designer<br><sub>Junior · req 2y</sub> | Pakistan | [Apply](https://himalayas.app/companies/pavago/jobs/product-designer-379168462) | 25d |
 | ↳ 🌐<br><sub>via Himalayas</sub> | Product Designer - UX/UI & Design Systems<br><sub>Junior · req 2y</sub> | Peru | [Apply](https://himalayas.app/companies/pavago/jobs/product-designer-ux-ui-design-systems) | 26d |
 | **mercor** 🌐<br><sub>via Himalayas</sub> | Consumer Insights Specialist - Fully Remote ／ Upto $120/hr<br><sub>Contract · Junior · req 3y</sub> | Canada | [Apply](https://himalayas.app/companies/mercor/jobs/consumer-insights-specialist-fully-remote-upto-120-hr-3134316190) | 26d |
-| **UX Woman** 🌐<br><sub>via Himalayas</sub> | Academic Research to UX Research Career Changer Apprenticeship<br><sub>Intern · level unstated</sub> | United States | [Apply](https://himalayas.app/companies/ux-woman/jobs/academic-research-to-ux-research-career-changer-apprenticeship) | 27d |
-| ↳ 🌐<br><sub>via Himalayas</sub> | Education to UX Design Career Changer Apprenticeship<br><sub>Intern · level unstated</sub> | United States | [Apply](https://himalayas.app/companies/ux-woman/jobs/education-to-ux-design-career-changer-apprenticeship) | 27d |
-| ↳ 🌐<br><sub>via Himalayas</sub> | Entry Level Service Design Apprenticeship<br><sub>Intern · level unstated</sub> | United States | [Apply](https://himalayas.app/companies/ux-woman/jobs/entry-level-service-design-apprenticeship-8154803283) | 27d |
-| ↳ 🌐<br><sub>via Himalayas</sub> | Entry Level UX Research Apprenticeship<br><sub>Intern · level unstated</sub> | United States | [Apply](https://himalayas.app/companies/ux-woman/jobs/entry-level-ux-research-apprenticeship-4483523729) | 27d |
-| ↳ 🌐<br><sub>via Himalayas</sub> | Fashion Design to UX Design Career Changer Apprenticeship<br><sub>Intern · level unstated</sub> | United States | [Apply](https://himalayas.app/companies/ux-woman/jobs/fashion-design-to-ux-design-career-changer-apprenticeship) | 27d |
-| ↳ 🌐<br><sub>via Himalayas</sub> | Industrial Design to UX Design Career Changer Apprenticeship<br><sub>Intern · level unstated</sub> | United States | [Apply](https://himalayas.app/companies/ux-woman/jobs/industrial-design-to-ux-design-career-changer-apprenticeship) | 27d |
+| ↳ 🌐<br><sub>via Himalayas</sub> | Consumer Insights Specialist - Fully Remote ／ Upto $120/hr<br><sub>Contract · Junior · req 3y</sub> | Germany | [Apply](https://himalayas.app/companies/mercor/jobs/consumer-insights-specialist-fully-remote-upto-120-hr-9915612852) | 27d |
+| ↳ 🌐<br><sub>via Himalayas</sub> | Consumer Insights Specialist - Fully Remote ／ Upto $120/hr<br><sub>Contract · Junior · req 3y</sub> | India | [Apply](https://himalayas.app/companies/mercor/jobs/consumer-insights-specialist-fully-remote-upto-120-hr-5732922323) | 27d |
+| ↳ 🌐<br><sub>via Himalayas</sub> | Consumer Insights Specialist - Fully Remote ／ Upto $120/hr<br><sub>Contract · Junior · req 3y</sub> | United Kingdom | [Apply](https://himalayas.app/companies/mercor/jobs/consumer-insights-specialist-fully-remote-upto-120-hr-4955760484) | 28d |
+| ↳ 🌐<br><sub>via Himalayas</sub> | Consumer Insights Specialist - Fully Remote ／ Upto $120/hr<br><sub>Contract · Junior · req 3y</sub> | United States | [Apply](https://himalayas.app/companies/mercor/jobs/consumer-insights-specialist-fully-remote-upto-120-hr) | 29d |
+| **HARMAN International** 🌐<br><sub>via Himalayas</sub> | Intern - Product Design<br><sub>Intern · level unstated</sub> | United States | [Apply](https://himalayas.app/companies/harman-international/jobs/intern-product-design) | 1mo |
+| **NielsenIQ** | Intern Inteligencia de Mercados  - Bogotá - Cali o Medellin<br><sub>Intern · level unstated</sub> | Bogotá, Bogota, CO | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000147546459-intern-inteligencia-de-mercados-bogota-cali-o-medellin) | 1mo |
+| **Grand Studio** 🌐<br><sub>via Himalayas</sub> | Senior Research Designer (Contract Pool)<br><sub>Contract · level unstated</sub> | United States | [Apply](https://himalayas.app/companies/grand-studio/jobs/senior-research-designer-contract-pool) | 1mo |
+| **Match Group** 🌐<br><sub>via Himalayas</sub> | UX Researcher (Temp-6 month)<br><sub>Contract · Junior · req 1y</sub> | United States | [Apply](https://himalayas.app/companies/match-group/jobs/ux-researcher-temp-6-month) | 1mo |
+| **Moniepoint** 🌐<br><sub>via Himalayas</sub> | Staff Product Designer ⚠️<br><sub>Junior · req 3y</sub> | India | [Apply](https://himalayas.app/companies/moniepoint/jobs/staff-product-designer-4598482330) | 1mo |
+| **baesh social UG** 🌐<br><sub>via Himalayas</sub> | UX Designer/Product Lead (Core Team, Equity-Based, Remote EU-wide)<br><sub>level unstated</sub> | Germany | [Apply](https://himalayas.app/companies/baesh-social-ug/jobs/ux-designer-product-lead-core-team-equity-based-remote-eu-wide) | 1mo |
 
-786 more in this section are listed in [positions.jsonl](positions.jsonl); the table shows the first 100 in this order.
+762 more in this section are listed in [positions.jsonl](positions.jsonl); the table shows the first 100 in this order.
 
 </details>
 
@@ -429,7 +429,7 @@ Relevant roles whose link or source feed was not rechecked in the last 24 hours.
 - This is information retrieval, not final eligibility screening. Relevant roles stay visible even with unknown experience or qualification gaps, and no applicant eligibility is inferred. Free-text model reasons, notes and uncertainties are withheld. Source quotes in positions.jsonl are not a complete eligibility check; downstream reviewers must inspect the original posting.
 - Every public posting returned by configured feeds enters the model queue. Title terms and, when installed, an on-device CLM-v0.1-8B relevance score affect processing order only; neither rejects a posting. Cached judgments are reused only for identical content, anonymous collection policy, model and prompt. A partial queue is not complete coverage. Large backlogs may be judged on a rented notebook GPU running the official release of the same weights; each positions.jsonl record names the exact weights.
 
-Reviewed with current configuration: 16276; clearly unrelated: 14238; failed attempts retained without fit claims: 2. All judgments and raw model outputs are retained locally in SQLite; relevant fit-gap roles remain above.
+Reviewed with current configuration: 16252; clearly unrelated: 14238; failed attempts retained without fit claims: 2. All judgments and raw model outputs are retained locally in SQLite; relevant fit-gap roles remain above. 24 postings from employers a maintainer judged not to be direct openings are omitted.
 
 ## Source health
 
