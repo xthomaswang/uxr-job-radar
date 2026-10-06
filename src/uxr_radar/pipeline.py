@@ -363,6 +363,52 @@ MIXED_LEVEL_SECTIONS={SECTION_RELATED,SECTION_MODEL,SECTION_LINK}
 TABLE_HEAD=["| Company | Role | Location | Application | Age |","|:---|:---|:---|:---:|:---:|"]
 
 
+# Curated, not computed: the README flame marks these employers only. company_kind stays untouched because it is part of the cache key.
+FAANG_PLUS=frozenset({"amazon","amazon web services","aws","google","google deepmind","alphabet","meta","meta platforms","facebook","apple","netflix","microsoft","nvidia","openai","anthropic"})
+LEGAL_SUFFIXES=frozenset({"inc","llc","ltd","corp","corporation","co","com"})
+US_PERSON="(?-i:U\\.?\\s?S\\.?)|United\\s+States"
+NO_SPONSORSHIP=[re.compile(pattern,re.I) for pattern in (
+    r"\b(?:(?:will|would|do|does|can|could|is|are)\s+not|(?:won|don|doesn|couldn|wouldn|isn|aren)['’]t)\s+(?:\w+\s+){0,4}?sponsor",
+    r"\b(?:cannot|can['’]t|unable\s+to|not\s+able\s+to|not\s+in\s+a\s+position\s+to)\s+(?:\w+\s+){0,4}?sponsor",
+    r"\bno\s+(?:visa\s+|immigration\s+|work\s+)?sponsorship\b",
+    r"\bwithout\s+(?:visa\s+|employer\s+|company\s+)?sponsorship\b",
+    r"\bsponsorship\s+(?:is\s+)?(?:not\s+(?:available|offered|provided)|unavailable)\b")]
+US_CITIZENSHIP=[re.compile(pattern,re.I) for pattern in (
+    rf"\b(?:must|need\s+to|required\s+to|have\s+to)\s+be\s+(?:an?\s+)?(?:{US_PERSON})\s+citizen",
+    rf"\b(?:{US_PERSON})\s+citizenship\s+(?:is\s+)?(?:required|mandatory|needed)",
+    rf"\brequires?\s+(?:{US_PERSON})\s+citizenship",
+    rf"\b(?:{US_PERSON})\s+citizens?\s+only")]
+ALTERNATIVE_STATUS=re.compile(r"\bor\b[^.]{0,60}(?:permanent\s+resident|green\s+card|lawful|authoriz|national\b)",re.I)
+
+
+def faang_plus(company):
+    words=re.sub(r"[^a-z0-9]+"," ",company.lower()).split()
+    while words and words[-1] in LEGAL_SUFFIXES:words.pop()
+    return " ".join(words) in FAANG_PLUS
+
+
+CANDIDATE_NEED=re.compile(r"\b(?:require|requires|required|need|needs)\b",re.I)
+AFFIRMATIVE_SPONSORSHIP=re.compile(r"\bwe\s+(?:do|can|will|are\s+able\s+to)\s+sponsor\b|\bsponsorship\s+(?:is\s+)?available\b|\bwe\s+(?:offer|provide)\s+(?:visa\s+)?sponsorship\b",re.I)
+
+
+def no_sponsorship_hits(text):
+    """Statements that visas are not sponsored. A candidate who does not *need* sponsorship, or a nearby 'we do sponsor', is not a hit."""
+    return (m for rx in NO_SPONSORSHIP for m in rx.finditer(text)
+        if not CANDIDATE_NEED.search(m.group(0)) and not AFFIRMATIVE_SPONSORSHIP.search(text[max(0,m.start()-200):m.end()+200]))
+
+
+def us_citizenship_hits(text):
+    """Statements that U.S. citizenship is required, unless the same sentence admits permanent residents or other authorization."""
+    return (m for rx in US_CITIZENSHIP for m in rx.finditer(text) if not ALTERNATIVE_STATUS.search(text[m.end():m.end()+90]))
+
+
+def posting_flags(description):
+    """What the posting text itself says: (no visa sponsorship, U.S. citizenship required). Best effort on exact source text,
+    never the model; a missing flag is not an offer."""
+    text=" ".join(description.split())
+    return next(no_sponsorship_hits(text),None) is not None,next(us_citizenship_hits(text),None) is not None
+
+
 def anchor(name):
     """GitHub heading anchor for a section whose heading starts with an emoji."""
     return "#-"+name.lower().replace(" ","-")
@@ -401,7 +447,8 @@ def location_cell(value):
 def role_cell(j,a,profile,*,show_level):
     """Title plus small print: employment tag, level where a section mixes levels, and stated years. Absent years are never shown as zero."""
     handoff=handoff_assessment(a,j.title,profile) if a else None
-    cell=safe_md(j.title)+(" ⚠️" if handoff and handoff["seniority_conflict"] else "")
+    no_sponsorship,citizenship=posting_flags(j.description)
+    cell=safe_md(j.title)+(" ⚠️" if handoff and handoff["seniority_conflict"] else "")+(" 🛂" if no_sponsorship else "")+(" 🇺🇸" if citizenship else "")
     employment=a.employment if a else j.employment_type
     facts=[TYPE_TAGS[employment]] if employment in TYPE_TAGS else []
     if handoff:
@@ -414,7 +461,7 @@ def role_cell(j,a,profile,*,show_level):
 
 
 def readme_row(j,a,profile,*,repeat,show_level):
-    company="↳" if repeat else f"**{safe_md(j.company)}**"+(" 🔥" if j.company_kind=="large" else "")
+    company="↳" if repeat else f"**{safe_md(j.company)}**"+(" 🔥" if faang_plus(j.company) else "")
     if j.source_kind=="aggregator":company+=f" 🌐<br><sub>via {safe_md(j.source_label or j.source)}</sub>"
     url=j.url.replace("(","%28").replace(")","%29")
     return f"| {company} | {role_cell(j,a,profile,show_level=show_level)} | {location_cell(j.location)} | [Apply]({url}) | {age_cell(posted_age(j.posted_at))} |"
@@ -458,7 +505,7 @@ def render(store,profile,model,path):
         verified=r["link_state"]=="verified" and fresh and checked_fresh
         handoff=handoff_assessment(a,j.title,profile) if a else None
         level_metadata=experience_metadata(j.title,handoff["required_years"] if handoff else None,profile)
-        exported.append({**level_metadata,"required_years":handoff["required_years"] if handoff else None,"preferred_years":handoff["preferred_years"] if handoff else None,"preferred_years_range":handoff["preferred_years_range"] if handoff else None,"key":j.key,"company":j.company,"company_kind":j.company_kind,"title":j.title,"location":j.location,"url":j.url,"source":j.source,"source_id":j.source_id,"source_kind":j.source_kind,"source_label":j.source_label or j.company,"source_url":j.source_url,"source_listing_url":j.url,"application_url":j.application_url if j.source_kind=="aggregator" else j.url,"verification_scope":"aggregator_listing" if j.source_kind=="aggregator" else "employer_listing","employer_verified":verified and j.source_kind=="official","posted_at":j.posted_at,"first_seen":r["first_seen"],"last_seen":r["last_seen"],"link_state":r["link_state"],"link_checked_at":r["checked_at"],"source_fresh":fresh,"link_fresh":checked_fresh,"verified":verified,"retrieval_category":decision,"assessment":handoff,"validation_error":"model_request_or_validation_failure" if a is None else None,"inference_stage":retry_task["stage"] if retry_task else "legacy","inference_attempts":retry_task["total_attempts"] if retry_task else None,"retry_at":retry_task["next_retry_at"] if retry_task else None,"model":(r["assessed_by"] or model) if a else model,"prompt_version":PROMPT_VERSION,"policy_hash":digest(anonymous_policy(profile))})
+        exported.append({**level_metadata,"required_years":handoff["required_years"] if handoff else None,"preferred_years":handoff["preferred_years"] if handoff else None,"preferred_years_range":handoff["preferred_years_range"] if handoff else None,"key":j.key,"company":j.company,"company_kind":j.company_kind,"faang_plus":faang_plus(j.company),"title":j.title,"location":j.location,"url":j.url,"source":j.source,"source_id":j.source_id,"source_kind":j.source_kind,"source_label":j.source_label or j.company,"source_url":j.source_url,"source_listing_url":j.url,"application_url":j.application_url if j.source_kind=="aggregator" else j.url,"verification_scope":"aggregator_listing" if j.source_kind=="aggregator" else "employer_listing","employer_verified":verified and j.source_kind=="official","posted_at":j.posted_at,"sponsorship_not_offered":posting_flags(j.description)[0],"us_citizenship_required":posting_flags(j.description)[1],"first_seen":r["first_seen"],"last_seen":r["last_seen"],"link_state":r["link_state"],"link_checked_at":r["checked_at"],"source_fresh":fresh,"link_fresh":checked_fresh,"verified":verified,"retrieval_category":decision,"assessment":handoff,"validation_error":"model_request_or_validation_failure" if a is None else None,"inference_stage":retry_task["stage"] if retry_task else "legacy","inference_attempts":retry_task["total_attempts"] if retry_task else None,"retry_at":retry_task["next_retry_at"] if retry_task else None,"model":(r["assessed_by"] or model) if a else model,"prompt_version":PROMPT_VERSION,"policy_hash":digest(anonymous_policy(profile))})
         section=SECTION_LINK if not verified else SECTION_MODEL if a is None else UXR_SECTIONS[level_metadata["experience_level"]] if a.role=="uxr" else SECTION_RELATED
         sections[section].append((j,a,r))
     counts={name:len(items) for name,items in sections.items()}
@@ -470,7 +517,7 @@ def render(store,profile,model,path):
     for name in sections:lines += [f"{SECTION_EMOJI[name]} **[{name}]({anchor(name)})** ({counts[name]})",""]
     lines += [f"Each table shows up to {README_ROWS_PER_SECTION} roles, model-recommended first and then newest; every role is in [positions.jsonl](positions.jsonl).","","---","",
       f"> 🤖 **AI agents** (auto-apply, triage, matching): read [docs/HANDOFF.md](docs/HANDOFF.md) first. It says what to load, how to filter and what to recheck before submitting. The complete feed is [positions.jsonl](positions.jsonl) ({len(exported)} records, one JSON object per line): {FEED_URL}","","---","",
-      "## Legend","","🔥 Large employer (a curated label, not a model judgment)","","⚠️ Title seniority conflicts with the stated years","","🌐 Listed via a job aggregator: the provider's page was verified, not the employer's","","— Not stated (unknown, not zero)","","---",""]
+      "## Legend","","🔥 FAANG+ company (a curated list, not a model judgment)","","🛂 Does NOT offer sponsorship (the posting says so)","","🇺🇸 Requires U.S. citizenship (the posting says so)","","⚠️ Title seniority conflicts with the stated years","","🌐 Listed via a job aggregator: the provider's page was verified, not the employer's","","— Not stated (unknown, not zero)","","---",""]
     collapsed={SECTION_MODEL,SECTION_LINK}
     for name,items in sections.items():
         ranked=sorted(items,key=row_order(profile))
@@ -492,6 +539,7 @@ def render(store,profile,model,path):
       "- **Sections** group UX research roles by explicit mandatory years only: **Junior ≤3**, **Mid >3 and <5**, **Senior ≥5 and <8**, **Staff ≥8**, and **Experience not stated** (unknown, not zero). Mid is an explicit intermediate bin added for the otherwise uncovered range. **Related non-UXR roles** are adjacent research roles of any level. Every relevant level stays in the recall pool.",
       "- The small print under a role is its employment type, its level where a section mixes levels, the mandatory minimum (`req`) and the preferred experience (`pref`) when stated. Preferred years are never treated as mandatory, and a quoted range such as 1–3 stays a range.",
       "- **Order** within a section: roles the model recommends first, then newest, then large employers. **Age** is days since the source's own posting date; — means the source gives none.",
+      "- **🛂 and 🇺🇸** are read from the posting's own text with fixed rules, not by the model, and are best effort: a missing icon does not mean sponsorship is offered or citizenship is not required. **🔥** marks a curated FAANG+ list.",
       "- A role appears in the tables above only when its link was verified recently: recent source membership and a matching reachable listing at check time. **Link check pending** lists the rest. Aggregator records verify the provider listing, not the employer application page; positions.jsonl distinguishes `verification_scope` and `employer_verified`. Links come only from source feeds; the model cannot create or edit them.",
       "- This is information retrieval, not final eligibility screening. Relevant roles stay visible even with unknown experience or qualification gaps, and no applicant eligibility is inferred. Free-text model reasons, notes and uncertainties are withheld. Source quotes in positions.jsonl are not a complete eligibility check; downstream reviewers must inspect the original posting.",
       "- Every public posting returned by configured feeds enters the model queue. Title terms and, when installed, an on-device CLM-v0.1-8B relevance score affect processing order only; neither rejects a posting. Cached judgments are reused only for identical content, anonymous collection policy, model and prompt. A partial queue is not complete coverage. Large backlogs may be judged on a rented notebook GPU running the official release of the same weights; each positions.jsonl record names the exact weights.","",

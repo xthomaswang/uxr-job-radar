@@ -73,7 +73,7 @@ queue.sort(key=lambda r: (r["company_kind"] != "large", LEVEL[r["experience_leve
 | Group | Fields |
 |---|---|
 | Identity | `key` (`source:source_id`, the stable dedupe key), `source`, `source_id`, `source_kind` (`official` or `aggregator`), `source_label`, `source_url`, `source_listing_url` |
-| Posting | `company`, `company_kind` (`large`, `established`, `startup`, `ai_startup`, `unknown`), `title`, `location`, `posted_at` (the source's own posting date in its original format; `null` when the source gives none), `url`, `application_url` (for aggregator records this comes from the provider and may still be a provider page; check `verification_scope`) |
+| Posting | `company`, `company_kind` (`large`, `established`, `startup`, `ai_startup`, `unknown`), `title`, `location`, `posted_at` (the source's own posting date in its original format; `null` when the source gives none), `faang_plus` (curated list of top employers, not a model judgment), `sponsorship_not_offered` and `us_citizenship_required` (fixed rules over the posting text; `false` means no such statement was found, not that sponsorship is offered or citizenship is not required), `url`, `application_url` (for aggregator records this comes from the provider and may still be a provider page; check `verification_scope`) |
 | Experience | `required_years`, `preferred_years`, `preferred_years_range`, `experience_level` (`junior`, `mid`, `senior`, `staff`, `unknown`), `title_seniority`, `seniority_conflict`, `seniority_note` |
 | Assessment | `retrieval_category` (filter on this; `stretch` means a relevant role whose stated mandatory experience is Mid, Senior or Staff, or one the model labeled `reject` despite a relevant role), `assessment.decision` (the model's raw label: `recommend`, `review` or `reject`), `assessment.role` (`uxr` or `adjacent_research`), `assessment.employment` (`internship`, `full_time`, `contract`, `other`, `unknown`), `assessment.evidence[]`, `assessment.extraction_warnings` |
 | Retry state | `validation_error`, `inference_stage`, `inference_attempts`, `retry_at`; meaningful only for `model_pending` |
@@ -124,6 +124,11 @@ do not infer that different source keys always mean different vacancies.
   the assessment (the local MLX 8-bit conversion or an official release of the same
   Qwen3.8-27B weights used for backlog bursts). `model`, `prompt_version`, and
   `policy_hash` identify the generation context. Changed job content invalidates cached judgments.
+
+`sponsorship_not_offered` and `us_citizenship_required` are best-effort readings of the
+exact posting text, not model output. A "we do sponsor" nearby, a candidate who does not
+need sponsorship, or permanent residents being admitted all suppress the flag. Check the
+posting before relying on either.
 
 Free-text model `reason` is omitted. The compatible `notes` and `uncertainties`
 arrays are empty, with `narrative_status: omitted_unverified_model_narrative`:

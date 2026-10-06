@@ -16,7 +16,8 @@
 - The LLM must never generate or rewrite links. Preserve source IDs and URLs;
   validate current feed membership and page status independently.
 - Missing experience is unknown, not zero. Preferred experience is not mandatory.
-- Large employers get a visible README marker and priority; keep startups included.
+- Large employers keep queue priority and a `company_kind` label; only the curated FAANG+ list (`pipeline.FAANG_PLUS`) gets the 🔥 README marker. Keep startups included.
+- Sponsorship and U.S.-citizenship flags come from fixed rules over the exact posting text, never the model; they must prefer a missed flag to a wrong one (an affirmative "we do sponsor" suppresses the flag).
 - Use uv, a project .venv and uv.lock. Keep shared model weights outside the repo.
 - Do not modify unrelated model hosts, projects or global environments.
 - Benchmark reports must include hardware, macOS build and Xcode version, and

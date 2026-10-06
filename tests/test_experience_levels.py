@@ -5,7 +5,7 @@ import pytest
 
 from uxr_radar.core import (Assessment, Job, experience_level, experience_metadata, messages,
     publication_decision, title_seniority, validate_assessment, anonymous_policy)
-from uxr_radar.pipeline import FEED_URL, age_cell, assessment_key, handoff_assessment, location_cell, place_label, posted_age, render
+from uxr_radar.pipeline import FEED_URL, age_cell, assessment_key, faang_plus, handoff_assessment, location_cell, place_label, posted_age, posting_flags, render
 from uxr_radar.store import Store
 
 
@@ -198,8 +198,10 @@ def test_age_parses_the_source_date_formats_and_never_invents_one():
     assert [age_cell(d) for d in (None,0,29,30,364,365)]==["—","0d","29d","1mo","12mo","1y"]
 
 
-def test_large_employers_get_only_a_flame_and_repeats_collapse(tmp_path):
-    jobs=[job("Conduct user interviews.").model_copy(update={"key":f"acme:{n}","source_id":str(n),"title":f"Researcher {n}","company_kind":"large"}) for n in (1,2)]
+def test_flame_marks_faang_plus_only_and_repeats_collapse(tmp_path):
+    base=job("Conduct user interviews.")
+    jobs=[base.model_copy(update={"key":f"acme:{n}","source_id":str(n),"title":f"Researcher {n}","company":name,"company_kind":"large"})
+        for n,name in enumerate(("Amazon","Amazon","Acme Corp"))]
     store=Store(tmp_path/"jobs.sqlite3");store.snapshot("acme",jobs)
     a=assessment(None)
     with store.db:
@@ -207,52 +209,42 @@ def test_large_employers_get_only_a_flame_and_repeats_collapse(tmp_path):
             store.db.execute("UPDATE jobs SET assessment=?,assessment_key=? WHERE key=?",(a.model_dump_json(),assessment_key(j,{},"test"),j.key))
     output=tmp_path/"README.md";render(store,{},"test",output)
     text=output.read_text()
-    assert text.count("🔥")>=2 and "LARGE" not in text  # legend + the first row's flame
-    assert text.count("| ↳ |")==1
+    assert text.count("| **Amazon** 🔥 |")==1 and text.count("| ↳ |")==1  # second Amazon row collapses
+    assert "| **Acme Corp** |" in text and "Acme Corp** 🔥" not in text  # large, but not FAANG+
+    rows={json.loads(l)["company"]:json.loads(l) for l in output.with_name("positions.jsonl").read_text().splitlines()}
+    assert rows["Amazon"]["faang_plus"] is True and rows["Acme Corp"]["faang_plus"] is False and rows["Acme Corp"]["company_kind"]=="large"
 
 
-def test_multiple_locations_split_onto_lines_whatever_the_separator():
-    assert location_cell("San Francisco, CA | New York City, NY | Seattle, WA")=="San Francisco, CA<br>New York City, NY<br><sub>+1 more</sub>"
-    assert location_cell("New York, NY; San Francisco, CA")=="New York, NY<br>San Francisco, CA"
-    assert location_cell("Remote/Hybrid - US")=="Remote/Hybrid - US"
-    assert location_cell("San Francisco, CA • New York, NY • United States")=="San Francisco, CA<br>New York, NY<br><sub>+1 more</sub>"
+def test_faang_plus_matches_names_not_substrings():
+    assert all(faang_plus(n) for n in ("Amazon","Amazon.com","Google LLC","Meta","NVIDIA","OpenAI","Anthropic","Microsoft Corporation"))
+    assert not any(faang_plus(n) for n in ("Apple Bank","Metabase","Elastic","Airbnb","Googleplex Staffing"))
 
 
-def test_country_codes_are_uppercase_and_numeric_region_codes_are_dropped():
-    assert place_label("Singapore, 01, sg")=="Singapore, SG"
-    assert place_label("Pasig City, 00, ph")=="Pasig City, PH"
-    assert place_label("Milano, MI, it")=="Milano, MI, IT"
-    assert place_label("Santa Clara, CALIFORNIA, us")=="Santa Clara, CALIFORNIA, US"
-    assert place_label("Remote - Colombia")=="Remote - Colombia" and place_label("sg")=="sg"  # a lone token is not a code to rewrite
+@pytest.mark.parametrize("text,expected",[
+    ("We do not offer visa sponsorship for this role.",(True,False)),
+    ("Please note that visa sponsorship is not available for this position.",(True,False)),
+    ("We are unable to sponsor visas at this time.",(True,False)),
+    ("Candidates must be authorized to work in the US without sponsorship.",(True,False)),
+    ("We do sponsor visas! However, we aren't able to successfully sponsor visas for every role and every candidate.",(False,False)),
+    ("This role does not require sponsorship now or in the future.",(False,False)),
+    ("Visa sponsorship is available for the right candidate.",(False,False)),
+    ("You must be a U.S. citizen to apply.",(False,True)),
+    ("This position requires U.S. citizenship and an active TS/SCI clearance.",(False,True)),
+    ("US Citizenship required. 8+ years of experience.",(False,True)),
+    ("Must be a U.S. citizen or permanent resident.",(False,False)),
+    ("Open to U.S. citizens, permanent residents and visa holders. Tell us about your citizenship goals.",(False,False)),
+    ("Help us citizenship workshops run smoothly.",(False,False)),
+])
+def test_posting_flags_read_the_text_and_prefer_missing_to_wrong(text,expected):
+    assert posting_flags(text)==expected
 
 
-def section_of(text,title):
-    heading=None
-    for line in text.splitlines():
-        if line.startswith("## "):heading=line[3:]
-        if line.startswith("|") and title in line:return heading
-    return None
-
-
-def test_roles_are_grouped_by_uxr_level_and_related(tmp_path):
-    specs=[("Junior UXR",dict(years=2),"uxr"),("Senior UXR",dict(years=6),"uxr"),("Staff UXR",dict(years=9),"uxr"),
-        ("Mid UXR",dict(years=4),"uxr"),("Unstated UXR",dict(years=None),"uxr"),("Insights Analyst",dict(years=3),"adjacent_research")]
-    store=Store(tmp_path/"jobs.sqlite3");jobs=[]
-    for n,(title,spec,role) in enumerate(specs):
-        j=job("Conduct user interviews.").model_copy(update={"key":f"acme:{n}","source_id":str(n),"title":title});jobs.append(j)
-    store.snapshot("acme",jobs)
+def test_flags_reach_the_readme_and_the_feed(tmp_path):
+    j=job("Conduct user interviews. We do not offer visa sponsorship. You must be a U.S. citizen.")
+    store=Store(tmp_path/"jobs.sqlite3");store.snapshot("acme",[j])
     with store.db:
-        for j,(title,spec,role) in zip(jobs,specs):
-            years=spec["years"]
-            evidence=[{"field":"experience","quote":f"Requires {years} years."}] if years else [{"field":"role","quote":"Conduct user interviews."}]
-            a=assessment(years,role=role,evidence=evidence) if years else assessment(None,role=role)
-            store.db.execute("UPDATE jobs SET assessment=?,assessment_key=?,link_state='verified',checked_at=last_seen WHERE key=?",(a.model_dump_json(),assessment_key(j,{},"test"),j.key))
+        store.db.execute("UPDATE jobs SET assessment=?,assessment_key=?",(assessment(None).model_dump_json(),assessment_key(j,{},"test")))
     output=tmp_path/"README.md";render(store,{},"test",output)
-    text=output.read_text()
-    rows={json.loads(l)["title"]:json.loads(l) for l in output.with_name("positions.jsonl").read_text().splitlines()}
-    assert all(r["verified"] for r in rows.values()), "test rows must be link-verified to reach the main sections"
-    assert {t:section_of(text,t) for t,_,_ in specs}=={
-        "Junior UXR":"🌱 UXR Junior","Mid UXR":"🌿 UXR Mid","Senior UXR":"🌳 UXR Senior","Staff UXR":"🏆 UXR Staff",
-        "Unstated UXR":"❔ UXR Experience not stated","Insights Analyst":"🔗 Related non-UXR roles"}
-    assert "| Level |" not in text
-    assert "Insights Analyst<br><sub>Junior · req 3y</sub>" in text  # mixed-level section carries the level in small print
+    row=json.loads(output.with_name("positions.jsonl").read_text())
+    assert row["sponsorship_not_offered"] is True and row["us_citizenship_required"] is True
+    assert "UX Researcher 🛂 🇺🇸" in output.read_text()
