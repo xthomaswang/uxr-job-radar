@@ -18,7 +18,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from .core import digest, now
-from .pipeline import render, verify_links
+from .pipeline import load_exclusions, render, verify_links
 from .store import try_lock
 
 GENERATED = ("README.md", "positions.jsonl")
@@ -138,7 +138,7 @@ def stage_and_audit(git, repo, denylist):
 
 
 def publish(repo, store, policy, model, *, push=True, dry_run=False, remote="origin", branch="main",
-            refresh_seconds=6 * 3600, verify_age_seconds=6 * 3600, denylist=None, verify=True):
+            refresh_seconds=6 * 3600, verify_age_seconds=6 * 3600, denylist=None, verify=True, exclude_path=None):
     repo = Path(repo).resolve()
     git = Git(repo)
     preflight(git, repo, branch)
@@ -155,7 +155,7 @@ def publish(repo, store, policy, model, *, push=True, dry_run=False, remote="ori
     source_guard(store)
     if verify:
         result["links"] = verify_links(store, min_age_seconds=verify_age_seconds)
-    render(store, policy, model, repo / "README.md")
+    render(store, policy, model, repo / "README.md", excluded=load_exclusions(exclude_path))
     new = {path: (repo / path).read_text() for path in GENERATED}
     old = {}
     for path in GENERATED:

@@ -5,7 +5,7 @@ import pytest
 
 from uxr_radar.core import (Assessment, Job, experience_level, experience_metadata, messages,
     publication_decision, title_seniority, validate_assessment, anonymous_policy)
-from uxr_radar.pipeline import FEED_URL, age_cell, assessment_key, faang_plus, handoff_assessment, location_cell, place_label, posted_age, posting_flags, render
+from uxr_radar.pipeline import FEED_URL, age_cell, assessment_key, faang_plus, handoff_assessment, load_exclusions, location_cell, place_label, posted_age, posting_flags, render
 from uxr_radar.store import Store
 
 
@@ -248,3 +248,19 @@ def test_flags_reach_the_readme_and_the_feed(tmp_path):
     row=json.loads(output.with_name("positions.jsonl").read_text())
     assert row["sponsorship_not_offered"] is True and row["us_citizenship_required"] is True
     assert "UX Researcher 🛂 🇺🇸" in output.read_text()
+
+
+def test_excluded_employers_are_omitted_from_readme_and_feed(tmp_path):
+    base=job("Conduct user interviews.")
+    jobs=[base.model_copy(update={"key":f"acme:{n}","source_id":str(n),"title":f"Researcher {n}","company":name}) for n,name in enumerate(("Keep Co","Skip Me LLC"))]
+    store=Store(tmp_path/"jobs.sqlite3");store.snapshot("acme",jobs)
+    with store.db:
+        for j in jobs:
+            store.db.execute("UPDATE jobs SET assessment=?,assessment_key=? WHERE key=?",(assessment(None).model_dump_json(),assessment_key(j,{},"test"),j.key))
+    listing=tmp_path/"excluded.json"
+    listing.write_text(json.dumps([{"company":"skip me","reason":"private note"},"Other Employer"]))
+    output=tmp_path/"README.md";render(store,{},"test",output,excluded=load_exclusions(listing))
+    text=output.read_text();companies=[json.loads(l)["company"] for l in output.with_name("positions.jsonl").read_text().splitlines()]
+    assert companies==["Keep Co"] and "Skip Me" not in text and "private note" not in text
+    assert "1 postings from employers a maintainer judged not to be direct openings are omitted" in text
+    assert load_exclusions(tmp_path/"missing.json")==frozenset() and load_exclusions(None)==frozenset()

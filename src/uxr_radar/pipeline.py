@@ -381,10 +381,22 @@ US_CITIZENSHIP=[re.compile(pattern,re.I) for pattern in (
 ALTERNATIVE_STATUS=re.compile(r"\bor\b[^.]{0,60}(?:permanent\s+resident|green\s+card|lawful|authoriz|national\b)",re.I)
 
 
-def faang_plus(company):
-    words=re.sub(r"[^a-z0-9]+"," ",company.lower()).split()
+def company_key(name):
+    """Comparable form of an employer name: lowercase words without punctuation or a trailing legal suffix."""
+    words=re.sub(r"[^a-z0-9]+"," ",name.lower()).split()
     while words and words[-1] in LEGAL_SUFFIXES:words.pop()
-    return " ".join(words) in FAANG_PLUS
+    return " ".join(words)
+
+
+def faang_plus(company):
+    return company_key(company) in FAANG_PLUS
+
+
+def load_exclusions(path):
+    """Employer names a maintainer has judged not to be direct openings. A local file (a JSON list of names or
+    {"company": name, "reason": text} objects) so named judgments stay out of the public repository."""
+    if not path or not Path(path).exists():return frozenset()
+    return frozenset(company_key(item["company"] if isinstance(item,dict) else item) for item in json.loads(Path(path).read_text()))
 
 
 CANDIDATE_NEED=re.compile(r"\b(?:require|requires|required|need|needs)\b",re.I)
@@ -475,16 +487,17 @@ def row_order(profile):
     return key
 
 
-def render(store,profile,model,path):
+def render(store,profile,model,path,*,excluded=frozenset()):
     rows=store.rows();sources=store.db.execute("SELECT * FROM sources ORDER BY id").fetchall()
     pending=sum(not r["missing"] and r["assessment_key"]!=assessment_key(Job.model_validate_json(r["data"]),profile,model) for r in rows)
     sections={name:[] for name in (*UXR_SECTIONS.values(),SECTION_RELATED,SECTION_MODEL,SECTION_LINK)}
     exported=[]
-    rejected=0;reviewed=0;failed_attempts=0
+    rejected=0;reviewed=0;failed_attempts=0;omitted=0
     source_by_id={s["id"]:s for s in sources}
     for r in rows:
         j=Job.model_validate_json(r["data"])
         if r["missing"]:continue
+        if company_key(j.company) in excluded:omitted+=1;continue
         current_key=assessment_key(j,profile,model)
         a=None
         if r["assessment"] and r["assessment_key"]==current_key:
@@ -543,7 +556,7 @@ def render(store,profile,model,path):
       "- A role appears in the tables above only when its link was verified recently: recent source membership and a matching reachable listing at check time. **Link check pending** lists the rest. Aggregator records verify the provider listing, not the employer application page; positions.jsonl distinguishes `verification_scope` and `employer_verified`. Links come only from source feeds; the model cannot create or edit them.",
       "- This is information retrieval, not final eligibility screening. Relevant roles stay visible even with unknown experience or qualification gaps, and no applicant eligibility is inferred. Free-text model reasons, notes and uncertainties are withheld. Source quotes in positions.jsonl are not a complete eligibility check; downstream reviewers must inspect the original posting.",
       "- Every public posting returned by configured feeds enters the model queue. Title terms and, when installed, an on-device CLM-v0.1-8B relevance score affect processing order only; neither rejects a posting. Cached judgments are reused only for identical content, anonymous collection policy, model and prompt. A partial queue is not complete coverage. Large backlogs may be judged on a rented notebook GPU running the official release of the same weights; each positions.jsonl record names the exact weights.","",
-      f"Reviewed with current configuration: {reviewed}; clearly unrelated: {rejected}; failed attempts retained without fit claims: {failed_attempts}. All judgments and raw model outputs are retained locally in SQLite; relevant fit-gap roles remain above.","",
+      f"Reviewed with current configuration: {reviewed}; clearly unrelated: {rejected}; failed attempts retained without fit claims: {failed_attempts}. All judgments and raw model outputs are retained locally in SQLite; relevant fit-gap roles remain above."+(f" {omitted} postings from employers a maintainer judged not to be direct openings are omitted." if omitted else ""),"",
       "## Source health","","<details><summary>Per-source fetch status</summary>","","| Source | Last successful fetch | Jobs | Error |","|---|---|---|---|"]
     lines += [f"| {s['id']} | {display_time(s['succeeded_at'])} | {s['count']} | {'source_fetch_failed' if s['error'] else 'none'} |" for s in sources]
     lines += ["","</details>","","## Run locally","","See [setup and commands](docs/SETUP.md).","","The public collection policy contains no candidate dossier. Application decisions belong to downstream humans or agents.",

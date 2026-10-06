@@ -7,7 +7,7 @@ import fcntl
 from contextlib import contextmanager
 from pathlib import Path
 
-from .pipeline import BackendUnavailable, fetch_all, review_pending, verify_links, render
+from .pipeline import BackendUnavailable, fetch_all, load_exclusions, review_pending, verify_links, render
 from .store import Store
 
 DEFAULT_BASE_URL = "http://127.0.0.1:8013/v1"
@@ -61,6 +61,7 @@ def main():
     p.add_argument("--refresh-hours",type=float,default=6,help="publish: commit refreshed timestamps at least this often")
     p.add_argument("--verify-age-hours",type=float,default=6,help="publish: recheck links older than this")
     p.add_argument("--denylist",default="state/publication-denylist.json",help="publish: ignored local audit denylist, if present")
+    p.add_argument("--exclude-employers",default="state/excluded-employers.json",help="publish/render: ignored local list of employers omitted from the public outputs, if present")
     p.add_argument("--no-probe",dest="probe",action="store_false",help="status: skip the model host check")
     p.add_argument("--no-manage-server",dest="manage_server",action="store_false",help="worker: never start/stop the local model host, only use one that answers")
     p.add_argument("--idle-stop-minutes",type=float,default=10,help="worker: stop the model host it started after this long without due jobs")
@@ -117,7 +118,7 @@ def main():
         from .service import daemon_logging
         with daemon_logging("publisher",args.log_dir):
             code=run_publisher(args.repo,store,policy,args.model,state_path=args.state,push=args.push,dry_run=args.dry_run,
-                refresh_seconds=args.refresh_hours*3600,verify_age_seconds=args.verify_age_hours*3600,denylist=args.denylist)
+                refresh_seconds=args.refresh_hours*3600,verify_age_seconds=args.verify_age_hours*3600,denylist=args.denylist,exclude_path=args.exclude_employers)
         raise SystemExit(code)
     if args.command=="export-batch":
         from .batch import export_batch
@@ -155,7 +156,7 @@ def main():
                 fetch_all(store,json.loads(Path(args.sources).read_text()),Path(args.state).parent/"raw")
                 review(policy)
                 verify_links(store)
-                render(store,policy,args.model,args.output)
+                render(store,policy,args.model,args.output,excluded=load_exclusions(args.exclude_employers))
                 time.sleep(max(1,args.interval-(time.monotonic()-start)))
         return
     if args.command in {"fetch","run"}:
@@ -163,7 +164,7 @@ def main():
     if args.command in {"review","retry","run"}:review(policy)
     if args.command in {"verify","run"}:
         verify_links(store)
-    render(store,policy,args.model,args.output)
+    render(store,policy,args.model,args.output,excluded=load_exclusions(args.exclude_employers))
     if unavailable:raise SystemExit(3)
 
 
