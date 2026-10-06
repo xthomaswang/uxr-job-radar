@@ -256,3 +256,15 @@ def test_string_length_feedback_rejects_non_numeric_context_limit():
                 "ctx":{"max_length":"Fictional private context"}}]
     feedback=validation_feedback(UntrustedContextError("Overview",[]))
     assert feedback=="JSON schema validation failed: summary: string_too_long"
+
+
+def test_every_fixed_validator_message_reaches_the_retry_prompt(job):
+    """Fixed validate_assessment messages carry no model text; generic feedback made retries repeat the error."""
+    import inspect, re as regex
+    from uxr_radar import core
+    from uxr_radar.pipeline import validation_feedback
+    messages_raised=regex.findall(r'raise ValueError\("([^"]+)"\)',inspect.getsource(core.validate_assessment)+inspect.getsource(core.validate_overview))
+    assert messages_raised
+    for message in messages_raised:
+        assert validation_feedback(ValueError(message))==message
+    assert validation_feedback(ValueError("Fictional model text"))=="Model response could not be validated: ValueError"

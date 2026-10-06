@@ -109,7 +109,8 @@ def validation_feedback(error):
         # Only our fixed validation messages or JSON decoder messages, never raw model text.
         known=("Evidence is not an exact excerpt", "Overview evidence is not an exact excerpt",
                "Experience number", "Senior experience", "Experience category", "Recommendation contradicts",
-               "Truncated/incomplete", "Relevant and uncertain")
+               "Truncated/incomplete", "Relevant and uncertain", "Experience evidence is preference-only",
+               "Experience zero requires", "Experience preference number")
         if str(error).startswith(known):return str(error)
     return "Model response could not be validated: "+type(error).__name__
 
