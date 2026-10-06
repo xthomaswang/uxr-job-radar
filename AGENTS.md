@@ -1,5 +1,8 @@
 # Project conventions
 
+> Using the job feed, for example to apply? Start at [docs/HANDOFF.md](docs/HANDOFF.md).
+> This file is for contributors changing the code.
+
 - This is a public, anonymous job-discovery repository. Commit only generic search
   policy, prompts, source adapters and job facts. Never add an applicant biography,
   names, schools, portfolio links, resume, contact details or applicant-specific notes.

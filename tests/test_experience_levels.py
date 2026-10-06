@@ -1,10 +1,11 @@
 import json
+import re
 
 import pytest
 
 from uxr_radar.core import (Assessment, Job, experience_level, experience_metadata, messages,
     publication_decision, title_seniority, validate_assessment, anonymous_policy)
-from uxr_radar.pipeline import assessment_key, handoff_assessment, render
+from uxr_radar.pipeline import FEED_URL, assessment_key, handoff_assessment, render
 from uxr_radar.store import Store
 
 
@@ -91,7 +92,7 @@ def test_readme_and_jsonl_expose_year_level_separately_from_source_title(tmp_pat
     assert row["experience_level"]=="junior" and row["title_seniority"]=="staff" and row["seniority_conflict"]
     assert row["required_years"]==3 and row["retrieval_category"]=="recommend"
     assert row["assessment"]["experience_level"]=="junior"
-    assert "| Experience level |" in output.read_text() and "| Junior |" in output.read_text()
+    assert "| Level |" in output.read_text() and "| Junior ⚠ |" in output.read_text()  # ⚠: Staff title vs 3 stated years
     assert "Staff UX Researcher" in output.read_text() and "Mid >3 and <5" in output.read_text()
 
 
@@ -122,7 +123,7 @@ def test_unsupported_qualification_narrative_stays_local(tmp_path):
     assert public["evidence"]==a.model_dump()["evidence"] and public["required_years"]==3
     for value in invented_notes+a.uncertainties:
         assert value not in text+output.read_text()
-    assert "Model notes to verify: withheld" in output.read_text()
+    assert "Free-text model reasons, notes and uncertainties are withheld" in output.read_text()
     assert "not a complete eligibility check" in output.read_text()
     assert a.notes==invented_notes
     assert store.rows()[0]["assessment"]==raw
@@ -173,4 +174,18 @@ def test_preferred_range_is_exported_and_rendered(tmp_path):
     row=json.loads(output.with_name("positions.jsonl").read_text())
     assert row["preferred_years"] is None and row["preferred_years_range"]=={"min":1,"max":3}
     assert row["assessment"]["preferred_years_range"]==row["preferred_years_range"]
-    assert "preferred years: 1–3;" in output.read_text()
+    assert "| — / 1–3 |" in output.read_text()  # required not stated; preferred shown as a range, not the scalar 3
+
+
+def test_readme_points_agents_at_the_feed_and_counts_match_it(tmp_path):
+    j=job("Conduct user interviews. Requires 3 years of research.")
+    a=assessment(3,evidence=[{"field":"experience","quote":"Requires 3 years of research."}])
+    store=Store(tmp_path/"jobs.sqlite3");store.snapshot("acme",[j])
+    with store.db:
+        store.db.execute("UPDATE jobs SET assessment=?,assessment_key=?",(a.model_dump_json(),assessment_key(j,{},"test")))
+    output=tmp_path/"README.md";render(store,{},"test",output)
+    text=output.read_text()
+    assert "(docs/HANDOFF.md)" in text and FEED_URL in text
+    glance=re.search(r"\|---:\|---:\|---:\|---:\|---:\|\n\| (\d+) \| (\d+) \| (\d+) \| (\d+) \| (\d+) \|",text)
+    assert sum(map(int,glance.groups()))==len(output.with_name("positions.jsonl").read_text().splitlines())==1
+    assert text.count("<details>")==text.count("</details>")

@@ -349,17 +349,51 @@ def handoff_assessment(a, title="", policy=None):
     return result
 
 
+FEED_URL="https://raw.githubusercontent.com/xthomaswang/uxr-job-radar/main/positions.jsonl"
+SECTION_PRIORITY,SECTION_REVIEW,SECTION_STRETCH="Priority roles","More relevant roles","Stretch roles"
+SECTION_MODEL,SECTION_LINK="Model validation pending","Link check pending"
+SECTION_BLURBS={
+    SECTION_PRIORITY:"Recommended by the model, with Junior or unstated mandatory experience. Links were checked recently.",
+    SECTION_REVIEW:"Related roles the model flagged for a closer look, with Junior or unstated mandatory experience.",
+    SECTION_STRETCH:"Relevant roles whose stated mandatory experience is Mid, Senior or Staff, or that the model rated a weaker fit. They stay visible for recall.",
+    SECTION_MODEL:"Source facts only: the model output failed validation and the stage is being retried. No fit claim is made.",
+    SECTION_LINK:"Relevant roles whose link or source feed was not rechecked in the last 24 hours. They move up once verified.",
+}
+LEVEL_ORDER={"junior":0,"unknown":1,"mid":2,"senior":3,"staff":4}
+EMPLOYMENT_LABELS={"internship":"Intern","full_time":"Full-time","contract":"Contract"}
+KIND_LABELS={"ai_startup":"AI startup","startup":"startup","established":"established"}
+TABLE_HEAD=["| Company | Role | Level | Years req. / pref. | Type | Location | Link checked |","|---|---|---|---|---|---|---|"]
+
+
+def years_cell(handoff):
+    """Mandatory / preferred years; an em dash means not stated, never zero."""
+    required="—" if handoff["required_years"] is None else f"{handoff['required_years']:g}"
+    preferred="—" if handoff["preferred_years"] is None else f"{handoff['preferred_years']:g}"
+    if handoff["preferred_years_range"]:
+        preferred=f"{handoff['preferred_years_range']['min']:g}–{handoff['preferred_years_range']['max']:g}"
+    return f"{required} / {preferred}"
+
+
+def readme_row(j,a,r,profile,*,show_state=False):
+    company=f"★ {safe_md(j.company)}" if j.company_kind=="large" else safe_md(j.company)
+    if j.company_kind in KIND_LABELS:company+=f" · {KIND_LABELS[j.company_kind]}"
+    url=j.url.replace("(","%28").replace(")","%29")
+    if j.source_kind=="aggregator":company+=f" · via [{safe_md(j.source_label or j.source)}]({url})"
+    checked=display_time(r["checked_at"])+(f" ({r['link_state']})" if show_state else "")
+    if a is None:
+        level,years,kind="Unknown","— / —",j.employment_type
+    else:
+        handoff=handoff_assessment(a,j.title,profile)
+        level=handoff["experience_level"].title()+(" ⚠" if handoff["seniority_conflict"] else "")
+        years,kind=years_cell(handoff),a.employment
+    kind=EMPLOYMENT_LABELS.get(kind,kind.replace("_"," ").title())
+    return f"| {company} | [{safe_md(j.title)}]({url}) | {level} | {years} | {safe_md(kind)} | {safe_md(short_location(j.location))} | {checked} |"
+
+
 def render(store,profile,model,path):
     rows=store.rows();sources=store.db.execute("SELECT * FROM sources ORDER BY id").fetchall()
     pending=sum(not r["missing"] and r["assessment_key"]!=assessment_key(Job.model_validate_json(r["data"]),profile,model) for r in rows)
-    lines=["# UXR Job Radar", "", "High-recall UXR and related research opportunity pool, assessed with self-hosted Qwen3.8-27B: on a local Mac, and for large backlogs on a rented notebook GPU running the official release of the same weights. Each positions.jsonl row names the exact weights. Applications are handled separately.", "",
-      f"Generated: {display_time(now())} · Model: `{model}` · Prompt: `{PROMPT_VERSION}` · Policy: `{digest(anonymous_policy(profile))}`", "",
-      f"Tracked: {len(rows)} · Pending current model/policy review: **{pending}** · Sources with errors: **{sum(bool(s['error']) for s in sources)}** · Jobs with inference errors: **{sum(bool(r['error']) for r in rows if not r['missing'])}**", "",
-      "**★ LARGE** is a curated company-priority label, not a model judgment. Startups and AI startups remain eligible.", "",
-      "Experience levels use explicit mandatory years only: **Junior ≤3**, **Mid >3 and <5**, **Senior ≥5 and <8**, **Staff ≥8**, **Unknown** when unstated. Mid is an explicit intermediate bin added for the otherwise uncovered range. Preferred years and title seniority remain separate; discrepancies are labeled. Every relevant level stays in the recall pool.", "",
-      "Every public posting returned by configured feeds enters the model queue. Title terms and, when installed, an on-device CLM-v0.1-8B relevance score affect processing order only; neither rejects a posting. Cached judgments are reused only for identical content, anonymous collection policy, model and prompt. A partial queue is not complete coverage.", "",
-      "This is information retrieval, not final eligibility screening. Relevant roles stay visible even with unknown experience or qualification gaps. Free-text model reasons, notes and uncertainties are withheld. Source quotes are not a complete eligibility check; downstream reviewers must inspect the original posting. No applicant eligibility is inferred. Links come only from source feeds; the model cannot create or edit them. Verified means recent source membership and a matching reachable listing at check time. Aggregator records verify the provider listing, not the employer application page; JSONL distinguishes verification_scope and employer_verified.", ""]
-    sections={"Priority opportunities — verified links":[],"More relevant opportunities — verified links":[],"Stretch opportunities — verified links":[],"Model validation needed — source facts only":[],"Link/source verification needed":[]}
+    sections={"Priority roles":[],"More relevant roles":[],"Stretch roles":[],"Model validation pending":[],"Link check pending":[]}
     exported=[]
     rejected=0;reviewed=0;failed_attempts=0
     source_by_id={s["id"]:s for s in sources}
@@ -384,44 +418,48 @@ def render(store,profile,model,path):
         fresh=fresh and listing_seen_recently
         checked_fresh=bool(r["checked_at"] and (datetime.now(timezone.utc)-datetime.fromisoformat(r["checked_at"])).total_seconds()<86400)
         verified=r["link_state"]=="verified" and fresh and checked_fresh
-        section=({"recommend":"Priority opportunities — verified links","review":"More relevant opportunities — verified links","stretch":"Stretch opportunities — verified links","model_pending":"Model validation needed — source facts only"}[decision]) if verified else "Link/source verification needed"
+        section=({"recommend":"Priority roles","review":"More relevant roles","stretch":"Stretch roles","model_pending":"Model validation pending"}[decision]) if verified else "Link check pending"
         handoff=handoff_assessment(a,j.title,profile) if a else None
         level_metadata=experience_metadata(j.title,handoff["required_years"] if handoff else None,profile)
         exported.append({**level_metadata,"required_years":handoff["required_years"] if handoff else None,"preferred_years":handoff["preferred_years"] if handoff else None,"preferred_years_range":handoff["preferred_years_range"] if handoff else None,"key":j.key,"company":j.company,"company_kind":j.company_kind,"title":j.title,"location":j.location,"url":j.url,"source":j.source,"source_id":j.source_id,"source_kind":j.source_kind,"source_label":j.source_label or j.company,"source_url":j.source_url,"source_listing_url":j.url,"application_url":j.application_url if j.source_kind=="aggregator" else j.url,"verification_scope":"aggregator_listing" if j.source_kind=="aggregator" else "employer_listing","employer_verified":verified and j.source_kind=="official","first_seen":r["first_seen"],"last_seen":r["last_seen"],"link_state":r["link_state"],"link_checked_at":r["checked_at"],"source_fresh":fresh,"link_fresh":checked_fresh,"verified":verified,"retrieval_category":decision,"assessment":handoff,"validation_error":"model_request_or_validation_failure" if a is None else None,"inference_stage":retry_task["stage"] if retry_task else "legacy","inference_attempts":retry_task["total_attempts"] if retry_task else None,"retry_at":retry_task["next_retry_at"] if retry_task else None,"model":(r["assessed_by"] or model) if a else model,"prompt_version":PROMPT_VERSION,"policy_hash":digest(anonymous_policy(profile))})
         sections[section].append((j,a,r))
+    counts={name:len(items) for name,items in sections.items()}
+    lines=["# UXR Job Radar","",
+      "A live pool of UX research and adjacent research openings, screened by a self-hosted Qwen3.8-27B model (on a local Mac, and for large backlogs on a rented notebook GPU running the official release of the same weights) and refreshed hourly while the host Mac is online. Roles with unknown experience or qualification gaps stay in the list; a person or an agent decides whether to apply.","",
+      f"Generated: {display_time(now())} · Model: `{model}` · Prompt: `{PROMPT_VERSION}` · Policy: `{digest(anonymous_policy(profile))}`","",
+      "| Priority | More relevant | Stretch | Link check pending | Model validation pending |","|---:|---:|---:|---:|---:|",
+      f"| {counts[SECTION_PRIORITY]} | {counts[SECTION_REVIEW]} | {counts[SECTION_STRETCH]} | {counts[SECTION_LINK]} | {counts[SECTION_MODEL]} |","",
+      f"Tracked: {len(rows)} · Pending current model/policy review: **{pending}** · Sources with errors: **{sum(bool(s['error']) for s in sources)}** · Jobs with inference errors: **{sum(bool(r['error']) for r in rows if not r['missing'])}**","",
+      "## Where to start","",
+      "- **Browsing yourself:** jump to [Priority roles](#priority-roles), [More relevant roles](#more-relevant-roles) or [Stretch roles](#stretch-roles). Large employers and lower experience levels come first. [How to read this list](#how-to-read-this-list) explains the columns.",
+      f"- **AI agents** (auto-apply, triage, matching): read [docs/HANDOFF.md](docs/HANDOFF.md) first. It says what to load, how to filter and what to recheck before submitting. The complete feed is [positions.jsonl](positions.jsonl), {len(exported)} records, one JSON object per line: {FEED_URL}","",
+      "The tables below show at most "+str(README_ROWS_PER_SECTION)+" rows per section so the page keeps rendering; positions.jsonl lists every record.",""]
+    collapsed={SECTION_MODEL,SECTION_LINK}
     for name,items in sections.items():
-        lines += [f"## {name}","","| Company | Position | Experience level | Type | Location | AI labels & source evidence | Link checked |","|---|---|---|---|---|---|---|"]
-        ranked=sorted(items,key=lambda x:(x[0].company_kind!="large", {"junior":0,"unknown":1,"mid":2,"senior":3,"staff":4}[experience_level(x[1].required_years if x[1] else None,profile)], x[0].company,x[0].title))
-        for j,a,r in ranked[:README_ROWS_PER_SECTION]:
-            company=f"**★ LARGE · {safe_md(j.company)}**" if j.company_kind=="large" else f"{safe_md(j.company)} · {j.company_kind}"
-            url=j.url.replace("(","%28").replace(")","%29")
-            if j.source_kind=="aggregator":
-                company+=f" · via [{safe_md(j.source_label or j.source)}]({url})"
-            if a is None:
-                lines.append(f"| {company} | [{safe_md(j.title)}]({url}) | Unknown — model pending | {safe_md(j.employment_type)} | {safe_md(short_location(j.location))} | Model validation pending; source facts only. Failed stage stays in the persistent retry queue. | {display_time(r['checked_at'])} ({r['link_state']}) |")
-                continue
-            evidence=" / ".join(safe_md(e.quote) for e in a.evidence)
-            handoff=handoff_assessment(a,j.title,profile)
-            threshold=handoff["required_years"]
-            years="unknown" if threshold is None else f"{threshold:g}"
-            preferred="unknown" if handoff["preferred_years"] is None else f"{handoff['preferred_years']:g}"
-            if handoff["preferred_years_range"]:
-                preferred=f"{handoff['preferred_years_range']['min']:g}–{handoff['preferred_years_range']['max']:g}"
-            level=handoff["experience_level"].title()
-            reason=f"AI role label: {a.role}; mandatory minimum years: {years}; preferred years: {preferred}; source title seniority: {handoff['title_seniority']}. "
-            if handoff["seniority_note"]:reason+=handoff["seniority_note"]+" "
-            if handoff["extraction_warnings"]:reason+=" ".join(handoff["extraction_warnings"])+" "
-            if publication_decision(a,profile)=="stretch":reason+="Retained at its stated experience level. "
-            lines.append(f"| {company} | [{safe_md(j.title)}]({url}) | {level} | {a.employment} | {safe_md(short_location(j.location))} | {safe_md(reason)} Evidence: {evidence}. Model notes to verify: withheld as unverified narrative. Source quotes are not a complete eligibility check. | {display_time(r['checked_at'])} ({r['link_state']}) |")
-        if not items:lines += ["","No verified entries in this section yet."]
+        ranked=sorted(items,key=lambda x:(x[0].company_kind!="large", LEVEL_ORDER[experience_level(x[1].required_years if x[1] else None,profile)], x[0].company,x[0].title))
+        lines += [f"## {name}","",SECTION_BLURBS[name],""]
+        if not items:
+            lines += ["No verified entries in this section yet." if name not in collapsed else "No entries in this section.",""]
+            continue
+        if name in collapsed:lines += [f"<details><summary>Show {len(items)} roles</summary>",""]
+        lines += TABLE_HEAD+[readme_row(j,a,r,profile,show_state=name==SECTION_LINK) for j,a,r in ranked[:README_ROWS_PER_SECTION]]
         if len(ranked)>README_ROWS_PER_SECTION:
             lines += ["",f"{len(ranked)-README_ROWS_PER_SECTION} more in this section are listed in [positions.jsonl](positions.jsonl); the table shows the first {README_ROWS_PER_SECTION} in this order."]
+        if name in collapsed:lines += ["","</details>"]
         lines += [""]
-    lines += [f"Reviewed with current configuration: {reviewed}; clearly unrelated: {rejected}; failed attempts retained without fit claims: {failed_attempts}. All judgments and raw model outputs are retained locally in SQLite; relevant fit-gap roles remain above.","","## Source health","","| Source | Last successful fetch | Jobs | Error |","|---|---|---|---|"]
+    lines += ["## How to read this list","",
+      "- **★** marks a large employer. It is a curated company-priority label, not a model judgment; startups and AI startups remain eligible.",
+      "- **Level** uses explicit mandatory years only: **Junior ≤3**, **Mid >3 and <5**, **Senior ≥5 and <8**, **Staff ≥8**, **Unknown** when unstated. Mid is an explicit intermediate bin added for the otherwise uncovered range. **⚠** means the title's seniority label conflicts with the stated years; positions.jsonl carries the note. Every relevant level stays in the recall pool.",
+      "- **Years req. / pref.** is the mandatory minimum and the preferred experience. An em dash (—) means not stated: unknown, not zero. Preferred years are never treated as mandatory, and a quoted range such as 1–3 is kept as a range.",
+      "- **Link checked** is when the listing was last fetched. Verified means recent source membership and a matching reachable listing at check time. Aggregator records verify the provider listing, not the employer application page; positions.jsonl distinguishes `verification_scope` and `employer_verified`. Links come only from source feeds; the model cannot create or edit them.",
+      "- This is information retrieval, not final eligibility screening. Relevant roles stay visible even with unknown experience or qualification gaps, and no applicant eligibility is inferred. Free-text model reasons, notes and uncertainties are withheld. Source quotes in positions.jsonl are not a complete eligibility check; downstream reviewers must inspect the original posting.",
+      "- Every public posting returned by configured feeds enters the model queue. Title terms and, when installed, an on-device CLM-v0.1-8B relevance score affect processing order only; neither rejects a posting. Cached judgments are reused only for identical content, anonymous collection policy, model and prompt. A partial queue is not complete coverage.","",
+      f"Reviewed with current configuration: {reviewed}; clearly unrelated: {rejected}; failed attempts retained without fit claims: {failed_attempts}. All judgments and raw model outputs are retained locally in SQLite; relevant fit-gap roles remain above.","",
+      "## Source health","","<details><summary>Per-source fetch status</summary>","","| Source | Last successful fetch | Jobs | Error |","|---|---|---|---|"]
     lines += [f"| {s['id']} | {display_time(s['succeeded_at'])} | {s['count']} | {'source_fetch_failed' if s['error'] else 'none'} |" for s in sources]
-    lines += ["","## Run locally","","See [setup and commands](docs/SETUP.md).","","The public collection policy contains no candidate dossier. Application decisions belong to downstream humans or agents."]
+    lines += ["","</details>","","## Run locally","","See [setup and commands](docs/SETUP.md).","","The public collection policy contains no candidate dossier. Application decisions belong to downstream humans or agents.",
+      "","Machine-readable handoff: [positions.jsonl](positions.jsonl). Includes relevant reviewed roles and source-only records for failed model attempts, with explicit validation status, source IDs, links and verification times. Never-attempted jobs stay queued and are not mislabeled as reviewed."]
     output=Path(path)
     output.parent.mkdir(parents=True,exist_ok=True)
-    lines += ["", "Machine-readable handoff: [positions.jsonl](positions.jsonl). Includes relevant reviewed roles and source-only records for failed model attempts, with explicit validation status, source IDs, links and verification times. Never-attempted jobs stay queued and are not mislabeled as reviewed."]
     output.write_text("\n".join(lines)+"\n")
     output.with_name("positions.jsonl").write_text("".join(json.dumps(item,ensure_ascii=False)+"\n" for item in exported))
