@@ -54,7 +54,7 @@ Everything needed to see every opportunity is in one file. Read in this order.
 
 ```sh
 curl -sL https://raw.githubusercontent.com/xthomaswang/uxr-job-radar/main/positions.jsonl -o positions.jsonl
-# verified priority roles with Junior or unstated experience
+# verified, model-recommended roles with Junior or unstated experience
 jq -c 'select(.verified and .retrieval_category=="recommend" and (.experience_level=="junior" or .experience_level=="unknown"))' positions.jsonl
 ```
 

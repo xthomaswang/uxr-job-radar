@@ -345,19 +345,22 @@ def handoff_assessment(a, title="", policy=None):
 
 
 FEED_URL="https://raw.githubusercontent.com/xthomaswang/uxr-job-radar/main/positions.jsonl"
-SECTION_PRIORITY,SECTION_REVIEW,SECTION_STRETCH="Priority roles","More relevant roles","Stretch roles"
-SECTION_MODEL,SECTION_LINK="Model validation pending","Link check pending"
-SECTION_EMOJI={SECTION_PRIORITY:"🎯",SECTION_REVIEW:"🔎",SECTION_STRETCH:"🧗",SECTION_MODEL:"🔁",SECTION_LINK:"⏳"}
+UXR_SECTIONS={"junior":"UXR Junior","unknown":"UXR Experience not stated","mid":"UXR Mid","senior":"UXR Senior","staff":"UXR Staff"}
+SECTION_RELATED,SECTION_MODEL,SECTION_LINK="Related non-UXR roles","Model validation pending","Link check pending"
+SECTION_EMOJI={"UXR Junior":"🌱","UXR Experience not stated":"❔","UXR Mid":"🌿","UXR Senior":"🌳","UXR Staff":"🏆",SECTION_RELATED:"🔗",SECTION_MODEL:"🔁",SECTION_LINK:"⏳"}
 SECTION_BLURBS={
-    SECTION_PRIORITY:"Recommended by the model, with Junior or unstated mandatory experience. Links were checked recently.",
-    SECTION_REVIEW:"Related roles the model flagged for a closer look, with Junior or unstated mandatory experience.",
-    SECTION_STRETCH:"Relevant roles whose stated mandatory experience is Mid, Senior or Staff, or that the model rated a weaker fit. They stay visible for recall.",
+    "UXR Junior":"UX research roles that state 3 or fewer mandatory years.",
+    "UXR Experience not stated":"UX research roles that state no mandatory years. Unknown, not zero: this covers internships and early-career roles but also senior roles that give no number.",
+    "UXR Mid":"UX research roles that state more than 3 and fewer than 5 mandatory years.",
+    "UXR Senior":"UX research roles that state 5 or more and fewer than 8 mandatory years.",
+    "UXR Staff":"UX research roles that state 8 or more mandatory years.",
+    SECTION_RELATED:"Roles outside core UX research that the model judged related, such as research operations, consumer or market insights and analytics. Levels are mixed, so each role's level is in the small print.",
     SECTION_MODEL:"Source facts only: the model output failed validation and the stage is being retried. No fit claim is made.",
     SECTION_LINK:"Relevant roles whose link or source feed was not rechecked in the last 24 hours. They move up once verified.",
 }
-LEVEL_ORDER={"junior":0,"unknown":1,"mid":2,"senior":3,"staff":4}
 TYPE_TAGS={"internship":"Intern","contract":"Contract"}
-TABLE_HEAD=["| Company | Role | Location | Level | Application | Age |","|:---|:---|:---|:---|:---:|:---:|"]
+MIXED_LEVEL_SECTIONS={SECTION_RELATED,SECTION_MODEL,SECTION_LINK}
+TABLE_HEAD=["| Company | Role | Location | Application | Age |","|:---|:---|:---|:---:|:---:|"]
 
 
 def anchor(name):
@@ -382,37 +385,53 @@ def age_cell(days):
     return f"{days}d" if days<30 else f"{days//30}mo" if days<365 else f"{days//365}y"
 
 
+def place_label(value):
+    """Uppercase a trailing country code and drop the numeric region codes some feeds add ("Singapore, 01, sg")."""
+    parts=[p for p in (x.strip() for x in value.split(",")) if p and not p.isdigit()]
+    if len(parts)>1 and re.fullmatch(r"[a-z]{2}",parts[-1]):parts[-1]=parts[-1].upper()
+    return ", ".join(parts) or value
+
+
 def location_cell(value):
-    places=[p.strip() for p in re.split(r"\s+[/／|]\s+|;\s*",value) if p.strip()] or [value]
-    cell="<br>".join(safe_md(p) for p in places[:2])
+    places=[p.strip() for p in re.split(r"\s+[/／|•]\s+|;\s*",value) if p.strip()] or [value]
+    cell="<br>".join(safe_md(place_label(p)) for p in places[:2])
     return cell+f"<br><sub>+{len(places)-2} more</sub>" if len(places)>2 else cell
 
 
-def level_cell(handoff):
-    """Level plus the mandatory and preferred years when stated; absent years are never shown as zero."""
-    cell=handoff["experience_level"].title()+(" ⚠️" if handoff["seniority_conflict"] else "")
-    facts=[]
-    if handoff["required_years"] is not None:facts.append(f"req {handoff['required_years']:g}y")
-    span=handoff["preferred_years_range"]
-    if span:facts.append(f"pref {span['min']:g}–{span['max']:g}y")
-    elif handoff["preferred_years"] is not None:facts.append(f"pref {handoff['preferred_years']:g}y")
+def role_cell(j,a,profile,*,show_level):
+    """Title plus small print: employment tag, level where a section mixes levels, and stated years. Absent years are never shown as zero."""
+    handoff=handoff_assessment(a,j.title,profile) if a else None
+    cell=safe_md(j.title)+(" ⚠️" if handoff and handoff["seniority_conflict"] else "")
+    employment=a.employment if a else j.employment_type
+    facts=[TYPE_TAGS[employment]] if employment in TYPE_TAGS else []
+    if handoff:
+        if show_level:facts.append("level unstated" if handoff["experience_level"]=="unknown" else handoff["experience_level"].title())
+        if handoff["required_years"] is not None:facts.append(f"req {handoff['required_years']:g}y")
+        span=handoff["preferred_years_range"]
+        if span:facts.append(f"pref {span['min']:g}–{span['max']:g}y")
+        elif handoff["preferred_years"] is not None:facts.append(f"pref {handoff['preferred_years']:g}y")
     return cell+(f"<br><sub>{' · '.join(facts)}</sub>" if facts else "")
 
 
-def readme_row(j,a,profile,*,repeat):
+def readme_row(j,a,profile,*,repeat,show_level):
     company="↳" if repeat else f"**{safe_md(j.company)}**"+(" 🔥" if j.company_kind=="large" else "")
     if j.source_kind=="aggregator":company+=f" 🌐<br><sub>via {safe_md(j.source_label or j.source)}</sub>"
-    employment=a.employment if a else j.employment_type
-    role=safe_md(j.title)+(f"<br><sub>{TYPE_TAGS[employment]}</sub>" if employment in TYPE_TAGS else "")
-    level=level_cell(handoff_assessment(a,j.title,profile)) if a else "Unknown"
     url=j.url.replace("(","%28").replace(")","%29")
-    return f"| {company} | {role} | {location_cell(j.location)} | {level} | [Apply]({url}) | {age_cell(posted_age(j.posted_at))} |"
+    return f"| {company} | {role_cell(j,a,profile,show_level=show_level)} | {location_cell(j.location)} | [Apply]({url}) | {age_cell(posted_age(j.posted_at))} |"
+
+
+def row_order(profile):
+    """Model-recommended roles first, then newest, then large employers; a missing posting date sorts last."""
+    def key(item):
+        j,a,_=item;days=posted_age(j.posted_at)
+        return (not(a and publication_decision(a,profile)=="recommend"),10**6 if days is None else days,j.company_kind!="large",j.company,j.title)
+    return key
 
 
 def render(store,profile,model,path):
     rows=store.rows();sources=store.db.execute("SELECT * FROM sources ORDER BY id").fetchall()
     pending=sum(not r["missing"] and r["assessment_key"]!=assessment_key(Job.model_validate_json(r["data"]),profile,model) for r in rows)
-    sections={"Priority roles":[],"More relevant roles":[],"Stretch roles":[],"Model validation pending":[],"Link check pending":[]}
+    sections={name:[] for name in (*UXR_SECTIONS.values(),SECTION_RELATED,SECTION_MODEL,SECTION_LINK)}
     exported=[]
     rejected=0;reviewed=0;failed_attempts=0
     source_by_id={s["id"]:s for s in sources}
@@ -437,10 +456,10 @@ def render(store,profile,model,path):
         fresh=fresh and listing_seen_recently
         checked_fresh=bool(r["checked_at"] and (datetime.now(timezone.utc)-datetime.fromisoformat(r["checked_at"])).total_seconds()<86400)
         verified=r["link_state"]=="verified" and fresh and checked_fresh
-        section=({"recommend":"Priority roles","review":"More relevant roles","stretch":"Stretch roles","model_pending":"Model validation pending"}[decision]) if verified else "Link check pending"
         handoff=handoff_assessment(a,j.title,profile) if a else None
         level_metadata=experience_metadata(j.title,handoff["required_years"] if handoff else None,profile)
         exported.append({**level_metadata,"required_years":handoff["required_years"] if handoff else None,"preferred_years":handoff["preferred_years"] if handoff else None,"preferred_years_range":handoff["preferred_years_range"] if handoff else None,"key":j.key,"company":j.company,"company_kind":j.company_kind,"title":j.title,"location":j.location,"url":j.url,"source":j.source,"source_id":j.source_id,"source_kind":j.source_kind,"source_label":j.source_label or j.company,"source_url":j.source_url,"source_listing_url":j.url,"application_url":j.application_url if j.source_kind=="aggregator" else j.url,"verification_scope":"aggregator_listing" if j.source_kind=="aggregator" else "employer_listing","employer_verified":verified and j.source_kind=="official","posted_at":j.posted_at,"first_seen":r["first_seen"],"last_seen":r["last_seen"],"link_state":r["link_state"],"link_checked_at":r["checked_at"],"source_fresh":fresh,"link_fresh":checked_fresh,"verified":verified,"retrieval_category":decision,"assessment":handoff,"validation_error":"model_request_or_validation_failure" if a is None else None,"inference_stage":retry_task["stage"] if retry_task else "legacy","inference_attempts":retry_task["total_attempts"] if retry_task else None,"retry_at":retry_task["next_retry_at"] if retry_task else None,"model":(r["assessed_by"] or model) if a else model,"prompt_version":PROMPT_VERSION,"policy_hash":digest(anonymous_policy(profile))})
+        section=SECTION_LINK if not verified else SECTION_MODEL if a is None else UXR_SECTIONS[level_metadata["experience_level"]] if a.role=="uxr" else SECTION_RELATED
         sections[section].append((j,a,r))
     counts={name:len(items) for name,items in sections.items()}
     lines=["# UXR Job Radar","",
@@ -449,12 +468,12 @@ def render(store,profile,model,path):
       f"Tracked: {len(rows)} · Pending current model/policy review: **{pending}** · Sources with errors: **{sum(bool(s['error']) for s in sources)}** · Jobs with inference errors: **{sum(bool(r['error']) for r in rows if not r['missing'])}**","",
       "---","",f"### Browse {len(exported)} roles by category",""]
     for name in sections:lines += [f"{SECTION_EMOJI[name]} **[{name}]({anchor(name)})** ({counts[name]})",""]
-    lines += [f"Each table shows the {README_ROWS_PER_SECTION} newest roles in its section; every role is in [positions.jsonl](positions.jsonl).","","---","",
+    lines += [f"Each table shows up to {README_ROWS_PER_SECTION} roles, model-recommended first and then newest; every role is in [positions.jsonl](positions.jsonl).","","---","",
       f"> 🤖 **AI agents** (auto-apply, triage, matching): read [docs/HANDOFF.md](docs/HANDOFF.md) first. It says what to load, how to filter and what to recheck before submitting. The complete feed is [positions.jsonl](positions.jsonl) ({len(exported)} records, one JSON object per line): {FEED_URL}","","---","",
       "## Legend","","🔥 Large employer (a curated label, not a model judgment)","","⚠️ Title seniority conflicts with the stated years","","🌐 Listed via a job aggregator: the provider's page was verified, not the employer's","","— Not stated (unknown, not zero)","","---",""]
     collapsed={SECTION_MODEL,SECTION_LINK}
     for name,items in sections.items():
-        ranked=sorted(items,key=lambda x:(posted_age(x[0].posted_at) if posted_age(x[0].posted_at) is not None else 10**6, x[0].company_kind!="large", LEVEL_ORDER[experience_level(x[1].required_years if x[1] else None,profile)], x[0].company,x[0].title))
+        ranked=sorted(items,key=row_order(profile))
         lines += [f"## {SECTION_EMOJI[name]} {name}","","[Back to top](#uxr-job-radar)","",SECTION_BLURBS[name],""]
         if not items:
             lines += ["No verified entries in this section yet." if name not in collapsed else "No entries in this section.",""]
@@ -462,7 +481,7 @@ def render(store,profile,model,path):
         table=[];previous=None
         for j,a,r in ranked[:README_ROWS_PER_SECTION]:
             marker=(j.company,j.company_kind,j.source_kind)
-            table.append(readme_row(j,a,profile,repeat=marker==previous));previous=marker
+            table.append(readme_row(j,a,profile,repeat=marker==previous,show_level=name in MIXED_LEVEL_SECTIONS));previous=marker
         if name in collapsed:lines += [f"<details><summary>Show {len(items)} roles</summary>",""]
         lines += TABLE_HEAD+table
         if len(ranked)>README_ROWS_PER_SECTION:
@@ -470,8 +489,9 @@ def render(store,profile,model,path):
         if name in collapsed:lines += ["","</details>"]
         lines += [""]
     lines += ["## How to read this list","",
-      "- **Level** uses explicit mandatory years only: **Junior ≤3**, **Mid >3 and <5**, **Senior ≥5 and <8**, **Staff ≥8**, **Unknown** when unstated. Mid is an explicit intermediate bin added for the otherwise uncovered range. The small print under a level is the mandatory minimum (`req`) and the preferred experience (`pref`) when stated. Preferred years are never treated as mandatory, and a quoted range such as 1–3 stays a range. Every relevant level stays in the recall pool.",
-      "- **Age** is days since the source's own posting date; — means the source gives none. Rows are listed newest first, then large employers, then lower levels.",
+      "- **Sections** group UX research roles by explicit mandatory years only: **Junior ≤3**, **Mid >3 and <5**, **Senior ≥5 and <8**, **Staff ≥8**, and **Experience not stated** (unknown, not zero). Mid is an explicit intermediate bin added for the otherwise uncovered range. **Related non-UXR roles** are adjacent research roles of any level. Every relevant level stays in the recall pool.",
+      "- The small print under a role is its employment type, its level where a section mixes levels, the mandatory minimum (`req`) and the preferred experience (`pref`) when stated. Preferred years are never treated as mandatory, and a quoted range such as 1–3 stays a range.",
+      "- **Order** within a section: roles the model recommends first, then newest, then large employers. **Age** is days since the source's own posting date; — means the source gives none.",
       "- A role appears in the tables above only when its link was verified recently: recent source membership and a matching reachable listing at check time. **Link check pending** lists the rest. Aggregator records verify the provider listing, not the employer application page; positions.jsonl distinguishes `verification_scope` and `employer_verified`. Links come only from source feeds; the model cannot create or edit them.",
       "- This is information retrieval, not final eligibility screening. Relevant roles stay visible even with unknown experience or qualification gaps, and no applicant eligibility is inferred. Free-text model reasons, notes and uncertainties are withheld. Source quotes in positions.jsonl are not a complete eligibility check; downstream reviewers must inspect the original posting.",
       "- Every public posting returned by configured feeds enters the model queue. Title terms and, when installed, an on-device CLM-v0.1-8B relevance score affect processing order only; neither rejects a posting. Cached judgments are reused only for identical content, anonymous collection policy, model and prompt. A partial queue is not complete coverage. Large backlogs may be judged on a rented notebook GPU running the official release of the same weights; each positions.jsonl record names the exact weights.","",

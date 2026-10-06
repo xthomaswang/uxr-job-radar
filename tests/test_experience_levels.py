@@ -5,7 +5,7 @@ import pytest
 
 from uxr_radar.core import (Assessment, Job, experience_level, experience_metadata, messages,
     publication_decision, title_seniority, validate_assessment, anonymous_policy)
-from uxr_radar.pipeline import FEED_URL, age_cell, assessment_key, handoff_assessment, location_cell, posted_age, render
+from uxr_radar.pipeline import FEED_URL, age_cell, assessment_key, handoff_assessment, location_cell, place_label, posted_age, render
 from uxr_radar.store import Store
 
 
@@ -92,7 +92,7 @@ def test_readme_and_jsonl_expose_year_level_separately_from_source_title(tmp_pat
     assert row["experience_level"]=="junior" and row["title_seniority"]=="staff" and row["seniority_conflict"]
     assert row["required_years"]==3 and row["retrieval_category"]=="recommend"
     assert row["assessment"]["experience_level"]=="junior"
-    assert "| Level |" in output.read_text() and "Junior ⚠️<br><sub>req 3y</sub>" in output.read_text()  # ⚠️: Staff title vs 3 stated years
+    assert "Staff UX Researcher ⚠️<br><sub>req 3y</sub>" in output.read_text()  # ⚠️: Staff title vs 3 stated years; the level is the section, not the row
     assert "Staff UX Researcher" in output.read_text() and "Mid >3 and <5" in output.read_text()
 
 
@@ -215,3 +215,44 @@ def test_multiple_locations_split_onto_lines_whatever_the_separator():
     assert location_cell("San Francisco, CA | New York City, NY | Seattle, WA")=="San Francisco, CA<br>New York City, NY<br><sub>+1 more</sub>"
     assert location_cell("New York, NY; San Francisco, CA")=="New York, NY<br>San Francisco, CA"
     assert location_cell("Remote/Hybrid - US")=="Remote/Hybrid - US"
+    assert location_cell("San Francisco, CA • New York, NY • United States")=="San Francisco, CA<br>New York, NY<br><sub>+1 more</sub>"
+
+
+def test_country_codes_are_uppercase_and_numeric_region_codes_are_dropped():
+    assert place_label("Singapore, 01, sg")=="Singapore, SG"
+    assert place_label("Pasig City, 00, ph")=="Pasig City, PH"
+    assert place_label("Milano, MI, it")=="Milano, MI, IT"
+    assert place_label("Santa Clara, CALIFORNIA, us")=="Santa Clara, CALIFORNIA, US"
+    assert place_label("Remote - Colombia")=="Remote - Colombia" and place_label("sg")=="sg"  # a lone token is not a code to rewrite
+
+
+def section_of(text,title):
+    heading=None
+    for line in text.splitlines():
+        if line.startswith("## "):heading=line[3:]
+        if line.startswith("|") and title in line:return heading
+    return None
+
+
+def test_roles_are_grouped_by_uxr_level_and_related(tmp_path):
+    specs=[("Junior UXR",dict(years=2),"uxr"),("Senior UXR",dict(years=6),"uxr"),("Staff UXR",dict(years=9),"uxr"),
+        ("Mid UXR",dict(years=4),"uxr"),("Unstated UXR",dict(years=None),"uxr"),("Insights Analyst",dict(years=3),"adjacent_research")]
+    store=Store(tmp_path/"jobs.sqlite3");jobs=[]
+    for n,(title,spec,role) in enumerate(specs):
+        j=job("Conduct user interviews.").model_copy(update={"key":f"acme:{n}","source_id":str(n),"title":title});jobs.append(j)
+    store.snapshot("acme",jobs)
+    with store.db:
+        for j,(title,spec,role) in zip(jobs,specs):
+            years=spec["years"]
+            evidence=[{"field":"experience","quote":f"Requires {years} years."}] if years else [{"field":"role","quote":"Conduct user interviews."}]
+            a=assessment(years,role=role,evidence=evidence) if years else assessment(None,role=role)
+            store.db.execute("UPDATE jobs SET assessment=?,assessment_key=?,link_state='verified',checked_at=last_seen WHERE key=?",(a.model_dump_json(),assessment_key(j,{},"test"),j.key))
+    output=tmp_path/"README.md";render(store,{},"test",output)
+    text=output.read_text()
+    rows={json.loads(l)["title"]:json.loads(l) for l in output.with_name("positions.jsonl").read_text().splitlines()}
+    assert all(r["verified"] for r in rows.values()), "test rows must be link-verified to reach the main sections"
+    assert {t:section_of(text,t) for t,_,_ in specs}=={
+        "Junior UXR":"🌱 UXR Junior","Mid UXR":"🌿 UXR Mid","Senior UXR":"🌳 UXR Senior","Staff UXR":"🏆 UXR Staff",
+        "Unstated UXR":"❔ UXR Experience not stated","Insights Analyst":"🔗 Related non-UXR roles"}
+    assert "| Level |" not in text
+    assert "Insights Analyst<br><sub>Junior · req 3y</sub>" in text  # mixed-level section carries the level in small print
