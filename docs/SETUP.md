@@ -93,6 +93,33 @@ within the first 20% of the queue, against about 47% for title terms alone; a ha
 cutoff at 0.2 would have dropped an estimated 13% of relevant postings, so the score
 only orders work. `scripts/clm_eval.py` reruns the evaluation locally.
 
+## Backlog bursts on a notebook GPU
+
+A large backlog can be handed to a rented notebook GPU (Google Colab G4 or A100)
+running the official release of the same weights, `Qwen/Qwen3.8-27B-FP8`, under vLLM:
+
+```sh
+uv run uxr-radar export-batch state/batch-export     # queued public job facts + manifest
+# copy batch.sqlite3, policy.json and manifest.json to Google Drive/uxr-radar-colab/,
+# open notebooks/colab_batch.ipynb in Colab and run all cells
+uv run uxr-radar import-batch "<Drive>/uxr-radar-colab/results.sqlite3"
+```
+
+The export contains only queued source facts (no reviews, assessments or local
+state), the public search policy and a manifest pinning the prompt version, policy
+hash and code commit. The notebook runs the normal staged review with
+`review_pending(..., concurrency=48)`; `--concurrency` exists on `review` and
+`retry` for any host that batches requests. Import treats the returned file as
+untrusted: a judgment is imported only when the job content is unchanged since
+export, the weights are an accepted release of the configured model, the input key
+matches the current prompt and policy, and the stored assessment passes
+`validate_assessment` against the local job text again. Judgments made locally in
+the meantime are kept.
+
+`core.MODEL_ALIASES` lists releases whose judgments share the cache with the local
+MLX conversion; each judgment records the exact weights in `jobs.assessed_by`, and
+each positions.jsonl row names them in `model`.
+
 ## Anonymous policy and experience bands
 
 `config/search_policy.json` contains only role targets, generic research/analytics

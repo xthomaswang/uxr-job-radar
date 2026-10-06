@@ -28,3 +28,6 @@
 - A model-host outage must not consume job attempts. Never send a model name other
   than the one a shared local host serves: mlx_lm.server would reload weights and
   evict another project's model.
+- Judgments from other weights share the cache only through `core.MODEL_ALIASES`
+  and must record the exact weights. Results computed elsewhere are untrusted: import
+  them only after local re-validation against unchanged job content.

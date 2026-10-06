@@ -13,6 +13,15 @@ from pydantic import BaseModel, ConfigDict, Field
 
 PROMPT_VERSION = "uxr-v7-anonymous-concise-overview"
 EXPERIENCE_LEVELS = {"junior_max": 3, "senior_min": 5, "staff_min": 8}
+# Official releases of the same weights share cached judgments with the local MLX
+# 8-bit conversion (its name stays canonical so existing cache keys remain valid).
+# Every judgment still records the exact weights that produced it.
+MODEL_ALIASES = {"Qwen/Qwen3.8-27B": "mlx-community/Qwen3.8-27B-8bit",
+                 "Qwen/Qwen3.8-27B-FP8": "mlx-community/Qwen3.8-27B-8bit"}
+
+
+def cache_model(model: str) -> str:
+    return MODEL_ALIASES.get(model, model)
 
 
 def now() -> str:

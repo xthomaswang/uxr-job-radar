@@ -24,7 +24,9 @@ def try_lock(path):
 class Store:
     def __init__(self, path):
         Path(path).parent.mkdir(parents=True, exist_ok=True)
-        self.db = sqlite3.connect(path, timeout=30)
+        self.path = str(path)
+        # One connection per thread; check_same_thread=False only lets the owner close it later.
+        self.db = sqlite3.connect(path, timeout=30, check_same_thread=False)
         self.db.row_factory = sqlite3.Row
         self.db.execute("PRAGMA journal_mode=WAL")
         self.db.executescript("""
@@ -63,6 +65,10 @@ class Store:
         if "stage" not in {r["name"] for r in self.db.execute("PRAGMA table_info(reviews)")}:
             self.db.execute("ALTER TABLE reviews ADD COLUMN stage TEXT DEFAULT 'details'")
             self.db.commit()
+        if "assessed_by" not in {r["name"] for r in self.db.execute("PRAGMA table_info(jobs)")}:
+            # Exact weights behind the stored judgment; NULL rows predate this column.
+            self.db.execute("ALTER TABLE jobs ADD COLUMN assessed_by TEXT")
+            self.db.commit()
 
     def claim_source_attempt(self, source, minimum_interval_seconds=0):
         """Atomically reserve a provider interval before any network request starts."""
@@ -92,7 +98,7 @@ class Store:
                 new += old is None
                 if old and old["content_hash"] != j.content_hash():
                     changed += 1
-                    self.db.execute("UPDATE jobs SET assessment=NULL,assessment_key=NULL,error=NULL,attempts=0,link_state='unverified',checked_at=NULL WHERE key=?", (j.key,))
+                    self.db.execute("UPDATE jobs SET assessment=NULL,assessment_key=NULL,assessed_by=NULL,error=NULL,attempts=0,link_state='unverified',checked_at=NULL WHERE key=?", (j.key,))
             self.db.execute("""INSERT INTO sources VALUES (?,?,?,?,NULL) ON CONFLICT(id) DO UPDATE SET
               attempted_at=excluded.attempted_at,succeeded_at=excluded.succeeded_at,count=excluded.count,error=NULL""", (source,t,t,len(jobs)))
         return {"jobs": len(jobs), "new": new, "changed": changed}

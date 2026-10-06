@@ -16,6 +16,7 @@ import os
 import signal
 import subprocess
 import sys
+import threading
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -35,11 +36,12 @@ class _LogStream(io.TextIOBase):
     """Route the pipeline's JSON-line prints into a rotating log."""
 
     def __init__(self, logger):
-        self.logger, self.pending = logger, ""
+        self.logger, self.pending, self.lock = logger, "", threading.Lock()
 
     def write(self, text):
-        self.pending += text
-        *lines, self.pending = self.pending.split("\n")
+        with self.lock:  # concurrent review threads print through this stream
+            self.pending += text
+            *lines, self.pending = self.pending.split("\n")
         for line in lines:
             if line.strip():self.logger.info(line)
         return len(text)
@@ -414,7 +416,9 @@ def run_worker(store, policy_path, state_path, base_url, model, *, batch=10, att
     awake = KeepAwake(keep_awake)
     backoff = 60
     screener, screen_note = load_screener() if screen else (None, "disabled")
-    server = ManagedServer(repo, base_url, model, idle_stop_seconds=idle_stop_seconds) if manage_server else None
+    # Only a loopback endpoint can be started here; a remote host is used as it is.
+    local_host = urlparse(base_url).hostname in LOOPBACK
+    server = ManagedServer(repo, base_url, model, idle_stop_seconds=idle_stop_seconds) if manage_server and local_host else None
     store.set_status("analyzer", state="starting", pid=os.getpid(), started_at=now(), base_url=base_url, model=model,
         error=None, screen={"enabled": screener is not None, "note": screen_note},
         managed_server=manage_server, require_ac=require_ac, yield_to_others=yield_to_others)

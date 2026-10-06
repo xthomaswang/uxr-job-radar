@@ -33,8 +33,8 @@ def inference_lock(state_path, wait_seconds=600):
 
 def main():
     p=argparse.ArgumentParser(description="Every fetched job is queued for staged on-device review; failed stages are retried persistently.")
-    p.add_argument("command",choices=["fetch","review","retry","render","run","verify","watch","collect","worker","screen","publish","status","agents"])
-    p.add_argument("action",nargs="?",choices=["install","uninstall","print"],help="agents only: manage the per-user LaunchAgents")
+    p.add_argument("command",choices=["fetch","review","retry","render","run","verify","watch","collect","worker","screen","publish","status","agents","export-batch","import-batch"])
+    p.add_argument("action",nargs="?",help="agents: install, uninstall or print; export-batch: output directory; import-batch: returned batch file")
     p.add_argument("--sources",default="config/sources.json")
     p.add_argument("--policy","--profile",dest="policy",default="config/search_policy.json",help="Anonymous collection preferences; no applicant dossier")
     p.add_argument("--state",default="state/jobs.sqlite3")
@@ -50,6 +50,7 @@ def main():
     p.add_argument("--interval",type=int,default=3600,help="Minimum seconds between watch cycles")
     p.add_argument("--log-dir",help="collect/worker/publish: write a rotating log here instead of stdout")
     p.add_argument("--batch",type=int,default=10,help="worker: jobs attempted per queue scan")
+    p.add_argument("--concurrency",type=int,default=1,help="review/retry: parallel jobs, for hosts that batch requests")
     p.add_argument("--idle-seconds",type=int,default=300,help="worker: wait when no job is due")
     p.add_argument("--once",action="store_true",help="worker: run one step and exit")
     p.add_argument("--no-keep-awake",dest="keep_awake",action="store_false",help="worker: do not hold the AC-power sleep assertion while working")
@@ -71,7 +72,9 @@ def main():
     if args.interval<60:p.error("--interval must be at least 60 seconds")
     if args.batch<1:p.error("--batch must be positive")
     if (args.force or args.due) and args.command!="retry":p.error("--due and --force are options for the retry command")
-    if (args.command=="agents")!=(args.action is not None):p.error("agents requires install, uninstall or print; other commands take no action")
+    if (args.command in {"agents","export-batch","import-batch"})!=(args.action is not None):p.error("agents, export-batch and import-batch take one argument; other commands take none")
+    if args.command=="agents" and args.action not in {"install","uninstall","print"}:p.error("agents takes install, uninstall or print")
+    if args.concurrency<1:p.error("--concurrency must be positive")
 
     if args.command=="agents":
         from .launchd import agent_environment, agent_plist, install, uninstall, AGENTS
@@ -116,6 +119,14 @@ def main():
             code=run_publisher(args.repo,store,policy,args.model,state_path=args.state,push=args.push,dry_run=args.dry_run,
                 refresh_seconds=args.refresh_hours*3600,verify_age_seconds=args.verify_age_hours*3600,denylist=args.denylist)
         raise SystemExit(code)
+    if args.command=="export-batch":
+        from .batch import export_batch
+        print(json.dumps(export_batch(store,policy,args.model,args.action,repo=args.repo),indent=2))
+        return
+    if args.command=="import-batch":
+        from .batch import import_batch
+        print(json.dumps(import_batch(store,args.action,policy,args.model),indent=2))
+        return
     if args.command=="status":
         from .service import status_report
         print(json.dumps(status_report(store,Path(args.repo).resolve(),policy,args.model,args.base_url,probe=args.probe),ensure_ascii=False,indent=2))
@@ -128,7 +139,7 @@ def main():
                 return review_pending(store,policy,args.base_url,args.model,args.limit,
                     retries_only=args.command=="retry",force=args.force,
                     attempts_per_stage=args.attempts_per_stage,
-                    job_keys=set(args.job_key) if args.job_key else None)
+                    job_keys=set(args.job_key) if args.job_key else None,concurrency=args.concurrency)
             except BackendUnavailable as error:
                 # Queue state is intact; remaining jobs were not charged with attempts.
                 unavailable.append(str(error))

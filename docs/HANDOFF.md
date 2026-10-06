@@ -40,8 +40,10 @@ do not infer that different source keys always mean different vacancies.
   credited provider page; `employer_verified` remains false. Inspect `link_checked_at`, `source_fresh` and `link_fresh`, and recheck
   before submitting an application; a committed file does not refresh itself.
 - `first_seen` / `last_seen`: discovery times, not necessarily the employer's
-  original posting date. `model`, `prompt_version`, and `policy_hash` identify
-  the generation context. Changed job content invalidates cached judgments.
+  original posting date. `model` names the exact weights that produced
+  the assessment (the local MLX 8-bit conversion or an official release of the same
+  Qwen3.8-27B weights used for backlog bursts). `model`, `prompt_version`, and
+  `policy_hash` identify the generation context. Changed job content invalidates cached judgments.
 
 Free-text model `reason` is omitted. The compatible `notes` and `uncertainties`
 arrays are empty, with `narrative_status: omitted_unverified_model_narrative`:

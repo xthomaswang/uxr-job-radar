@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
@@ -12,7 +13,7 @@ from zoneinfo import ZoneInfo
 import httpx
 from pydantic import ValidationError
 
-from .core import (Assessment, Job, Overview, PROMPT_VERSION, digest, link_result, messages, now,
+from .core import (Assessment, Job, Overview, PROMPT_VERSION, cache_model, digest, link_result, messages, now,
     validate_assessment, validate_overview, overview_assessment, publication_decision, anonymous_policy, experience_level, experience_metadata, explicit_zero_experience)
 from .sources import fetch_feed
 from .store import Store
@@ -21,7 +22,7 @@ HEADERS = {"User-Agent": "uxr-job-radar/0.1 (personal job research)", "Accept": 
 
 
 def assessment_key(job, profile, model):
-    return digest([job.content_hash(), anonymous_policy(profile), model, PROMPT_VERSION])
+    return digest([job.content_hash(), anonymous_policy(profile), cache_model(model), PROMPT_VERSION])
 
 
 def fetch_all(store, sources, raw_dir):
@@ -203,8 +204,8 @@ def process_task(store, client, profile, base, model, row, key, attempts_per_sta
                         stage="details";feedback=None
                         break
                 with store.db:
-                    saved=store.db.execute("UPDATE jobs SET assessment=?,assessment_key=?,assessed_at=?,error=NULL,attempts=0 WHERE key=? AND content_hash=?",
-                        (result.model_dump_json(),key,now(),job.key,job.content_hash())).rowcount == 1
+                    saved=store.db.execute("UPDATE jobs SET assessment=?,assessment_key=?,assessed_at=?,assessed_by=?,error=NULL,attempts=0 WHERE key=? AND content_hash=?",
+                        (result.model_dump_json(),key,now(),model,job.key,job.content_hash())).rowcount == 1
                     if saved:
                         store.db.execute("UPDATE inference_queue SET stage='complete',status='complete',error=NULL,next_retry_at=NULL,updated_at=? WHERE job_key=? AND input_key=?",
                             (now(),job.key,key))
@@ -232,13 +233,41 @@ def process_task(store, client, profile, base, model, row, key, attempts_per_sta
     return False
 
 
-def review_pending(store, profile, base, model, limit, *, retries_only=False, force=False, attempts_per_stage=3, job_keys=None):
+def review_pending(store, profile, base, model, limit, *, retries_only=False, force=False, attempts_per_stage=3, job_keys=None, concurrency=1):
     if not 1<=attempts_per_stage<=5:raise ValueError("attempts_per_stage must be between 1 and 5")
     count=0
     tasks=pending_tasks(store,profile,model,retries_only=retries_only,force=force,job_keys=job_keys)[:limit]
+    if concurrency>1:
+        return review_concurrently(store,profile,base,model,tasks,attempts_per_stage,concurrency)
     with httpx.Client(timeout=240) as client:
         for row,key,task in tasks:
             count+=int(process_task(store,client,profile,base,model,row,key,attempts_per_stage))
+    return count
+
+
+def review_concurrently(store, profile, base, model, tasks, attempts_per_stage, concurrency):
+    """Parallel jobs for hosts that batch requests (vLLM on a rented GPU). Each thread
+    has its own SQLite connection; the first host outage cancels jobs not yet started."""
+    local=threading.local();opened=[];guard=threading.Lock()
+    def run(item):
+        if not hasattr(local,"store"):
+            local.store,local.client=Store(store.path),httpx.Client(timeout=600)
+            with guard:opened.append((local.store,local.client))
+        row,key,_=item
+        return process_task(local.store,local.client,profile,base,model,row,key,attempts_per_stage)
+    count=0;unavailable=None
+    with ThreadPoolExecutor(max_workers=concurrency) as pool:
+        futures=[pool.submit(run,item) for item in tasks]
+        for future in as_completed(futures):
+            if future.cancelled():continue
+            try:
+                count+=int(future.result())
+            except BackendUnavailable as error:
+                unavailable=unavailable or error
+                for other in futures:other.cancel()
+    for opened_store,client in opened:
+        client.close();opened_store.db.close()
+    if unavailable:raise unavailable
     return count
 
 
@@ -323,7 +352,7 @@ def handoff_assessment(a, title="", policy=None):
 def render(store,profile,model,path):
     rows=store.rows();sources=store.db.execute("SELECT * FROM sources ORDER BY id").fetchall()
     pending=sum(not r["missing"] and r["assessment_key"]!=assessment_key(Job.model_validate_json(r["data"]),profile,model) for r in rows)
-    lines=["# UXR Job Radar", "", "High-recall UXR and related research opportunity pool, assessed on-device. Applications are handled separately.", "",
+    lines=["# UXR Job Radar", "", "High-recall UXR and related research opportunity pool, assessed with self-hosted Qwen3.8-27B: on a local Mac, and for large backlogs on a rented notebook GPU running the official release of the same weights. Each positions.jsonl row names the exact weights. Applications are handled separately.", "",
       f"Generated: {display_time(now())} · Model: `{model}` · Prompt: `{PROMPT_VERSION}` · Policy: `{digest(anonymous_policy(profile))}`", "",
       f"Tracked: {len(rows)} · Pending current model/policy review: **{pending}** · Sources with errors: **{sum(bool(s['error']) for s in sources)}** · Jobs with inference errors: **{sum(bool(r['error']) for r in rows if not r['missing'])}**", "",
       "**★ LARGE** is a curated company-priority label, not a model judgment. Startups and AI startups remain eligible.", "",
@@ -358,7 +387,7 @@ def render(store,profile,model,path):
         section=({"recommend":"Priority opportunities — verified links","review":"More relevant opportunities — verified links","stretch":"Stretch opportunities — verified links","model_pending":"Model validation needed — source facts only"}[decision]) if verified else "Link/source verification needed"
         handoff=handoff_assessment(a,j.title,profile) if a else None
         level_metadata=experience_metadata(j.title,handoff["required_years"] if handoff else None,profile)
-        exported.append({**level_metadata,"required_years":handoff["required_years"] if handoff else None,"preferred_years":handoff["preferred_years"] if handoff else None,"preferred_years_range":handoff["preferred_years_range"] if handoff else None,"key":j.key,"company":j.company,"company_kind":j.company_kind,"title":j.title,"location":j.location,"url":j.url,"source":j.source,"source_id":j.source_id,"source_kind":j.source_kind,"source_label":j.source_label or j.company,"source_url":j.source_url,"source_listing_url":j.url,"application_url":j.application_url if j.source_kind=="aggregator" else j.url,"verification_scope":"aggregator_listing" if j.source_kind=="aggregator" else "employer_listing","employer_verified":verified and j.source_kind=="official","first_seen":r["first_seen"],"last_seen":r["last_seen"],"link_state":r["link_state"],"link_checked_at":r["checked_at"],"source_fresh":fresh,"link_fresh":checked_fresh,"verified":verified,"retrieval_category":decision,"assessment":handoff,"validation_error":"model_request_or_validation_failure" if a is None else None,"inference_stage":retry_task["stage"] if retry_task else "legacy","inference_attempts":retry_task["total_attempts"] if retry_task else None,"retry_at":retry_task["next_retry_at"] if retry_task else None,"model":model,"prompt_version":PROMPT_VERSION,"policy_hash":digest(anonymous_policy(profile))})
+        exported.append({**level_metadata,"required_years":handoff["required_years"] if handoff else None,"preferred_years":handoff["preferred_years"] if handoff else None,"preferred_years_range":handoff["preferred_years_range"] if handoff else None,"key":j.key,"company":j.company,"company_kind":j.company_kind,"title":j.title,"location":j.location,"url":j.url,"source":j.source,"source_id":j.source_id,"source_kind":j.source_kind,"source_label":j.source_label or j.company,"source_url":j.source_url,"source_listing_url":j.url,"application_url":j.application_url if j.source_kind=="aggregator" else j.url,"verification_scope":"aggregator_listing" if j.source_kind=="aggregator" else "employer_listing","employer_verified":verified and j.source_kind=="official","first_seen":r["first_seen"],"last_seen":r["last_seen"],"link_state":r["link_state"],"link_checked_at":r["checked_at"],"source_fresh":fresh,"link_fresh":checked_fresh,"verified":verified,"retrieval_category":decision,"assessment":handoff,"validation_error":"model_request_or_validation_failure" if a is None else None,"inference_stage":retry_task["stage"] if retry_task else "legacy","inference_attempts":retry_task["total_attempts"] if retry_task else None,"retry_at":retry_task["next_retry_at"] if retry_task else None,"model":(r["assessed_by"] or model) if a else model,"prompt_version":PROMPT_VERSION,"policy_hash":digest(anonymous_policy(profile))})
         sections[section].append((j,a,r))
     for name,items in sections.items():
         lines += [f"## {name}","","| Company | Position | Experience level | Type | Location | AI labels & source evidence | Link checked |","|---|---|---|---|---|---|---|"]
