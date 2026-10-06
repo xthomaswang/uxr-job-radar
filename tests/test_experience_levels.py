@@ -5,7 +5,7 @@ import pytest
 
 from uxr_radar.core import (Assessment, Job, experience_level, experience_metadata, messages,
     publication_decision, title_seniority, validate_assessment, anonymous_policy)
-from uxr_radar.pipeline import FEED_URL, assessment_key, handoff_assessment, render
+from uxr_radar.pipeline import FEED_URL, age_cell, assessment_key, handoff_assessment, location_cell, posted_age, render
 from uxr_radar.store import Store
 
 
@@ -92,7 +92,7 @@ def test_readme_and_jsonl_expose_year_level_separately_from_source_title(tmp_pat
     assert row["experience_level"]=="junior" and row["title_seniority"]=="staff" and row["seniority_conflict"]
     assert row["required_years"]==3 and row["retrieval_category"]=="recommend"
     assert row["assessment"]["experience_level"]=="junior"
-    assert "| Level |" in output.read_text() and "| Junior ⚠ |" in output.read_text()  # ⚠: Staff title vs 3 stated years
+    assert "| Level |" in output.read_text() and "Junior ⚠️<br><sub>req 3y</sub>" in output.read_text()  # ⚠️: Staff title vs 3 stated years
     assert "Staff UX Researcher" in output.read_text() and "Mid >3 and <5" in output.read_text()
 
 
@@ -174,7 +174,7 @@ def test_preferred_range_is_exported_and_rendered(tmp_path):
     row=json.loads(output.with_name("positions.jsonl").read_text())
     assert row["preferred_years"] is None and row["preferred_years_range"]=={"min":1,"max":3}
     assert row["assessment"]["preferred_years_range"]==row["preferred_years_range"]
-    assert "| — / 1–3 |" in output.read_text()  # required not stated; preferred shown as a range, not the scalar 3
+    assert "pref 1–3y" in output.read_text() and "pref 3y" not in output.read_text()  # a range, not the scalar 3
 
 
 def test_readme_points_agents_at_the_feed_and_counts_match_it(tmp_path):
@@ -186,6 +186,32 @@ def test_readme_points_agents_at_the_feed_and_counts_match_it(tmp_path):
     output=tmp_path/"README.md";render(store,{},"test",output)
     text=output.read_text()
     assert "(docs/HANDOFF.md)" in text and FEED_URL in text
-    glance=re.search(r"\|---:\|---:\|---:\|---:\|---:\|\n\| (\d+) \| (\d+) \| (\d+) \| (\d+) \| (\d+) \|",text)
-    assert sum(map(int,glance.groups()))==len(output.with_name("positions.jsonl").read_text().splitlines())==1
+    counts=re.findall(r"\*\*\[[^\]]+\]\(#-[^)]*\)\*\* \((\d+)\)",text)
+    assert sum(map(int,counts))==len(output.with_name("positions.jsonl").read_text().splitlines())==1
     assert text.count("<details>")==text.count("</details>")
+
+
+def test_age_parses_the_source_date_formats_and_never_invents_one():
+    assert posted_age(None) is None and posted_age("") is None and posted_age("not a date") is None
+    for value in ("2020-01-02","2020-01-02T03:04:05Z","2020-01-02T03:04:05.123+00:00","January  2, 2020"):
+        assert posted_age(value)>2000  # every supported shape parses, whatever today's date is
+    assert [age_cell(d) for d in (None,0,29,30,364,365)]==["—","0d","29d","1mo","12mo","1y"]
+
+
+def test_large_employers_get_only_a_flame_and_repeats_collapse(tmp_path):
+    jobs=[job("Conduct user interviews.").model_copy(update={"key":f"acme:{n}","source_id":str(n),"title":f"Researcher {n}","company_kind":"large"}) for n in (1,2)]
+    store=Store(tmp_path/"jobs.sqlite3");store.snapshot("acme",jobs)
+    a=assessment(None)
+    with store.db:
+        for j in jobs:
+            store.db.execute("UPDATE jobs SET assessment=?,assessment_key=? WHERE key=?",(a.model_dump_json(),assessment_key(j,{},"test"),j.key))
+    output=tmp_path/"README.md";render(store,{},"test",output)
+    text=output.read_text()
+    assert text.count("🔥")>=2 and "LARGE" not in text  # legend + the first row's flame
+    assert text.count("| ↳ |")==1
+
+
+def test_multiple_locations_split_onto_lines_whatever_the_separator():
+    assert location_cell("San Francisco, CA | New York City, NY | Seattle, WA")=="San Francisco, CA<br>New York City, NY<br><sub>+1 more</sub>"
+    assert location_cell("New York, NY; San Francisco, CA")=="New York, NY<br>San Francisco, CA"
+    assert location_cell("Remote/Hybrid - US")=="Remote/Hybrid - US"

@@ -101,7 +101,7 @@ def test_unreviewed_jobs_never_become_recommendations(tmp_path,job):
     s=Store(tmp_path/"jobs.db");s.snapshot("acme",[job]);out=tmp_path/"README.md"
     render(s,{},"model",out)
     assert "Pending current model/policy review: **1**" in out.read_text()
-    assert "[UX Research Intern]" not in out.read_text()
+    assert "UX Research Intern" not in out.read_text()
 
 
 def test_flexible_timing_notes_do_not_block_recommendation(job):
@@ -118,7 +118,7 @@ def test_relevant_senior_job_stays_in_recall_pool(tmp_path,job):
     s=Store(tmp_path/"jobs.db");s.snapshot("acme",[job])
     s.db.execute("UPDATE jobs SET assessment=?,assessment_key=?,link_state='verified',checked_at=last_seen",(raw,assessment_key(job,{},"model")));s.db.commit()
     out=tmp_path/"README.md";render(s,{},"model",out)
-    assert "[UX Research Intern]" in out.read_text()
+    assert "UX Research Intern" in out.read_text()
     exported=json.loads(out.with_name("positions.jsonl").read_text())
     assert exported["retrieval_category"]=="stretch"
     assert exported["assessment"]["required_years"]==5
