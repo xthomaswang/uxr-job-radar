@@ -1,0 +1,1 @@
+"""Personal UXR job radar."""

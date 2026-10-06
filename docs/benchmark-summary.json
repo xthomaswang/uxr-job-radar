@@ -1,0 +1,542 @@
+{
+  "generated_at": "2026-10-06T03:20:03+00:00",
+  "hardware": {
+    "chip": "Apple M5 Max",
+    "unified_memory_gb": 128,
+    "macos": "27.2",
+    "macos_build": "26B5091g",
+    "xcode": "27.0",
+    "xcode_build": "27A266a"
+  },
+  "runtime": {
+    "mlx": "0.32.3",
+    "mlx_lm": "0.31.3",
+    "transformers": "5.18.0",
+    "temperature": 0,
+    "thinking": false,
+    "max_output_tokens": 900
+  },
+  "sources": [
+    {
+      "source": "backmarket",
+      "jobs": 35,
+      "error": null
+    },
+    {
+      "source": "bpcs",
+      "jobs": 26,
+      "error": null
+    },
+    {
+      "source": "cursor",
+      "jobs": 132,
+      "error": null
+    },
+    {
+      "source": "emergent",
+      "jobs": 42,
+      "error": null
+    },
+    {
+      "source": "figma",
+      "jobs": 164,
+      "error": null
+    },
+    {
+      "source": "google",
+      "jobs": 60,
+      "error": null
+    },
+    {
+      "source": "hoyoverse",
+      "jobs": 13,
+      "error": null
+    },
+    {
+      "source": "notion",
+      "jobs": 135,
+      "error": null
+    },
+    {
+      "source": "openai",
+      "jobs": 821,
+      "error": null
+    },
+    {
+      "source": "roblox",
+      "jobs": 255,
+      "error": null
+    },
+    {
+      "source": "saviynt",
+      "jobs": 70,
+      "error": null
+    }
+  ],
+  "models": [
+    {
+      "model": "Qwen3.8-27B-8bit",
+      "cases": 15,
+      "raw_decision_agreement": 14,
+      "validated_outputs": 15,
+      "validated_decision_agreement": 14,
+      "median_seconds": 17.53,
+      "median_decode_tokens_per_second": 15.82,
+      "peak_mlx_memory_decimal_gb": 31.57,
+      "load_seconds": 1.51
+    },
+    {
+      "model": "Qwen3-8B-8bit",
+      "cases": 15,
+      "raw_decision_agreement": 13,
+      "validated_outputs": 6,
+      "validated_decision_agreement": 6,
+      "median_seconds": 4.99,
+      "median_decode_tokens_per_second": 53.5,
+      "peak_mlx_memory_decimal_gb": 9.68,
+      "load_seconds": 0.89
+    }
+  ],
+  "caveat": "15 selected cases: 9 synthetic, 6 live. Not a representative accuracy estimate. Both models use the same prompt/schema/validators. Conservative publication rules were added after observing failures; post-policy success is not a held-out result.",
+  "benchmark_prompt_version": "uxr-v2",
+  "current_prompt_version": "uxr-v6-anonymous-experience-levels",
+  "current_sources": [
+    {
+      "source": "adobe",
+      "jobs": 244,
+      "error": null
+    },
+    {
+      "source": "affirm",
+      "jobs": 184,
+      "error": null
+    },
+    {
+      "source": "airbnb",
+      "jobs": 151,
+      "error": null
+    },
+    {
+      "source": "airtable",
+      "jobs": 4,
+      "error": null
+    },
+    {
+      "source": "amazon",
+      "jobs": 1037,
+      "error": null
+    },
+    {
+      "source": "anthropic",
+      "jobs": 645,
+      "error": null
+    },
+    {
+      "source": "arbeitnow",
+      "jobs": 0,
+      "error": "source_fetch_failed"
+    },
+    {
+      "source": "asana",
+      "jobs": 101,
+      "error": null
+    },
+    {
+      "source": "backmarket",
+      "jobs": 35,
+      "error": null
+    },
+    {
+      "source": "bpcs",
+      "jobs": 26,
+      "error": null
+    },
+    {
+      "source": "bunq",
+      "jobs": 16,
+      "error": null
+    },
+    {
+      "source": "cohere",
+      "jobs": 135,
+      "error": null
+    },
+    {
+      "source": "coinbase",
+      "jobs": 226,
+      "error": null
+    },
+    {
+      "source": "coursera",
+      "jobs": 15,
+      "error": null
+    },
+    {
+      "source": "cursor",
+      "jobs": 132,
+      "error": null
+    },
+    {
+      "source": "databricks",
+      "jobs": 887,
+      "error": null
+    },
+    {
+      "source": "discord",
+      "jobs": 51,
+      "error": null
+    },
+    {
+      "source": "doordash",
+      "jobs": 459,
+      "error": null
+    },
+    {
+      "source": "dropbox",
+      "jobs": 40,
+      "error": null
+    },
+    {
+      "source": "duolingo",
+      "jobs": 60,
+      "error": null
+    },
+    {
+      "source": "elastic",
+      "jobs": 402,
+      "error": null
+    },
+    {
+      "source": "elevenlabs",
+      "jobs": 139,
+      "error": null
+    },
+    {
+      "source": "emergent",
+      "jobs": 42,
+      "error": null
+    },
+    {
+      "source": "figma",
+      "jobs": 164,
+      "error": null
+    },
+    {
+      "source": "google",
+      "jobs": 60,
+      "error": null
+    },
+    {
+      "source": "himalayas",
+      "jobs": 825,
+      "error": null
+    },
+    {
+      "source": "hoyoverse",
+      "jobs": 13,
+      "error": null
+    },
+    {
+      "source": "instacart",
+      "jobs": 122,
+      "error": null
+    },
+    {
+      "source": "jobicy",
+      "jobs": 713,
+      "error": null
+    },
+    {
+      "source": "linear",
+      "jobs": 31,
+      "error": null
+    },
+    {
+      "source": "lyft",
+      "jobs": 189,
+      "error": null
+    },
+    {
+      "source": "mongodb",
+      "jobs": 392,
+      "error": null
+    },
+    {
+      "source": "nielseniq",
+      "jobs": 311,
+      "error": null
+    },
+    {
+      "source": "notion",
+      "jobs": 135,
+      "error": null
+    },
+    {
+      "source": "nvidia",
+      "jobs": 948,
+      "error": null
+    },
+    {
+      "source": "okta",
+      "jobs": 364,
+      "error": null
+    },
+    {
+      "source": "openai",
+      "jobs": 821,
+      "error": null
+    },
+    {
+      "source": "perplexity",
+      "jobs": 129,
+      "error": null
+    },
+    {
+      "source": "pinterest",
+      "jobs": 174,
+      "error": null
+    },
+    {
+      "source": "ramp",
+      "jobs": 159,
+      "error": null
+    },
+    {
+      "source": "reddit",
+      "jobs": 151,
+      "error": null
+    },
+    {
+      "source": "remoteok",
+      "jobs": 99,
+      "error": null
+    },
+    {
+      "source": "remotive",
+      "jobs": 17,
+      "error": null
+    },
+    {
+      "source": "replit",
+      "jobs": 70,
+      "error": null
+    },
+    {
+      "source": "roblox",
+      "jobs": 255,
+      "error": null
+    },
+    {
+      "source": "saviynt",
+      "jobs": 70,
+      "error": null
+    },
+    {
+      "source": "scale",
+      "jobs": 188,
+      "error": null
+    },
+    {
+      "source": "servicenow",
+      "jobs": 709,
+      "error": null
+    },
+    {
+      "source": "spotify",
+      "jobs": 80,
+      "error": null
+    },
+    {
+      "source": "stripe",
+      "jobs": 718,
+      "error": null
+    },
+    {
+      "source": "twilio",
+      "jobs": 128,
+      "error": null
+    },
+    {
+      "source": "ubisoft",
+      "jobs": 217,
+      "error": null
+    },
+    {
+      "source": "vanta",
+      "jobs": 82,
+      "error": null
+    }
+  ],
+  "current_tracked_jobs": 13365,
+  "model_snapshots": {
+    "Qwen3.8-27B-8bit": "815b83c0df8ffd1d1b5244cf75fd6ef14fca9ef9",
+    "Qwen3-8B-8bit": "48a0b75b1ae72503e21e1558d040bc227510ff06"
+  },
+  "historical_metrics_note": "Earlier one-stage benchmark; excludes applicant data and does not measure current anonymous staged retrieval.",
+  "historical_recall_pilot": {
+    "prompt_version": "uxr-v4-recall",
+    "real_jobs_attempted": 16,
+    "strictly_validated": 14,
+    "model_pending": 2,
+    "median_seconds": 19.03,
+    "caveat": "Selected live workflow pilot, not a measured recall or accuracy benchmark. Failed judgments retain only source facts for downstream review."
+  },
+  "staged_retry_verification": {
+    "description": "Actual local HTTP staged retry verification before additional search-level settings; both previously failed live jobs completed.",
+    "jobs": [
+      {
+        "key": "roblox:8070133",
+        "stage": "complete",
+        "status": "complete",
+        "total_attempts": 5
+      },
+      {
+        "key": "lyft:8797069002",
+        "stage": "complete",
+        "status": "complete",
+        "total_attempts": 2
+      }
+    ],
+    "stages": [
+      {
+        "stage": "details",
+        "calls": 4,
+        "failures": 2,
+        "inference_seconds": 79.71
+      },
+      {
+        "stage": "overview",
+        "calls": 3,
+        "failures": 1,
+        "inference_seconds": 22.58
+      }
+    ]
+  },
+  "current_staged_pilot": {
+    "prompt_version": "uxr-v6-anonymous-experience-levels",
+    "real_jobs_attempted": 11,
+    "strictly_validated": 11,
+    "model_pending": 0,
+    "request_count": 35,
+    "request_count_scope": "Current content/policy input keys only; superseded Amazon input attempts are excluded.",
+    "failed_requests": 13,
+    "observed_inference_seconds": 614.62,
+    "request_median_seconds": 11.62,
+    "jobs": [
+      {
+        "key": "roblox:8070133",
+        "validated": true,
+        "stage": "complete",
+        "attempts": 2,
+        "experience_level": "mid",
+        "required_years": 4.0,
+        "preferred_years": null,
+        "preferred_years_range": null
+      },
+      {
+        "key": "lyft:8797069002",
+        "validated": true,
+        "stage": "complete",
+        "attempts": 4,
+        "experience_level": "unknown",
+        "required_years": null,
+        "preferred_years": null,
+        "preferred_years_range": null
+      },
+      {
+        "key": "google:89541201752924870",
+        "validated": true,
+        "stage": "complete",
+        "attempts": 2,
+        "experience_level": "unknown",
+        "required_years": null,
+        "preferred_years": null,
+        "preferred_years_range": null
+      },
+      {
+        "key": "hoyoverse:05155f73-0acc-4d7d-82ad-3db8265fe435",
+        "validated": true,
+        "stage": "complete",
+        "attempts": 5,
+        "experience_level": "unknown",
+        "required_years": null,
+        "preferred_years": null,
+        "preferred_years_range": {
+          "min": 1.0,
+          "max": 3.0
+        }
+      },
+      {
+        "key": "hoyoverse:5da60843-8dc5-4da2-a7b3-2dd37314f87f",
+        "validated": true,
+        "stage": "complete",
+        "attempts": 5,
+        "experience_level": "unknown",
+        "required_years": null,
+        "preferred_years": null,
+        "preferred_years_range": null
+      },
+      {
+        "key": "amazon:10433838",
+        "validated": true,
+        "stage": "complete",
+        "attempts": 3,
+        "experience_level": "junior",
+        "required_years": 3.0,
+        "preferred_years": null,
+        "preferred_years_range": null
+      },
+      {
+        "key": "anthropic:5392007008",
+        "validated": true,
+        "stage": "complete",
+        "attempts": 3,
+        "experience_level": "unknown",
+        "required_years": null,
+        "preferred_years": 8.0,
+        "preferred_years_range": null
+      },
+      {
+        "key": "coinbase:8175360",
+        "validated": true,
+        "stage": "complete",
+        "attempts": 3,
+        "experience_level": "unknown",
+        "required_years": null,
+        "preferred_years": null,
+        "preferred_years_range": null
+      },
+      {
+        "key": "adobe:R172095",
+        "validated": true,
+        "stage": "complete",
+        "attempts": 3,
+        "experience_level": "senior",
+        "required_years": 5.0,
+        "preferred_years": null,
+        "preferred_years_range": null
+      },
+      {
+        "key": "himalayas:https://himalayas.app/companies/aftership/jobs/staff-user-researcher",
+        "validated": true,
+        "stage": "complete",
+        "attempts": 2,
+        "experience_level": "staff",
+        "required_years": 8.0,
+        "preferred_years": null,
+        "preferred_years_range": null
+      },
+      {
+        "key": "jobicy:152427",
+        "validated": true,
+        "stage": "complete",
+        "attempts": 3,
+        "experience_level": "junior",
+        "required_years": 1.0,
+        "preferred_years": null,
+        "preferred_years_range": null
+      }
+    ],
+    "caveat": "Targeted workflow checks, not random sampling or measured recall/semantic accuracy. Strict validation checks structure, exact quotes and numerical consistency; downstream semantic review remains necessary."
+  }
+}

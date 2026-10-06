@@ -1,0 +1,62 @@
+[
+  {
+    "id": "remotive",
+    "ats": "aggregator",
+    "provider": "remotive",
+    "name": "Remotive",
+    "attribution_url": "https://remotive.com",
+    "documentation_url": "https://github.com/remotive-com/remote-jobs-api",
+    "min_fetch_interval_seconds": 21600,
+    "membership_mode": "snapshot"
+  },
+  {
+    "id": "arbeitnow",
+    "ats": "aggregator",
+    "provider": "arbeitnow",
+    "name": "Arbeitnow",
+    "attribution_url": "https://www.arbeitnow.com",
+    "documentation_url": "https://www.arbeitnow.com/blog/job-board-api",
+    "min_fetch_interval_seconds": 21600,
+    "membership_mode": "snapshot",
+    "request_delay_seconds": 2,
+    "max_pages": 100
+  },
+  {
+    "id": "remoteok",
+    "ats": "aggregator",
+    "provider": "remoteok",
+    "name": "Remote OK",
+    "attribution_url": "https://remoteok.com",
+    "documentation_url": "https://remoteok.com/faq",
+    "min_fetch_interval_seconds": 21600,
+    "membership_mode": "rolling"
+  },
+  {
+    "id": "jobicy",
+    "ats": "aggregator",
+    "provider": "jobicy",
+    "name": "Jobicy",
+    "attribution_url": "https://jobicy.com",
+    "documentation_url": "https://github.com/Jobicy/remote-jobs-api",
+    "min_fetch_interval_seconds": 21600,
+    "membership_mode": "rolling",
+    "request_delay_seconds": 1,
+    "max_pages": 100
+  },
+  {
+    "id": "himalayas",
+    "ats": "aggregator",
+    "provider": "himalayas",
+    "name": "Himalayas",
+    "attribution_url": "https://himalayas.app",
+    "documentation_url": "https://himalayas.app/docs/remote-jobs-api",
+    "min_fetch_interval_seconds": 86400,
+    "membership_mode": "snapshot",
+    "queries": [
+      "UX research",
+      "human factors"
+    ],
+    "request_delay_seconds": 1,
+    "max_pages": 200
+  }
+]

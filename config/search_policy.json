@@ -1,0 +1,54 @@
+{
+  "purpose": "Public high-recall discovery of UX and related research opportunities. Application decisions are handled by downstream humans or agents. No candidate biography is used.",
+  "targets": [
+    "UX research",
+    "user research",
+    "design research",
+    "mixed-methods research",
+    "behavioral and social research",
+    "product research",
+    "consumer and market insights",
+    "customer experience research and analytics",
+    "product analytics",
+    "human factors and usability",
+    "research operations",
+    "service and design strategy",
+    "research-adjacent program evaluation",
+    "applied research and evaluation",
+    "mixed research/design roles"
+  ],
+  "employment": [
+    "internship",
+    "full_time",
+    "contract",
+    "apprenticeship"
+  ],
+  "locations": "Worldwide; retain on-site, hybrid, remote and relocation opportunities.",
+  "company_preference": "Prioritize large employers; retain established companies, startups and AI startups.",
+  "timing": "Extract employer timing/enrollment requirements as informational notes; do not assume the availability or eligibility of an individual applicant.",
+  "include_qualification_gaps": true,
+  "experience_levels": {
+    "junior_max": 3,
+    "senior_min": 5,
+    "staff_min": 8
+  },
+  "anonymous_capabilities": [
+    "interviews",
+    "surveys",
+    "diary studies",
+    "ethnography",
+    "experimental design",
+    "mixed-methods research",
+    "qualitative synthesis",
+    "behavioral and social analysis",
+    "consumer and product insights",
+    "program evaluation",
+    "R",
+    "Python",
+    "SQL",
+    "SPSS",
+    "statistical analysis",
+    "stakeholder communication",
+    "research coordination"
+  ]
+}

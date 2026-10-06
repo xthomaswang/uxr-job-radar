@@ -1,0 +1,460 @@
+[
+  {
+    "id": "google",
+    "company": "Google",
+    "ats": "google",
+    "kind": "large"
+  },
+  {
+    "id": "figma",
+    "company": "Figma",
+    "ats": "greenhouse",
+    "slug": "figma",
+    "kind": "large"
+  },
+  {
+    "id": "roblox",
+    "company": "Roblox",
+    "ats": "greenhouse",
+    "slug": "roblox",
+    "kind": "large"
+  },
+  {
+    "id": "notion",
+    "company": "Notion",
+    "ats": "ashby",
+    "slug": "notion",
+    "kind": "established"
+  },
+  {
+    "id": "hoyoverse",
+    "company": "HoYoverse",
+    "ats": "ashby",
+    "slug": "hoyoverse",
+    "kind": "large"
+  },
+  {
+    "id": "backmarket",
+    "company": "Back Market",
+    "ats": "ashby",
+    "slug": "Backmarket",
+    "kind": "established"
+  },
+  {
+    "id": "bpcs",
+    "company": "Blueprint Technologies",
+    "ats": "greenhouse",
+    "slug": "bpcs",
+    "kind": "established"
+  },
+  {
+    "id": "saviynt",
+    "company": "Saviynt",
+    "ats": "lever",
+    "slug": "saviynt",
+    "kind": "established"
+  },
+  {
+    "id": "emergent",
+    "company": "Emergent Labs",
+    "ats": "greenhouse",
+    "slug": "emergentlabsinc",
+    "kind": "ai_startup"
+  },
+  {
+    "id": "cursor",
+    "company": "Cursor",
+    "ats": "ashby",
+    "slug": "cursor",
+    "kind": "ai_startup"
+  },
+  {
+    "id": "openai",
+    "company": "OpenAI",
+    "ats": "ashby",
+    "slug": "openai",
+    "kind": "ai_startup"
+  },
+  {
+    "id": "airbnb",
+    "company": "Airbnb",
+    "ats": "greenhouse",
+    "slug": "airbnb",
+    "kind": "large"
+  },
+  {
+    "id": "duolingo",
+    "company": "Duolingo",
+    "ats": "greenhouse",
+    "slug": "duolingo",
+    "kind": "large"
+  },
+  {
+    "id": "reddit",
+    "company": "Reddit",
+    "ats": "greenhouse",
+    "slug": "reddit",
+    "kind": "large"
+  },
+  {
+    "id": "pinterest",
+    "company": "Pinterest",
+    "ats": "greenhouse",
+    "slug": "pinterest",
+    "kind": "large"
+  },
+  {
+    "id": "discord",
+    "company": "Discord",
+    "ats": "greenhouse",
+    "slug": "discord",
+    "kind": "large"
+  },
+  {
+    "id": "dropbox",
+    "company": "Dropbox",
+    "ats": "greenhouse",
+    "slug": "dropbox",
+    "kind": "large"
+  },
+  {
+    "id": "asana",
+    "company": "Asana",
+    "ats": "greenhouse",
+    "slug": "asana",
+    "kind": "large"
+  },
+  {
+    "id": "lyft",
+    "company": "Lyft",
+    "ats": "greenhouse",
+    "slug": "lyft",
+    "kind": "large"
+  },
+  {
+    "id": "databricks",
+    "company": "Databricks",
+    "ats": "greenhouse",
+    "slug": "databricks",
+    "kind": "large"
+  },
+  {
+    "id": "anthropic",
+    "company": "Anthropic",
+    "ats": "greenhouse",
+    "slug": "anthropic",
+    "kind": "ai_startup"
+  },
+  {
+    "id": "perplexity",
+    "company": "Perplexity",
+    "ats": "ashby",
+    "slug": "perplexity",
+    "kind": "ai_startup"
+  },
+  {
+    "id": "amazon",
+    "company": "Amazon",
+    "ats": "amazon",
+    "kind": "large",
+    "queries": [
+      "UX research",
+      "user research",
+      "usability",
+      "human factors",
+      "consumer insights",
+      "customer insights",
+      "research operations",
+      "product research"
+    ]
+  },
+  {
+    "id": "stripe",
+    "company": "Stripe",
+    "ats": "greenhouse",
+    "slug": "stripe",
+    "kind": "large"
+  },
+  {
+    "id": "doordash",
+    "company": "DoorDash",
+    "ats": "greenhouse",
+    "slug": "doordashusa",
+    "kind": "large"
+  },
+  {
+    "id": "instacart",
+    "company": "Instacart",
+    "ats": "greenhouse",
+    "slug": "instacart",
+    "kind": "large"
+  },
+  {
+    "id": "airtable",
+    "company": "Airtable",
+    "ats": "greenhouse",
+    "slug": "airtable",
+    "kind": "established"
+  },
+  {
+    "id": "mongodb",
+    "company": "MongoDB",
+    "ats": "greenhouse",
+    "slug": "mongodb",
+    "kind": "large"
+  },
+  {
+    "id": "elastic",
+    "company": "Elastic",
+    "ats": "greenhouse",
+    "slug": "elastic",
+    "kind": "large"
+  },
+  {
+    "id": "coinbase",
+    "company": "Coinbase",
+    "ats": "greenhouse",
+    "slug": "coinbase",
+    "kind": "large"
+  },
+  {
+    "id": "okta",
+    "company": "Okta",
+    "ats": "greenhouse",
+    "slug": "okta",
+    "kind": "large"
+  },
+  {
+    "id": "twilio",
+    "company": "Twilio",
+    "ats": "greenhouse",
+    "slug": "twilio",
+    "kind": "large"
+  },
+  {
+    "id": "coursera",
+    "company": "Coursera",
+    "ats": "greenhouse",
+    "slug": "coursera",
+    "kind": "large"
+  },
+  {
+    "id": "affirm",
+    "company": "Affirm",
+    "ats": "greenhouse",
+    "slug": "affirm",
+    "kind": "large"
+  },
+  {
+    "id": "spotify",
+    "company": "Spotify",
+    "ats": "lever",
+    "slug": "spotify",
+    "kind": "large"
+  },
+  {
+    "id": "ramp",
+    "company": "Ramp",
+    "ats": "ashby",
+    "slug": "ramp",
+    "kind": "startup"
+  },
+  {
+    "id": "linear",
+    "company": "Linear",
+    "ats": "ashby",
+    "slug": "linear",
+    "kind": "startup"
+  },
+  {
+    "id": "vanta",
+    "company": "Vanta",
+    "ats": "ashby",
+    "slug": "vanta",
+    "kind": "startup"
+  },
+  {
+    "id": "replit",
+    "company": "Replit",
+    "ats": "ashby",
+    "slug": "replit",
+    "kind": "ai_startup"
+  },
+  {
+    "id": "elevenlabs",
+    "company": "ElevenLabs",
+    "ats": "ashby",
+    "slug": "ElevenLabs",
+    "kind": "ai_startup"
+  },
+  {
+    "id": "cohere",
+    "company": "Cohere",
+    "ats": "ashby",
+    "slug": "cohere",
+    "kind": "ai_startup"
+  },
+  {
+    "id": "scale",
+    "company": "Scale AI",
+    "ats": "greenhouse",
+    "slug": "scaleai",
+    "kind": "ai_startup"
+  },
+  {
+    "id": "servicenow",
+    "company": "ServiceNow",
+    "ats": "smartrecruiters",
+    "slug": "ServiceNow",
+    "kind": "large",
+    "queries": [
+      "research",
+      "UX",
+      "insights",
+      "usability",
+      "human factors",
+      "service design"
+    ],
+    "min_fetch_interval_seconds": 21600
+  },
+  {
+    "id": "ubisoft",
+    "company": "Ubisoft",
+    "ats": "smartrecruiters",
+    "slug": "Ubisoft2",
+    "kind": "large",
+    "queries": [
+      "research",
+      "UX",
+      "insights",
+      "usability",
+      "human factors",
+      "service design"
+    ],
+    "min_fetch_interval_seconds": 21600
+  },
+  {
+    "id": "nielseniq",
+    "company": "NielsenIQ",
+    "ats": "smartrecruiters",
+    "slug": "NielsenIQ",
+    "kind": "large",
+    "queries": [
+      "research",
+      "UX",
+      "insights",
+      "usability",
+      "human factors",
+      "service design"
+    ],
+    "min_fetch_interval_seconds": 21600
+  },
+  {
+    "id": "adobe",
+    "company": "Adobe",
+    "ats": "workday",
+    "host": "adobe.wd5.myworkdayjobs.com",
+    "tenant": "adobe",
+    "site": "external_experienced",
+    "kind": "large",
+    "queries": [
+      "research",
+      "UX",
+      "usability",
+      "human factors",
+      "consumer insights",
+      "customer insights",
+      "research operations",
+      "product research"
+    ],
+    "min_fetch_interval_seconds": 21600
+  },
+  {
+    "id": "nvidia",
+    "company": "NVIDIA",
+    "ats": "workday",
+    "host": "nvidia.wd5.myworkdayjobs.com",
+    "tenant": "nvidia",
+    "site": "NVIDIAExternalCareerSite",
+    "kind": "large",
+    "queries": [
+      "research",
+      "UX",
+      "usability",
+      "human factors",
+      "consumer insights",
+      "customer insights",
+      "research operations",
+      "product research"
+    ],
+    "min_fetch_interval_seconds": 21600
+  },
+  {
+    "id": "bunq",
+    "company": "bunq",
+    "ats": "recruitee",
+    "slug": "bunq",
+    "kind": "established",
+    "api_access_note": "Public no-key API verified 2026-10-05; official Recruitee docs announce required employer tokens from 2027-02-10. Treat future 401 as unavailable."
+  },
+  {
+    "id": "remotive",
+    "ats": "aggregator",
+    "provider": "remotive",
+    "name": "Remotive",
+    "attribution_url": "https://remotive.com",
+    "documentation_url": "https://github.com/remotive-com/remote-jobs-api",
+    "min_fetch_interval_seconds": 21600,
+    "membership_mode": "snapshot"
+  },
+  {
+    "id": "arbeitnow",
+    "ats": "aggregator",
+    "provider": "arbeitnow",
+    "name": "Arbeitnow",
+    "attribution_url": "https://www.arbeitnow.com",
+    "documentation_url": "https://www.arbeitnow.com/blog/job-board-api",
+    "min_fetch_interval_seconds": 21600,
+    "membership_mode": "snapshot",
+    "request_delay_seconds": 2,
+    "max_pages": 100
+  },
+  {
+    "id": "remoteok",
+    "ats": "aggregator",
+    "provider": "remoteok",
+    "name": "Remote OK",
+    "attribution_url": "https://remoteok.com",
+    "documentation_url": "https://remoteok.com/faq",
+    "min_fetch_interval_seconds": 21600,
+    "membership_mode": "rolling"
+  },
+  {
+    "id": "jobicy",
+    "ats": "aggregator",
+    "provider": "jobicy",
+    "name": "Jobicy",
+    "attribution_url": "https://jobicy.com",
+    "documentation_url": "https://github.com/Jobicy/remote-jobs-api",
+    "min_fetch_interval_seconds": 21600,
+    "membership_mode": "rolling",
+    "request_delay_seconds": 1,
+    "max_pages": 100
+  },
+  {
+    "id": "himalayas",
+    "ats": "aggregator",
+    "provider": "himalayas",
+    "name": "Himalayas",
+    "attribution_url": "https://himalayas.app",
+    "documentation_url": "https://himalayas.app/docs/remote-jobs-api",
+    "min_fetch_interval_seconds": 86400,
+    "membership_mode": "snapshot",
+    "queries": [
+      "UX research",
+      "human factors"
+    ],
+    "request_delay_seconds": 1,
+    "max_pages": 200
+  }
+]
