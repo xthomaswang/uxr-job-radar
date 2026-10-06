@@ -17,7 +17,7 @@
   validate current feed membership and page status independently.
 - Missing experience is unknown, not zero. Preferred experience is not mandatory.
 - Large employers keep queue priority and a `company_kind` label; only the curated FAANG+ list (`pipeline.FAANG_PLUS`) gets the 🔥 README marker. Keep startups included.
-- Employers a maintainer judges not to be direct openings are listed in the ignored `state/excluded-employers.json` and omitted at render time (no cache impact). Never name them or the reasons in public files; the README gives only a count.
+- Employers a maintainer judges not to be direct openings are listed in the ignored `state/excluded-employers.json` and omitted at render time (no cache impact). Single postings can be listed by `key` too. Never name them or the reasons in public files; the README gives only counts. Aggregator records that duplicate an official record (same company and title) are dropped at render time.
 - Sponsorship and U.S.-citizenship flags come from fixed rules over the exact posting text, never the model; they must prefer a missed flag to a wrong one (an affirmative "we do sponsor" suppresses the flag).
 - Use uv, a project .venv and uv.lock. Keep shared model weights outside the repo.
 - Do not modify unrelated model hosts, projects or global environments.

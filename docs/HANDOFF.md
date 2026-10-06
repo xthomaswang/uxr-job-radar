@@ -140,8 +140,11 @@ field consistency and remain separate from model prose.
 
 Postings from employers a maintainer judged not to be direct openings (for example
 repeated training-program listings or staffing-agency requisition pools) are omitted from
-the feed; README states how many. A `verified: true` record is still only a statement that
-the listing exists, not that it is a real vacancy.
+the feed. An aggregator copy of an opening the employer's own feed lists (same company and
+title) is omitted too, so apply through the official record. README states both counts. A
+`verified: true` record is still only a statement that the listing exists, not that it is a
+real vacancy; aggregator titles and locations are often rewritten, so search the employer's
+own site for the posting before applying.
 
 Model errors are re-enqueued persistently. A failed stage may appear in the feed
 as a source-only record while repair continues. Never-attempted jobs remain queued

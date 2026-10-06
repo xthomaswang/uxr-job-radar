@@ -5,7 +5,7 @@ import pytest
 
 from uxr_radar.core import (Assessment, Job, experience_level, experience_metadata, messages,
     publication_decision, title_seniority, validate_assessment, anonymous_policy)
-from uxr_radar.pipeline import FEED_URL, age_cell, assessment_key, faang_plus, handoff_assessment, load_exclusions, location_cell, place_label, posted_age, posting_flags, render
+from uxr_radar.pipeline import FEED_URL, Exclusions, age_cell, assessment_key, faang_plus, handoff_assessment, load_exclusions, location_cell, place_label, posted_age, posting_flags, render
 from uxr_radar.store import Store
 
 
@@ -250,17 +250,23 @@ def test_flags_reach_the_readme_and_the_feed(tmp_path):
     assert "UX Researcher 🛂 🇺🇸" in output.read_text()
 
 
-def test_excluded_employers_are_omitted_from_readme_and_feed(tmp_path):
+def test_excluded_employers_jobs_and_aggregator_duplicates_are_omitted(tmp_path):
     base=job("Conduct user interviews.")
-    jobs=[base.model_copy(update={"key":f"acme:{n}","source_id":str(n),"title":f"Researcher {n}","company":name}) for n,name in enumerate(("Keep Co","Skip Me LLC"))]
-    store=Store(tmp_path/"jobs.sqlite3");store.snapshot("acme",jobs)
+    official=base.model_copy(update={"key":"acme:keep","source_id":"keep","title":"UX Researcher","company":"Keep Co"})
+    copy=base.model_copy(update={"key":"agg:copy","source":"agg","source_id":"copy","title":"UX  Researcher!","company":"Keep Co.","source_kind":"aggregator","source_label":"Agg"})
+    other=base.model_copy(update={"key":"agg:other","source":"agg","source_id":"other","title":"Insights Lead","company":"Keep Co","source_kind":"aggregator","source_label":"Agg"})
+    skip_company=base.model_copy(update={"key":"acme:c","source_id":"c","title":"Researcher C","company":"Skip Me LLC"})
+    skip_job=base.model_copy(update={"key":"acme:j","source_id":"j","title":"Researcher J","company":"Other Co"})
+    store=Store(tmp_path/"jobs.sqlite3")
+    store.snapshot("acme",[official,skip_company,skip_job]);store.snapshot("agg",[copy,other])
     with store.db:
-        for j in jobs:
+        for j in (official,copy,other,skip_company,skip_job):
             store.db.execute("UPDATE jobs SET assessment=?,assessment_key=? WHERE key=?",(assessment(None).model_dump_json(),assessment_key(j,{},"test"),j.key))
     listing=tmp_path/"excluded.json"
-    listing.write_text(json.dumps([{"company":"skip me","reason":"private note"},"Other Employer"]))
+    listing.write_text(json.dumps([{"company":"skip me","reason":"private note"},{"key":"acme:j","reason":"private job note"},"Unrelated Employer"]))
     output=tmp_path/"README.md";render(store,{},"test",output,excluded=load_exclusions(listing))
-    text=output.read_text();companies=[json.loads(l)["company"] for l in output.with_name("positions.jsonl").read_text().splitlines()]
-    assert companies==["Keep Co"] and "Skip Me" not in text and "private note" not in text
-    assert "1 postings from employers a maintainer judged not to be direct openings are omitted" in text
-    assert load_exclusions(tmp_path/"missing.json")==frozenset() and load_exclusions(None)==frozenset()
+    text=output.read_text();kept=sorted(json.loads(l)["key"] for l in output.with_name("positions.jsonl").read_text().splitlines())
+    assert kept==["acme:keep","agg:other"]  # official kept, its aggregator copy dropped, a different aggregator posting kept
+    assert "Skip Me" not in text and "private" not in text
+    assert "Omitted from the lists: 2 postings a maintainer judged not to be direct openings and 1 aggregator postings that duplicate an official listing." in text
+    assert load_exclusions(tmp_path/"missing.json")==Exclusions() and load_exclusions(None)==Exclusions()
