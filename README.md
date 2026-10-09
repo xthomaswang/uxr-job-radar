@@ -2,35 +2,35 @@
 
 A live list of UX research and adjacent research openings, screened by a self-hosted Qwen3.8-27B model and refreshed hourly while the host Mac is online. Roles with unknown experience or qualification gaps stay in the list; a person or an agent decides whether to apply.
 
-Generated: 2026-10-09 11:22 EDT · Model: `mlx-community/Qwen3.8-27B-8bit` · Prompt: `uxr-v7-anonymous-concise-overview` · Policy: `ac752ab36eab37d0d0abd1cfa925a81408ca621c899575e322582571565f96ef`
+Generated: 2026-10-09 12:27 EDT · Model: `mlx-community/Qwen3.8-27B-8bit` · Prompt: `uxr-v7-anonymous-concise-overview` · Policy: `ac752ab36eab37d0d0abd1cfa925a81408ca621c899575e322582571565f96ef`
 
-Tracked: 20797 · Pending current model/policy review: **5286** · Sources with errors: **2** · Jobs with inference errors: **0**
+Tracked: 20811 · Pending current model/policy review: **57** · Sources with errors: **2** · Jobs with inference errors: **0**
 
 ---
 
-### Browse 1595 roles by category
+### Browse 1948 roles by category
 
-🌱 **[UXR Junior](#-uxr-junior)** (7)
+🌱 **[UXR Junior](#-uxr-junior)** (10)
 
-❔ **[UXR Experience not stated](#-uxr-experience-not-stated)** (18)
+❔ **[UXR Experience not stated](#-uxr-experience-not-stated)** (22)
 
 🌿 **[UXR Mid](#-uxr-mid)** (6)
 
-🌳 **[UXR Senior](#-uxr-senior)** (26)
+🌳 **[UXR Senior](#-uxr-senior)** (34)
 
-🏆 **[UXR Staff](#-uxr-staff)** (11)
+🏆 **[UXR Staff](#-uxr-staff)** (15)
 
-🔗 **[Related non-UXR roles](#-related-non-uxr-roles)** (919)
+🔗 **[Related non-UXR roles](#-related-non-uxr-roles)** (1168)
 
 🔁 **[Model validation pending](#-model-validation-pending)** (0)
 
-⏳ **[Link check pending](#-link-check-pending)** (608)
+⏳ **[Link check pending](#-link-check-pending)** (693)
 
 Each table shows up to 100 roles, model-recommended first and then newest; every role is in [positions.jsonl](positions.jsonl).
 
 ---
 
-> 🤖 **AI agents** (auto-apply, triage, matching): read [docs/HANDOFF.md](docs/HANDOFF.md) first. It says what to load, how to filter and what to recheck before submitting. The complete feed is [positions.jsonl](positions.jsonl) (1595 records, one JSON object per line): https://raw.githubusercontent.com/xthomaswang/uxr-job-radar/main/positions.jsonl
+> 🤖 **AI agents** (auto-apply, triage, matching): read [docs/HANDOFF.md](docs/HANDOFF.md) first. It says what to load, how to filter and what to recheck before submitting. The complete feed is [positions.jsonl](positions.jsonl) (1948 records, one JSON object per line): https://raw.githubusercontent.com/xthomaswang/uxr-job-radar/main/positions.jsonl
 
 ---
 
@@ -58,6 +58,8 @@ UX research roles that state 3 or fewer mandatory years.
 
 | Company | Role | Location | Application | Age |
 |:---|:---|:---|:---:|:---:|
+| **SHAPE DACH GmbH** 🌐<br><sub>via Arbeitnow</sub> | (Medior/Senior) Produktdesigner:in (m/w/d) mit Schwerpunkt UX ⚠️<br><sub>req 3y · pref 5y</sub> | Hamburg | [Apply](https://www.arbeitnow.com/jobs/companies/shape-dach-gmbh/medior-senior-produktdesignerin-mit-schwerpunkt-ux-hamburg-442637) | 1d |
+| **NeuroNation** 🌐<br><sub>via Arbeitnow</sub> | Scientific Product Manager (m/fd)<br><sub>req 2y</sub> | Berlin | [Apply](https://www.arbeitnow.com/jobs/companies/neuronation/scientific-product-manager-m-fd-berlin-214952) | 2d |
 | **NielsenIQ** | Senior Research Executive (FMCG) ⚠️<br><sub>req 2y</sub> | Ho Chi Minh City, SG, VN | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000153409549-senior-research-executive-fmcg-) | 4d |
 | **Amazon** 🔥 | UX Designer, Amazon Delivery Experience<br><sub>req 3y</sub> | US, WA, Bellevue | [Apply](https://www.amazon.jobs/en/jobs/10563748/ux-designer-amazon-delivery-experience) | 10d |
 | **NielsenIQ** | SA&I Team Lead, Consumer Insights & Quantitative Research<br><sub>req 3y</sub> | Almaty, KZ | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000152228919-sa-i-team-lead-consumer-insights-quantitative-research) | 10d |
@@ -65,6 +67,7 @@ UX research roles that state 3 or fewer mandatory years.
 | **Amazon** 🔥 | Research Strategist, PXTCS Experience Research<br><sub>req 3y</sub> | US, CA, San Francisco | [Apply](https://www.amazon.jobs/en/jobs/10531743/research-strategist-pxtcs-experience-research) | 1mo |
 | ↳ | UX Designer , GOEST (Global Operations Enterprise Services - Tech)<br><sub>req 3y</sub> | GB, London | [Apply](https://www.amazon.jobs/en/jobs/10515646/ux-designer-goest-global-operations-enterprise-services-tech) | 1mo |
 | **NielsenIQ** | Senior Analyst (Quantitative Research) - Consumer Insights & Brand ⚠️<br><sub>req 2y</sub> | Pasig City, PH | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000138791550-senior-analyst-quantitative-research-consumer-insights-brand) | 2mo |
+| **Google** 🔥 | UX Quantitative Researcher, Geo Makers<br><sub>req 1y · pref 1y</sub> | Mountain View, CA, USA<br>New York, NY, USA<br><sub>+1 more</sub> | [Apply](https://www.google.com/about/careers/applications/jobs/results/96109534967145158) | — |
 
 ## ❔ UXR Experience not stated
 
@@ -74,8 +77,12 @@ UX research roles that state no mandatory years. Unknown, not zero: this covers 
 
 | Company | Role | Location | Application | Age |
 |:---|:---|:---|:---:|:---:|
+| **1KOMMA5˚** 🌐<br><sub>via Arbeitnow</sub> | Working Student - AI Product Designer (m/f/d)<br><sub>Intern</sub> | Berlin | [Apply](https://www.arbeitnow.com/jobs/companies/1komma50/working-student-ai-product-designer-berlin-58805) | 0d |
+| **Connected Consumables** 🌐<br><sub>via Arbeitnow</sub> | UI/UX Designer (m/w/d) Medizintechnik ／ Interaction & Usability ／ regelm. Präsenz in Dresden | Dresden | [Apply](https://www.arbeitnow.com/jobs/companies/connected-consumables/ui-ux-designer-medizintechnik-interaction-usability-regelm-prasenz-in-dresden-249764) | 2d |
 | **Asana** | Head of Research | San Francisco | [Apply](https://www.asana.com/jobs/apply/8193555?gh_jid=8193555) | 3d |
+| **Pinterest** | UX Quantitative Research Intern (USA) 🛂<br><sub>Intern</sub> | Remote, US | [Apply](https://www.pinterestcareers.com/jobs/?gh_jid=8140217) | 7d |
 | **OpenAI** 🔥 | Research Lead, Policy Communications | San Francisco | [Apply](https://jobs.ashbyhq.com/openai/0320cd25-ede1-4d25-8a61-65d801f1726e) | 10d |
+| **Figma** | PhD Intern, Data Science (2027)<br><sub>Intern</sub> | San Francisco, CA<br>New York, NY | [Apply](https://boards.greenhouse.io/figma/jobs/6200626004?gh_jid=6200626004) | 17d |
 | **NielsenIQ** | Analyst, Qualitative Research | Taipei, TPE, TW | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000150061780-analyst-qualitative-research) | 22d |
 | **Back Market** | User Research UX Intern<br><sub>Intern</sub> | Bordeaux | [Apply](https://jobs.ashbyhq.com/Backmarket/54b5b0a5-a6ba-42a9-b12c-522faaf10dd7) | 22d |
 | **HoYoverse** | Associate User Researcher | Los Angeles | [Apply](https://jobs.ashbyhq.com/hoyoverse/5da60843-8dc5-4da2-a7b3-2dd37314f87f) | 24d |
@@ -116,7 +123,13 @@ UX research roles that state 5 or more and fewer than 8 mandatory years.
 
 | Company | Role | Location | Application | Age |
 |:---|:---|:---|:---:|:---:|
+| **Amazon** 🔥 | Senior Product Researcher, Kiro<br><sub>req 5y</sub> | US, WA, Seattle | [Apply](https://www.amazon.jobs/en/jobs/10574185/senior-product-researcher-kiro) | 1d |
+| ↳ | Consumer Insights Manager (AUNZ/SEA), Prime Video<br><sub>req 5y</sub> | AU, NSW, Sydney | [Apply](https://www.amazon.jobs/en/jobs/10571453/consumer-insights-manager-aunz-sea-prime-video) | 2d |
+| ↳ | Consumer Insights Manager (Japan), Prime Video<br><sub>req 5y</sub> | JP, Tokyo | [Apply](https://www.amazon.jobs/en/jobs/10571315/consumer-insights-manager-japan-prime-video) | 3d |
+| **Figma** | Researcher, Figma Design<br><sub>req 7y · pref 2y</sub> | San Francisco, CA<br>New York, NY<br><sub>+1 more</sub> | [Apply](https://boards.greenhouse.io/figma/jobs/6212642004?gh_jid=6212642004) | 3d |
+| **PAIDAI GmbH** 🌐<br><sub>via Arbeitnow</sub> | Senior Product Designer UX/UI (m/w/d) – Conversational & Agentic AI<br><sub>req 5y</sub> | Hamburg | [Apply](https://www.arbeitnow.com/jobs/companies/paidai-gmbh/senior-ux-ui-designer-hamburg-421106) | 3d |
 | **Amazon** 🔥 | Market Research Prod. Manager, Strategy and Insights, Reputation Marketing Insights<br><sub>req 5y</sub> | US, VA, Arlington | [Apply](https://www.amazon.jobs/en/jobs/10562486/market-research-prod-manager-strategy-and-insights-reputation-marketing-insights) | 11d |
+| **Figma** | Researcher - Rapid Research<br><sub>req 7y</sub> | San Francisco, CA<br>New York, NY<br><sub>+1 more</sub> | [Apply](https://boards.greenhouse.io/figma/jobs/6204360004?gh_jid=6204360004) | 15d |
 | **Okta** | Staff UX Researcher ⚠️<br><sub>req 7y</sub> | Toronto, Ontario, Canada | [Apply](https://www.okta.com/company/careers/opportunity/8229326?gh_jid=8229326) | 15d |
 | **Amazon** 🔥 | UX Designer II , Talent Solutions<br><sub>req 5y</sub> | CA, BC, Vancouver | [Apply](https://www.amazon.jobs/en/jobs/10553817/ux-designer-ii-talent-solutions) | 21d |
 | **Pinterest** | Staff Qualitative UX Researcher, Monetization ⚠️<br><sub>req 5y</sub> | San Francisco, CA, US<br>Remote, US | [Apply](https://www.pinterestcareers.com/jobs/?gh_jid=7684577) | 23d |
@@ -133,11 +146,13 @@ UX research roles that state 5 or more and fewer than 8 mandatory years.
 | **Amazon** 🔥 | Sr. UX Researcher, AFT - Experience Design<br><sub>req 5y</sub> | US, TX, Austin | [Apply](https://www.amazon.jobs/en/jobs/10499121/sr-ux-researcher-aft-experience-design) | 1mo |
 | ↳ | Sr Product Designer, Amazon Robotics, Amazon Robotics<br><sub>req 7y</sub> | US, MA, North Reading | [Apply](https://www.amazon.jobs/en/jobs/10497332/sr-product-designer-amazon-robotics-amazon-robotics) | 2mo |
 | ↳ | Senior UX Researcher, Amazon Global Logistics<br><sub>req 5y</sub> | CN, Beijing | [Apply](https://www.amazon.jobs/en/jobs/10495455/senior-ux-researcher-amazon-global-logistics) | 2mo |
+| ↳ | Sr. Product & Customer Experience Insights Manager, Customer Experience and Business Trends<br><sub>req 5y</sub> | US, WA, Seattle | [Apply](https://www.amazon.jobs/en/jobs/10495011/sr-product-customer-experience-insights-manager-customer-experience-and-business-trends) | 2mo |
 | ↳ | Senior UX Researcher, AWS Marketplace and Partner Services<br><sub>req 7y</sub> | US, VA, Arlington | [Apply](https://www.amazon.jobs/en/jobs/10482909/senior-ux-researcher-aws-marketplace-and-partner-services) | 2mo |
-| ↳ | Senior Product & Customer Insights Manager, Customer Experience and Business Trends, CN Insights<br><sub>req 5y</sub> | CN, Shanghai | [Apply](https://www.amazon.jobs/en/jobs/10470645/senior-product-customer-insights-manager-customer-experience-and-business-trends-cn-insights) | 3mo |
 | ↳ | Sr. Product Designer, Amazon Robotics<br><sub>req 7y</sub> | US, MA, North Reading | [Apply](https://www.amazon.jobs/en/jobs/10461799/sr-product-designer-amazon-robotics) | 3mo |
 | **Reddit** | EMEA Insights Lead, Consumer and Commercial Strategy <br><sub>req 7y</sub> | Remote - Germany | [Apply](https://job-boards.greenhouse.io/reddit/jobs/7957771) | 4mo |
+| **Figma** | Researcher, Figma Agentic Experiences<br><sub>req 7y</sub> | San Francisco, CA<br>New York, NY<br><sub>+1 more</sub> | [Apply](https://boards.greenhouse.io/figma/jobs/5651744004?gh_jid=5651744004) | 1y |
 | **Google** 🔥 | Senior Quantitative UX Researcher, AI Enablement<br><sub>req 6y · pref 5y</sub> | Sunnyvale, CA, USA<br>Seattle, WA, USA | [Apply](https://www.google.com/about/careers/applications/jobs/results/135963132433441478) | — |
+| ↳ | Senior Technical Design Researcher, Pixel, AI Systems and Hardware<br><sub>req 6y · pref 6y</sub> | Mountain View, CA, USA | [Apply](https://www.google.com/about/careers/applications/jobs/results/80001689620226758) | — |
 | ↳ | Senior UX Researcher, Hardware XR<br><sub>req 6y · pref 5y</sub> | San Jose, CA, USA | [Apply](https://www.google.com/about/careers/applications/jobs/results/93683782535520966) | — |
 | ↳ | Senior UX Researcher, Learning Frontiers, LearnX<br><sub>req 6y · pref 5y</sub> | Mountain View, CA, USA<br>New York, NY, USA | [Apply](https://www.google.com/about/careers/applications/jobs/results/125278429548290758) | — |
 | ↳ | Senior UX Researcher, Retail Ads Consumer<br><sub>req 6y · pref 5y</sub> | New York, NY, USA<br>Mountain View, CA, USA | [Apply](https://www.google.com/about/careers/applications/jobs/results/97692967002612422) | — |
@@ -151,12 +166,16 @@ UX research roles that state 8 or more mandatory years.
 
 | Company | Role | Location | Application | Age |
 |:---|:---|:---|:---:|:---:|
+| **Appliedai** 🌐<br><sub>via Arbeitnow</sub> | Principal UX Designer (m/f/x) – AI Design<br><sub>req 10y</sub> | München (81671) | [Apply](https://www.arbeitnow.com/jobs/companies/appliedai/principal-ux-designer-ai-design-munchen-81671-438640) | 1d |
+| **ServiceNow** | Senior UX Design Strategist ⚠️<br><sub>req 8y</sub> | Remote<br>San Diego, CALIFORNIA, US | [Apply](https://jobs.smartrecruiters.com/ServiceNow/744000153825039-senior-ux-design-strategist) | 2d |
 | **Amazon** 🔥 | Director, Qualitative Research and Survey Science , PXT Central Science (PXTCS)<br><sub>req 10y</sub> | US, CA, San Francisco | [Apply](https://www.amazon.jobs/en/jobs/10522274/director-qualitative-research-and-survey-science-pxt-central-science-pxtcs) | 1mo |
 | ↳ | Sr, Manager, UX/Design, Talent Acquisition-Tech ⚠️<br><sub>req 10y</sub> | US, WA, Seattle | [Apply](https://www.amazon.jobs/en/jobs/10512571/sr-manager-ux-design-talent-acquisition-tech) | 1mo |
 | **Instacart** | Staff User Researcher - Consumer<br><sub>req 8y</sub> | United States - Remote | [Apply](https://instacart.careers/job/?gh_jid=8141481) | 1mo |
 | ↳ | Staff User Researcher - Consumer<br><sub>req 8y</sub> | Canada - Remote (ON, AB, BC, or NS Only) | [Apply](https://instacart.careers/job/?gh_jid=8141483) | 1mo |
-| **Airbnb** | Staff UX Researcher, Payments Growth (Mixed Methods)<br><sub>req 10y</sub> | United States | [Apply](https://careers.airbnb.com/positions/8113284?gh_jid=8113284) | 1mo |
+| **Airbnb** | Staff UX Researcher, Incubations (Mixed Methods)<br><sub>req 10y</sub> | United States | [Apply](https://careers.airbnb.com/positions/8112572?gh_jid=8112572) | 1mo |
+| ↳ | Staff UX Researcher, Payments Growth (Mixed Methods)<br><sub>req 10y</sub> | United States | [Apply](https://careers.airbnb.com/positions/8113284?gh_jid=8113284) | 1mo |
 | **Amazon** 🔥 | Principal Product Manager, Voice of the Customer, Speed<br><sub>req 10y</sub> | US, WA, Bellevue | [Apply](https://www.amazon.jobs/en/jobs/10475169/principal-product-manager-voice-of-the-customer-speed) | 2mo |
+| **Figma** | Director, Research - AI Evals<br><sub>req 10y</sub> | San Francisco, CA<br>New York, NY<br><sub>+1 more</sub> | [Apply](https://boards.greenhouse.io/figma/jobs/6112112004?gh_jid=6112112004) | 2mo |
 | **Google** 🔥 | Senior Director, UX, YouTube Emerging Experience and Community ⚠️<br><sub>req 15y</sub> | San Bruno, CA, USA | [Apply](https://www.google.com/about/careers/applications/jobs/results/106115667379266246) | — |
 | ↳ | Senior Staff UX Quantitative Researcher, Search Ads<br><sub>req 10y · pref 10y</sub> | Mountain View, CA, USA<br>New York, NY, USA | [Apply](https://www.google.com/about/careers/applications/jobs/results/130953249577411270) | — |
 | ↳ | Staff Driver Safety UX Researcher, Android for Auto<br><sub>req 8y</sub> | San Jose, CA, USA<br>Kirkland, WA, USA<br><sub>+1 more</sub> | [Apply](https://www.google.com/about/careers/applications/jobs/results/134095629113533126) | — |
@@ -171,11 +190,28 @@ Roles outside core UX research that the model judged related, such as research o
 
 | Company | Role | Location | Application | Age |
 |:---|:---|:---|:---:|:---:|
+| **Amazon** 🔥 | Consultant, Analytics, Ads Insights<br><sub>level unstated</sub> | CN, Shanghai | [Apply](https://www.amazon.jobs/en/jobs/10574396/consultant-analytics-ads-insights) | 0d |
+| **NielsenIQ** | Analytic Consultant<br><sub>Junior · req 1y</sub> | Bezons, FR | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000154695350-analytic-consultant) | 0d |
+| ↳ | Consultant – Consumer Market Insight Benelux Brand & Media dutch speaker<br><sub>level unstated</sub> | Leuven, VBR, BE | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000154608459-consultant-consumer-market-insight-benelux-brand-media-dutch-speaker) | 0d |
+| ↳ | Research Analyst<br><sub>level unstated</sub> | Mumbai, MH, IN | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000154586394-research-analyst) | 0d |
+| ↳ | Research director – Brand & Media Benelux (Market research) dutch speaker<br><sub>level unstated</sub> | Leuven, VBR, BE | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000154607432-research-director-brand-media-benelux-market-research-dutch-speaker) | 0d |
+| **Ramp106 Gmbh** 🌐<br><sub>via Arbeitnow</sub> | Werkstudent\*In (M/W/D) Market Research & Data Insights<br><sub>Intern · level unstated</sub> | Hamburg | [Apply](https://www.arbeitnow.com/jobs/companies/ramp106-gmbh/werkstudentin-market-research-data-insights-hamburg-343984) | 0d |
+| **NielsenIQ** | Quantitative Research Manager, Tech & Durable Industry<br><sub>Junior · req 3y</sub> | Beijing, BJ, CN | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000154376789-quantitative-research-manager-tech-durable-industry) | 1d |
+| ↳ | Senior Analyst ⚠️<br><sub>Junior · req 2y</sub> | Beijing, BJ, CN | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000154356804-senior-analyst) | 1d |
+| ↳ | Strategic Insight Lead<br><sub>level unstated</sub> | Oxford, OXF, GB | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000154387620-strategic-insight-lead) | 1d |
+| ↳ | Project Manager (Media)<br><sub>Junior · req 3y</sub> | Leuven, VBR, BE | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000154121705-project-manager-media-) | 2d |
+| **ElevenLabs** 🌐<br><sub>via Arbeitnow</sub> | Data Scientist - Product Analytics<br><sub>level unstated</sub> | Remote | [Apply](https://www.arbeitnow.ch/jobs/companies/elevenlabs/remote-data-scientist-product-analytics-364885) | 2d |
+| **Leipziger Foren Services GmbH** 🌐<br><sub>via Arbeitnow</sub> | Werkstudent Unternehmenskommunikation & Marktforschung (all people)<br><sub>Intern · level unstated</sub> | Leipzig | [Apply](https://www.arbeitnow.com/jobs/companies/leipziger-foren-services-gmbh/werkstudent-unternehmenskommunikation-marktforschung-all-people-leipzig-254578) | 2d |
+| **NOW GmbH Nationale Organisation für den Wandel in der ...** 🌐<br><sub>via Arbeitnow</sub> | Werkstudent\*in für Studien- & Projektkoordination<br><sub>Intern · level unstated</sub> | Berlin Fasanenstrasse | [Apply](https://www.arbeitnow.com/jobs/companies/now-gmbh-nationale-organisation-fur-den-wandel-in-der/werkstudentin-fur-studien-projektkoordination-berlin-fasanenstrasse-140462) | 2d |
 | **NielsenIQ** | Analyst - Customer Success (On Premise)<br><sub>Junior · req 1y</sub> | Budapest, BU, HU | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000153614651-analyst-customer-success-on-premise-) | 3d |
 | ↳ | Consumer & Household Panel Insights<br><sub>Junior · req 2y</sub> | Ciudad de México, DIF, MX | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000153598279-consumer-household-panel-insights) | 3d |
 | ↳ | Research Analyst<br><sub>Junior · req 1y</sub> | Bogota, DC, CO | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000153562960-research-analyst) | 3d |
-| ↳ | Senior Research Analyst ⚠️<br><sub>Junior · req 2y</sub> | Milano, MI, IT | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000153544947-senior-research-analyst) | 3d |
+| **ElevenLabs** 🌐<br><sub>via Arbeitnow</sub> | Data Scientist - Product Analytics<br><sub>level unstated</sub> | Remote | [Apply](https://www.arbeitnow.com/jobs/companies/elevenlabs/remote-data-scientist-product-analytics-431439) | 3d |
+| **GESIS – Leibniz-Institut für Sozialwissenschaften** 🌐<br><sub>via Arbeitnow</sub> | Postdoctoral Researcher for Longitudinal Surveys (DRS-57)<br><sub>level unstated</sub> | Mannheim | [Apply](https://www.arbeitnow.com/jobs/companies/gesis-leibniz-institut-fur-sozialwissenschaften/postdoctoral-researcher-for-longitudinal-surveys-drs-57-mannheim-442836) | 3d |
+| **MIT Moderne Industrietechnik GmbH & Co. KG** 🌐<br><sub>via Arbeitnow</sub> | Marketing & Marktrecherche (m/w/d)<br><sub>level unstated</sub> | Vlotho | [Apply](https://www.arbeitnow.com/jobs/companies/mit-moderne-industrietechnik-gmbh-co-kg/marketing-marktrecherche-vlotho-48087) | 3d |
+| **NielsenIQ** | Senior Research Analyst ⚠️<br><sub>Junior · req 2y</sub> | Milano, MI, IT | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000153544947-senior-research-analyst) | 4d |
 | ↳ | Senior Research Executive, Consumer Insights (FMCG)<br><sub>level unstated · pref 2–3y</sub> | Singapore, SG | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000153400639-senior-research-executive-consumer-insights-fmcg-) | 4d |
+| **Civey GmbH** 🌐<br><sub>via Arbeitnow</sub> | Research Consultant im Bereich Marktforschung (w/m/d)<br><sub>level unstated</sub> | Berlin | [Apply](https://www.arbeitnow.com/jobs/companies/civey-gmbh/junior-research-consultant-im-bereich-marktforschung-berlin-262548) | 6d |
 | **Pinterest** | Master's University Grad Data Scientist (USA)<br><sub>level unstated</sub> | San Francisco, CA, US<br>Palo Alto, CA, US<br><sub>+2 more</sub> | [Apply](https://www.pinterestcareers.com/jobs/?gh_jid=8140389) | 7d |
 | **Ubisoft** | Market Data Analyst Assistant - Stage (6 mois) Janvier 2027 (F/H/NB)<br><sub>Intern · level unstated</sub> | Paris, IDF, FR | [Apply](https://jobs.smartrecruiters.com/Ubisoft2/744000153120789-market-data-analyst-assistant-stage-6-mois-janvier-2027-f-h-nb-) | 7d |
 | **NielsenIQ** | Executive, Consumer Data Insights <br><sub>Junior · req 1y</sub> | Kuala Lumpur, MY | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000152829579-executive-consumer-data-insights-) | 8d |
@@ -187,14 +223,16 @@ Roles outside core UX research that the model judged related, such as research o
 | **Amazon** 🔥 | Business Intelligence Engineer, Amazon Prime Video Product Analytics<br><sub>Junior · req 3y</sub> | US, WA, Seattle | [Apply](https://www.amazon.jobs/en/jobs/10561031/business-intelligence-engineer-amazon-prime-video-product-analytics) | 12d |
 | **NielsenIQ** | Analytical consultant<br><sub>Junior · req 1y</sub> | København, DK | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000151937688-analytical-consultant) | 13d |
 | **Discord** | Data Scientist - Client Platform<br><sub>Junior · req 2y</sub> | San Francisco Bay Area | [Apply](https://job-boards.greenhouse.io/discord/jobs/8840756002) | 14d |
-| **Ubisoft** | Etudes Stratégiques Marketing Assistant - Stage (6 mois) Janvier 2027 (F/H/NB)<br><sub>Intern · level unstated</sub> | Paris, IDF, FR | [Apply](https://jobs.smartrecruiters.com/Ubisoft2/744000151663249-etudes-strategiques-marketing-assistant-stage-6-mois-janvier-2027-f-h-nb-) | 14d |
-| ↳ | Strategic Marketing Research Assistant – Internship (6-month) Janvier 2027 (W/M/NB)<br><sub>Intern · level unstated</sub> | Paris, IDF, FR | [Apply](https://jobs.smartrecruiters.com/Ubisoft2/744000151663459-strategic-marketing-research-assistant-internship-6-month-janvier-2027-w-m-nb-) | 14d |
 | **NielsenIQ** | CPS (Consumer Panel) Analytic Consultant<br><sub>Junior · req 1y</sub> | Milano, MI, IT | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000151634420-cps-consumer-panel-analytic-consultant) | 15d |
 | ↳ | NIQ Early Career Program: Internship – Analytic Consultant F/M<br><sub>Intern · level unstated</sub> | Milano, Via Tortona 33, IT | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000151609275-niq-early-career-program-internship-analytic-consultant-f-m) | 15d |
 | ↳ | Senior Data Scientist ⚠️<br><sub>Junior · req 2y</sub> | Kuala Lumpur, MY | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000151600317-senior-data-scientist) | 15d |
-| **Ubisoft** | Strategic Planning & Trends Assistant - Stage (6 mois) Janvier 2027 (F/H/NB)<br><sub>Intern · level unstated</sub> | Paris, IDF, FR | [Apply](https://jobs.smartrecruiters.com/Ubisoft2/744000151551881-strategic-planning-trends-assistant-stage-6-mois-janvier-2027-f-h-nb-) | 15d |
+| **Ubisoft** | Etudes Stratégiques Marketing Assistant - Stage (6 mois) Janvier 2027 (F/H/NB)<br><sub>Intern · level unstated</sub> | Paris, IDF, FR | [Apply](https://jobs.smartrecruiters.com/Ubisoft2/744000151663249-etudes-strategiques-marketing-assistant-stage-6-mois-janvier-2027-f-h-nb-) | 15d |
+| ↳ | Strategic Marketing Research Assistant – Internship (6-month) Janvier 2027 (W/M/NB)<br><sub>Intern · level unstated</sub> | Paris, IDF, FR | [Apply](https://jobs.smartrecruiters.com/Ubisoft2/744000151663459-strategic-marketing-research-assistant-internship-6-month-janvier-2027-w-m-nb-) | 15d |
+| ↳ | Strategic Planning & Trends Assistant - Stage (6 mois) Janvier 2027 (F/H/NB)<br><sub>Intern · level unstated</sub> | Paris, IDF, FR | [Apply](https://jobs.smartrecruiters.com/Ubisoft2/744000151551881-strategic-planning-trends-assistant-stage-6-mois-janvier-2027-f-h-nb-) | 15d |
 | **Back Market** | Customer Journey & App Analytics Apprentice<br><sub>Intern · level unstated</sub> | Bordeaux | [Apply](https://jobs.ashbyhq.com/Backmarket/bdd15e60-60f0-4282-bf87-f789ae7501ad) | 18d |
+| **Amazon** 🔥 | Consultant, Analytics, Ads Insights<br><sub>level unstated</sub> | CN, Shanghai | [Apply](https://www.amazon.jobs/en/jobs/10553228/consultant-analytics-ads-insights) | 21d |
 | **Stripe** | Pricing Strategist<br><sub>Junior · req 3y</sub> | South San Francisco, New York City | [Apply](https://stripe.com/jobs/search?gh_jid=8187578) | 21d |
+| **Figma** | Data Science Intern (2027)<br><sub>Intern · level unstated</sub> | San Francisco, CA<br>New York, NY | [Apply](https://boards.greenhouse.io/figma/jobs/6178857004?gh_jid=6178857004) | 24d |
 | **NielsenIQ** | Analytic Consultant - Consumer Analytics Solutions Team - Secteur grande consommation<br><sub>Junior · req 1y</sub> | Bezons, FR | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000149278890-analytic-consultant-consumer-analytics-solutions-team-secteur-grande-consommation) | 25d |
 | ↳ | Customer Success Analytical Consultant FMCG Nordics <br><sub>Junior · req 2y</sub> | Oslo, NO | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000148967929-customer-success-analytical-consultant-fmcg-nordics-) | 28d |
 | ↳ | FMCG Nordics Customer Success Analytic Consultant <br><sub>Junior · req 2y</sub> | Oslo, NO | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000148966154-fmcg-nordics-customer-success-analytic-consultant-) | 28d |
@@ -214,65 +252,46 @@ Roles outside core UX research that the model judged related, such as research o
 | ↳ | Consultant – Consumer Market Insight Benelux Brand & Media dutch speaker<br><sub>level unstated</sub> | Leuven, Flanders, BE | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000133934549-consultant-consumer-market-insight-benelux-brand-media-dutch-speaker) | 3mo |
 | ↳ | Consumer Data Insights (Fixed Term)<br><sub>level unstated</sub> | Melbourne, VIC, AU | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000133512619-consumer-data-insights-fixed-term-) | 3mo |
 | **DoorDash** | Data Analyst, In-Store<br><sub>Junior · req 2y</sub> | New York, NY<br>San Francisco, CA<br><sub>+6 more</sub> | [Apply](https://job-boards.greenhouse.io/doordashusa/jobs/7990832) | 4mo |
+| **Figma** | Voice of the Customer Program Manager<br><sub>level unstated</sub> | San Francisco, CA<br>New York, NY<br><sub>+1 more</sub> | [Apply](https://boards.greenhouse.io/figma/jobs/6008343004?gh_jid=6008343004) | 4mo |
 | **NielsenIQ** | Senior Research Executive ⚠️<br><sub>Junior · req 3y</sub> | Pasig City, PH | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000121337553-senior-research-executive) | 5mo |
 | **Lyft** | Analytics Lead, Market Insights<br><sub>Junior · req 3y</sub> | San Francisco, CA | [Apply](https://app.careerpuck.com/job-board/lyft/job/8503985002?gh_jid=8503985002) | 5mo |
-| **Affirm** | Staff Product Manager, Consumer Growth Loyalty<br><sub>Staff · req 8y</sub> | Remote US | [Apply](https://job-boards.greenhouse.io/affirm/jobs/8011038003) | 3d |
-| **Airbnb** | Senior Analytics Engineer, Airbnb.org<br><sub>Senior · req 5y</sub> | United States | [Apply](https://careers.airbnb.com/positions/8249633?gh_jid=8249633) | 3d |
-| **Amazon** 🔥 | Senior Product Manger tech, Amazon Pay CX<br><sub>level unstated</sub> | IN, KA, Bengaluru | [Apply](https://www.amazon.jobs/en/jobs/10570095/senior-product-manger-tech-amazon-pay-cx) | 3d |
-| ↳ | Sr Partner Growth Manager, Amazon Fuse BR<br><sub>level unstated</sub> | BR, SP, Sao Paulo | [Apply](https://www.amazon.jobs/en/jobs/10570367/sr-partner-growth-manager-amazon-fuse-br) | 3d |
-| ↳ | Sr. Author Experience Manager, Amazon Books<br><sub>Senior · req 6y</sub> | US, SC, Charleston | [Apply](https://www.amazon.jobs/en/jobs/10570351/sr-author-experience-manager-amazon-books) | 3d |
-| **Databricks** | Data+AI Workforce Transformation Practitioner — Customer Delivery<br><sub>Staff · req 8y</sub> | United States | [Apply](https://databricks.com/company/careers/open-positions/job?gh_jid=8859666002) | 3d |
-| **DoorDash** | Director, Merchant Acquisition & Success - Strategy & Operations<br><sub>Staff · req 10y</sub> | New York City, NY<br>San Francisco, CA<br><sub>+6 more</sub> | [Apply](https://job-boards.greenhouse.io/doordashusa/jobs/8257295) | 3d |
-| **Lyft** | Analytics Lead, Decisions & Insights<br><sub>Senior · req 5y</sub> | New York, NY | [Apply](https://app.careerpuck.com/job-board/lyft/job/8868958002?gh_jid=8868958002) | 3d |
-| **NielsenIQ** | (Junior) Analytic Consultant (m/w/d)<br><sub>level unstated</sub> | Lucerne, LU, CH | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000153699204--junior-analytic-consultant-m-w-d-) | 3d |
-| ↳ | Junior Operations Client Partner<br><sub>level unstated</sub> | Warsaw, Masovian Voivodeship, PL | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000153684018-junior-operations-client-partner) | 3d |
-| ↳ | Project Management Expert<br><sub>Junior · req 1y</sub> | Bogota, DC, CO | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000153610270-project-management-expert) | 3d |
-| ↳ | Senior Research Manager, Customer Success<br><sub>Senior · req 5y</sub> | Remote<br>Chicago, IL, US | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000153546359-senior-research-manager-customer-success) | 3d |
-| **Pinterest** | Staff Product Manager, Ads Measurement & Optimization <br><sub>Staff · req 8y</sub> | Chicago, IL, US | [Apply](https://www.pinterestcareers.com/jobs/?gh_jid=8234538) | 3d |
-| **Roblox** | Principal Data Scientist - Safety<br><sub>Staff · req 10y</sub> | San Mateo, CA, United States | [Apply](https://careers.roblox.com/jobs/8247229?gh_jid=8247229) | 3d |
-| **ServiceNow** | Sr Inbound Product Manager<br><sub>Senior · req 5y</sub> | Hyderabad, Telangana, IN | [Apply](https://jobs.smartrecruiters.com/ServiceNow/744000153567049-sr-inbound-product-manager) | 3d |
-| ↳ | Sr Staff Inbound Product Manager<br><sub>level unstated · pref 8y</sub> | Hyderabad, IN | [Apply](https://jobs.smartrecruiters.com/ServiceNow/744000153663349-sr-staff-inbound-product-manager) | 3d |
-| ↳ | Staff Inbound Product Manager<br><sub>Staff · req 8y</sub> | Hyderabad, Telangana, IN | [Apply](https://jobs.smartrecruiters.com/ServiceNow/744000153660649-staff-inbound-product-manager) | 3d |
-| **Ubisoft** | Data Scientist<br><sub>Junior · req 3y</sub> | Singapore, SG | [Apply](https://jobs.smartrecruiters.com/Ubisoft2/744000153676199-data-scientist) | 3d |
-| **Docplanner** 🌐<br><sub>via Jobicy</sub> | Pricing Specialist 🛂<br><sub>level unstated · pref 5y</sub> | Brazil | [Apply](https://jobicy.com/jobs/152582-pricing-specialist) | 3d |
-| **Langdock** 🌐<br><sub>via Arbeitnow</sub> | Product Data Engineer - m/f/d 🛂<br><sub>level unstated</sub> | Berlin | [Apply](https://www.arbeitnow.com/jobs/companies/langdock/product-data-engineer-berlin-29508) | 3d |
-| **Meta** 🔥 🌐<br><sub>via Jobicy</sub> | Client Solutions Manager<br><sub>Senior · req 5y</sub> | USA | [Apply](https://jobicy.com/jobs/150189-client-solutions-manager) | 3d |
-| **Natera** 🌐<br><sub>via Jobicy</sub> | Associate Director, Product Management, Oncology Clinical Trial Matching<br><sub>Senior · req 7y</sub> | USA | [Apply](https://jobicy.com/jobs/154655-associate-director-product-management-oncology-clinical-trial-matching) | 3d |
-| **RevenueCat** 🌐<br><sub>via Jobicy</sub> | Senior CRO Designer, Paywalls and Funnels<br><sub>Senior · req 5y</sub> | APAC, EMEA, Canada, USA | [Apply](https://jobicy.com/jobs/154654-senior-cro-designer-paywalls-and-funnels) | 3d |
-| ↳ 🌐<br><sub>via Jobicy</sub> | Senior Product Manager, Analytics Features<br><sub>Senior · req 5y</sub> | EMEA, Canada, USA | [Apply](https://jobicy.com/jobs/154650-senior-product-manager-analytics-features) | 3d |
-| **UpGuard** 🌐<br><sub>via Jobicy</sub> | Senior Product Manager<br><sub>level unstated</sub> | Australia | [Apply](https://jobicy.com/jobs/154666-senior-product-manager-9) | 3d |
-| **limehome** 🌐<br><sub>via Arbeitnow</sub> | Data Scientist (m/f/d)<br><sub>Junior · req 3y</sub> | München, Bayern, Germany | [Apply](https://www.arbeitnow.com/jobs/companies/limehome/data-scientist-munchen-120982) | 3d |
-| **Amazon** 🔥 | Product Designer, AWS Security, Search, Observability & Governance<br><sub>Senior · req 7y</sub> | US, WA, Seattle | [Apply](https://www.amazon.jobs/en/jobs/10569855/product-designer-aws-security-search-observability-governance) | 4d |
-| ↳ | Senior Product Marketing Manager, IN Pricing<br><sub>Senior · req 5y</sub> | IN, KA, Bengaluru | [Apply](https://www.amazon.jobs/en/jobs/10568621/senior-product-marketing-manager-in-pricing) | 4d |
-| ↳ | Sr. Manager, Data and Insights, US Prime & Marketing Technology ⚠️<br><sub>Staff · req 11y · pref 5y</sub> | US, WA, Seattle | [Apply](https://www.amazon.jobs/en/jobs/10569700/sr-manager-data-and-insights-us-prime-marketing-technology) | 4d |
-| **NielsenIQ** | Analytical Consultant (Retail Vertical)<br><sub>Senior · req 5y</sub> | Budapest, BU, HU | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000153528558-analytical-consultant-retail-vertical-) | 4d |
-| ↳ | Data Analyst (Media Measurement)<br><sub>level unstated</sub> | Leuven, VBR, BE | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000153527999-data-analyst-media-measurement-) | 4d |
-| ↳ | Expert OAC<br><sub>Mid · req 4y</sub> | Karachi, Sindh, PK | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000153437994-expert-oac) | 4d |
-| ↳ | Principal Data Operations Analyst (Machine Learning exp is preferred) ⚠️<br><sub>Junior · req 2y</sub> | Gurgaon, HR, IN | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000153515708-principal-data-operations-analyst-machine-learning-exp-is-preferred-) | 4d |
-| ↳ | Project Management Expert<br><sub>Junior · req 1y</sub> | Bogota, DC, CO | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000153489324-project-management-expert) | 4d |
-| **Back Market** | Senior Data Analyst - Strategy & Commercial <br><sub>Senior · req 5y</sub> | Paris | [Apply](https://jobs.ashbyhq.com/Backmarket/fe6813e8-2acf-45d3-949c-9a297a8fa9af) | 4d |
-| **Beyond Finance** 🌐<br><sub>via Jobicy</sub> | Director of Strategy & Analytics<br><sub>Senior · req 5y</sub> | USA | [Apply](https://jobicy.com/jobs/152541-director-of-strategy-analytics) | 4d |
-| **ElevenLabs** | Deployment Strategist - Argentina<br><sub>Junior · req 3y</sub> | Argentina | [Apply](https://jobs.ashbyhq.com/ElevenLabs/93a9916a-1fd7-48aa-937e-bc086d95f4e1) | 4d |
-| ↳ | Deployment Strategist - Chile<br><sub>Junior · req 3y</sub> | Chile | [Apply](https://jobs.ashbyhq.com/ElevenLabs/cee1d585-329b-4935-b7a3-5ca9104c2573) | 4d |
-| ↳ | Deployment Strategist - Colombia<br><sub>Junior · req 3y</sub> | Colombia | [Apply](https://jobs.ashbyhq.com/ElevenLabs/c89e8bf6-6d4c-43bd-bd2a-661ae73c82bf) | 4d |
-| ↳ | Deployment Strategist - Mexico<br><sub>Junior · req 3y</sub> | Mexico | [Apply](https://jobs.ashbyhq.com/ElevenLabs/2ae519e9-1068-423b-8e07-dfdebbdca7b4) | 4d |
-| **Amazon** 🔥 | Business Analyst II, WW Grocery Store Private Brands<br><sub>Junior · req 3y · pref 4y</sub> | US, WA, Seattle | [Apply](https://www.amazon.jobs/en/jobs/10568529/business-analyst-ii-ww-grocery-store-private-brands) | 5d |
-| **Bayesian Health** 🌐<br><sub>via Jobicy</sub> | Clinical Integration, Nurse Consultant<br><sub>Senior · req 5y</sub> | USA | [Apply](https://jobicy.com/jobs/152433-clinical-integration-nurse-consultant) | 5d |
-| **ElevenLabs** | Deployment Strategist - Sweden<br><sub>Junior · req 3y</sub> | Sweden | [Apply](https://jobs.ashbyhq.com/ElevenLabs/e66bf8b7-45a0-4cbf-bc37-43d20a388ff8) | 5d |
-| **Fueled** 🌐<br><sub>via Jobicy</sub> | SEO & Analytics Strategist<br><sub>Contract · level unstated</sub> | USA | [Apply](https://jobicy.com/jobs/152488-seo-analytics-strategist) | 5d |
-| **Gartner** 🌐<br><sub>via Jobicy</sub> | Audit Planning & Risk Coverage Expert (Director/Analyst, Remote United States)<br><sub>Staff · req 10y</sub> | USA | [Apply](https://jobicy.com/jobs/144636-audit-planning-risk-coverage-expert-director-analyst-remote-united-states) | 5d |
-| **Jamf** 🌐<br><sub>via Jobicy</sub> | Digital Success Strategy Manager<br><sub>Senior · req 6y</sub> | USA | [Apply](https://jobicy.com/jobs/152445-digital-success-strategy-manager) | 5d |
-| **Nextiva** 🌐<br><sub>via Jobicy</sub> | Principal Product Manager (Omnichannel CX) ⚠️<br><sub>Senior · req 6y</sub> | USA | [Apply](https://jobicy.com/jobs/152461-principal-product-manager-omnichannel-cx) | 5d |
-| **Thumbtack** 🌐<br><sub>via Jobicy</sub> | Sr. Manager, Success Operations<br><sub>Senior · req 7y</sub> | USA | [Apply](https://jobicy.com/jobs/152413-sr-manager-success-operations) | 5d |
-| **Vonage** 🌐<br><sub>via Jobicy</sub> | Marketing Data Scientist<br><sub>Staff · req 8y</sub> | Mexico | [Apply](https://jobicy.com/jobs/152472-marketing-data-scientist) | 5d |
-| **Instacart** | Data Analyst, Platform Excellence Ops Analytics<br><sub>Junior · req 1y</sub> | United States - Remote | [Apply](https://instacart.careers/job/?gh_jid=8249894) | 6d |
-| ↳ | Data Analyst, Platform Excellence Ops Analytics<br><sub>Junior · req 1y</sub> | Canada - Remote (ON, AB, BC, or NS Only) | [Apply](https://instacart.careers/job/?gh_jid=8249896) | 6d |
-| **NielsenIQ** | Senior Consumer Insights Analyst ⚠️<br><sub>Mid · req 4y</sub> | Santiago, RM, CL | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000153255389-senior-consumer-insights-analyst) | 6d |
-| **Okta** | Senior Product Designer - Okta for AI Agents<br><sub>Senior · req 5y</sub> | Bellevue, Washington<br>Chicago, Illinois<br><sub>+2 more</sub> | [Apply](https://www.okta.com/company/careers/opportunity/8248278?gh_jid=8248278) | 6d |
-| **Canonical** 🌐<br><sub>via Jobicy</sub> | Director, Talent Analytics<br><sub>Senior · req 7y</sub> | EMEA | [Apply](https://jobicy.com/jobs/149987-director-talent-analytics) | 6d |
-| ↳ 🌐<br><sub>via Jobicy</sub> | Graduate Talent Scientist<br><sub>level unstated</sub> | EMEA | [Apply](https://jobicy.com/jobs/149992-graduate-talent-scientist) | 6d |
+| **Instacart** | Senior Product Manager, Retailer App Platform & Insights ⚠️<br><sub>Staff · req 8y</sub> | Canada - Remote (ON, AB, BC, or NS Only) | [Apply](https://instacart.careers/job/?gh_jid=8266403) | 0d |
+| ↳ | Senior Product Manager, Retailer App Platform & Insights ⚠️<br><sub>Staff · req 8y</sub> | United States - Remote | [Apply](https://instacart.careers/job/?gh_jid=8266401) | 0d |
+| **MongoDB** | Growth Marketing Manager<br><sub>Senior · req 5y</sub> | United States | [Apply](https://www.mongodb.com/careers/job/?gh_jid=8265960) | 0d |
+| **NielsenIQ** | Customer Success Insights Junior<br><sub>level unstated</sub> | Mexico City, MEX, MX | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000154580659-customer-success-insights-junior) | 0d |
+| ↳ | Digital Shelf Product Leader<br><sub>Staff · req 8y</sub> | London, GB | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000154636939-digital-shelf-product-leader) | 0d |
+| ↳ | Junior Modelling Analyst<br><sub>level unstated</sub> | Warsaw, PL | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000154606280-junior-modelling-analyst) | 0d |
+| ↳ | Manager, Retail Market Insights<br><sub>Senior · req 5y</sub> | Shanghai, SH, CN | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000154581749-manager-retail-market-insights) | 0d |
+| ↳ | Senior Manager, Retailer Vertical ⚠️<br><sub>Staff · req 8y</sub> | Shanghai, SH, CN | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000154581129-senior-manager-retailer-vertical) | 0d |
+| **Roblox** | Senior Data Scientist, Monetary Policy<br><sub>Senior · req 5y</sub> | San Mateo, CA, United States | [Apply](https://careers.roblox.com/jobs/8240745?gh_jid=8240745) | 0d |
+| **ServiceNow** | Senior Staff Product Manager ⚠️<br><sub>Senior · req 7y</sub> | New York City, New York, US | [Apply](https://jobs.smartrecruiters.com/ServiceNow/744000154532199-senior-staff-product-manager) | 0d |
+| **1KOMMA5˚** 🌐<br><sub>via Arbeitnow</sub> | Go-to-Market Working Student (m/f/d)<br><sub>Intern · level unstated</sub> | Berlin | [Apply](https://www.arbeitnow.com/jobs/companies/1komma50/go-to-market-working-student-berlin-106285) | 0d |
+| ↳ 🌐<br><sub>via Arbeitnow</sub> | Internship Global Product Management (m/f/d)<br><sub>Intern · level unstated</sub> | Berlin | [Apply](https://www.arbeitnow.com/jobs/companies/1komma50/internship-global-product-management-berlin-370700) | 0d |
+| ↳ 🌐<br><sub>via Arbeitnow</sub> | Internship Global Product Management Hardware & AI Enablement (m/w/d)<br><sub>Intern · level unstated</sub> | Berlin | [Apply](https://www.arbeitnow.com/jobs/companies/1komma50/internship-global-product-management-hardware-ai-enablement-berlin-195030) | 0d |
+| ↳ 🌐<br><sub>via Arbeitnow</sub> | Internship Product Management Energy Products & Tariffs (m/f/d)<br><sub>Intern · level unstated</sub> | Berlin | [Apply](https://www.arbeitnow.com/jobs/companies/1komma50/internship-product-management-energy-products-tariffs-berlin-219539) | 0d |
+| ↳ 🌐<br><sub>via Arbeitnow</sub> | Praktikant:in - Sales/Marketing (m/w/d)<br><sub>Intern · level unstated</sub> | Berlin | [Apply](https://www.arbeitnow.com/jobs/companies/1komma50/praktikantin-sales-marketing-berlin-118974) | 0d |
+| ↳ 🌐<br><sub>via Arbeitnow</sub> | Product Manager – Global Services (m/f/d)<br><sub>Junior · req 2y</sub> | Berlin | [Apply](https://www.arbeitnow.com/jobs/companies/1komma50/product-manager-global-services-berlin-362943) | 0d |
+| ↳ 🌐<br><sub>via Arbeitnow</sub> | Senior Product Designer - Heartbeat AI (m/f/d)<br><sub>level unstated</sub> | Berlin | [Apply](https://www.arbeitnow.com/jobs/companies/1komma50/senior-product-designer-heartbeat-ai-berlin-348478) | 0d |
+| ↳ 🌐<br><sub>via Arbeitnow</sub> | Working Student Product Management Energy Products & Tariffs (m/f/d)<br><sub>Intern · level unstated</sub> | Berlin | [Apply](https://www.arbeitnow.com/jobs/companies/1komma50/working-student-product-management-energy-products-tariffs-berlin-323094) | 0d |
+| **Almedia** 🌐<br><sub>via Arbeitnow</sub> | Data Scientist<br><sub>level unstated</sub> | Berlin | [Apply](https://www.arbeitnow.com/jobs/companies/almedia/data-scientist-berlin-51916) | 0d |
+| ↳ 🌐<br><sub>via Arbeitnow</sub> | Staff Data Scientist<br><sub>level unstated</sub> | Berlin | [Apply](https://www.arbeitnow.com/jobs/companies/almedia/staff-data-scientist-berlin-21053) | 0d |
+| **Anthropic** 🔥 | Product Designer, Growth<br><sub>level unstated</sub> | San Francisco, CA | [Apply](https://job-boards.greenhouse.io/anthropic/jobs/5446776008) | 0d |
+| ↳ | Product Manager, Claude<br><sub>level unstated · pref 8y</sub> | San Francisco, CA<br>New York City, NY<br><sub>+1 more</sub> | [Apply](https://job-boards.greenhouse.io/anthropic/jobs/5448167008) | 0d |
+| **Aroundhome** 🌐<br><sub>via Arbeitnow</sub> | Senior Product Manager - Salesforce & Internal Enablement (all genders)<br><sub>level unstated</sub> | Berlin | [Apply](https://www.arbeitnow.com/jobs/companies/aroundhome/senior-product-manager-salesforce-internal-enablement-all-genders-berlin-115947) | 0d |
+| **Audi Business Innovation Gmbh** 🌐<br><sub>via Arbeitnow</sub> | Werkstudent_in IT Service Management, Prozessmanagement & KI (m/w/d)<br><sub>Intern · level unstated</sub> | Munich | [Apply](https://www.arbeitnow.com/jobs/companies/audi-business-innovation-gmbh/werkstudent-in-it-service-management-prozessmanagement-ki-munich-210011) | 0d |
+| **Beyond Finance** 🌐<br><sub>via Jobicy</sub> | Manager, Strategy & Analytics<br><sub>Junior · req 2y</sub> | USA | [Apply](https://jobicy.com/jobs/152802-manager-strategy-analytics) | 0d |
+| **DeepJudge** 🌐<br><sub>via Arbeitnow</sub> | Agentic Product Manager<br><sub>Senior · req 5y</sub> | Zurich HQ | [Apply](https://www.arbeitnow.ch/jobs/companies/deepjudge/agentic-product-manager-zurich-172987) | 0d |
+| **Deutscher Fußball-Bund** 🌐<br><sub>via Arbeitnow</sub> | Senior Manager\*in Mental Performance & Psychologie (m/w/d)<br><sub>level unstated</sub> | Frankfurt am Main | [Apply](https://www.arbeitnow.com/jobs/companies/deutscher-fussball-bund/senior-managerin-mental-performance-psychologie-frankfurt-am-main-176293) | 0d |
+| **Diva E** 🌐<br><sub>via Arbeitnow</sub> | Senior Consultant Automotive / Digital Transformation (All Genders)<br><sub>level unstated</sub> | Jena (JEN1) | [Apply](https://www.arbeitnow.com/jobs/companies/diva-e/senior-consultant-automotive-digital-transformation-all-genders-jena-jen1-267604) | 0d |
+| **Doctolib** 🌐<br><sub>via Arbeitnow</sub> | Pricing & Packaging Senior Lead (x/f/m)<br><sub>level unstated</sub> | Berlin, Berlin | [Apply](https://www.arbeitnow.com/jobs/companies/doctolib/pricing-packaging-senior-lead-berlin-berlin-471026) | 0d |
+| **Ecoplanet Green Operations Gmbh** 🌐<br><sub>via Arbeitnow</sub> | Product Designer (m/f/d) — Energy Insights<br><sub>level unstated</sub> | München | [Apply](https://www.arbeitnow.com/jobs/companies/ecoplanet-green-operations-gmbh/product-designer-energy-insights-munchen-331989) | 0d |
+| **ElevenLabs** 🌐<br><sub>via Arbeitnow</sub> | Self-Serve Product Manager - ElevenCreative<br><sub>Senior · req 5y</sub> | Remote | [Apply](https://www.arbeitnow.ch/jobs/companies/elevenlabs/remote-self-serve-product-manager-elevencreative-158784) | 0d |
+| **ElevenLabs** | Value Strategist<br><sub>Staff · req 10y</sub> | Remote | [Apply](https://jobs.ashbyhq.com/ElevenLabs/ede30aef-bc40-48b3-ae75-59cdc5d075b9) | 0d |
+| **ExciteLab GmbH** 🌐<br><sub>via Arbeitnow</sub> | (Senior) Innovation & Business Development Manager (m/w/d) ⚠️<br><sub>Junior · req 3y</sub> | Dresden | [Apply](https://www.arbeitnow.com/jobs/companies/excitelab-gmbh/senior-innovation-business-development-manager-dresden-261265) | 0d |
+| **Exotec** 🌐<br><sub>via Arbeitnow</sub> | Stage Marketing & Communication - 2027<br><sub>Intern · level unstated</sub> | Lille, France | [Apply](https://www.arbeitnow.fr/jobs/companies/exotec/stage-marketing-communication-2027-lille-102759) | 0d |
+| **FINN** 🌐<br><sub>via Arbeitnow</sub> | Senior Data Analyst - Operations (m/f/x) ⚠️<br><sub>Junior · req 3y</sub> | Germany | [Apply](https://www.arbeitnow.com/jobs/companies/finn/senior-data-analyst-operations-germany-278598) | 0d |
 
-819 more in this section are listed in [positions.jsonl](positions.jsonl); the table shows the first 100 in this order.
+1068 more in this section are listed in [positions.jsonl](positions.jsonl); the table shows the first 100 in this order.
 
 ## 🔁 Model validation pending
 
@@ -288,10 +307,18 @@ No entries in this section.
 
 Relevant roles whose link or source feed was not rechecked in the last 24 hours. They move up once verified.
 
-<details><summary>Show 608 roles</summary>
+<details><summary>Show 693 roles</summary>
 
 | Company | Role | Location | Application | Age |
 |:---|:---|:---|:---:|:---:|
+| **Netformic** 🌐<br><sub>via Arbeitnow</sub> | Director Customer Experience (CX) (w/m/d)<br><sub>level unstated</sub> | Office Stuttgart | [Apply](https://www.arbeitnow.com/jobs/companies/netformic/director-customer-experience-cx-office-stuttgart-114961) | 0d |
+| **Kainos** 🌐<br><sub>via Himalayas</sub> | User Researcher (Public)<br><sub>level unstated</sub> | United Kingdom | [Apply](https://himalayas.app/companies/kainos/jobs/user-researcher-public) | 1d |
+| **Lpe Immobilien Management Gmbh** 🌐<br><sub>via Arbeitnow</sub> | Product Designer (m/w/d)<br><sub>Junior · req 2y</sub> | München | [Apply](https://www.arbeitnow.com/jobs/companies/lpe-immobilien-management-gmbh/product-designer-munchen-477252) | 1d |
+| **SupportNinja** 🌐<br><sub>via Himalayas</sub> | Product Manager<br><sub>Junior · req 3y</sub> | Philippines | [Apply](https://himalayas.app/companies/supportninja/jobs/product-manager-6021738947) | 1d |
+| **Wildix** 🌐<br><sub>via Himalayas</sub> | Senior Product Designer - Remote<br><sub>level unstated · pref 4y</sub> | Ukraine | [Apply](https://himalayas.app/companies/wildix/jobs/senior-product-designer-remote) | 1d |
+| **robusta** 🌐<br><sub>via Himalayas</sub> | UI/UX Designer (Mid level) - 4.5 Months - Remote - Octopus by RTG ⚠️<br><sub>Contract · Junior · req 3y</sub> | Egypt | [Apply](https://himalayas.app/companies/robusta/jobs/ui-ux-designer-mid-level-4-5-months-remote-octopus-by-rtg) | 2d |
+| **Precision Development (PxD)** 🌐<br><sub>via Himalayas</sub> | Research / Senior Research Manager, Farmer Insights and Field Research (Weather 🛂<br><sub>level unstated</sub> | India | [Apply](https://himalayas.app/companies/precision-development-pxd/jobs/research-senior-research-manager-farmer-insights-and-field-research-weather) | 3d |
+| **Smoking Gun Interactive** 🌐<br><sub>via Himalayas</sub> | UX Designer<br><sub>Junior · req 3y</sub> | Canada | [Apply](https://himalayas.app/companies/smoking-gun-interactive/jobs/ux-designer) | 3d |
 | **UPSTART** 🌐<br><sub>via Himalayas</sub> | Design Thinking Master (m/w/d)<br><sub>level unstated</sub> | Germany | [Apply](https://himalayas.app/companies/upstart-co/jobs/design-thinking-master-m-w-d-7350155840) | 3d |
 | **Pinnacle Lead Consulting Limited** 🌐<br><sub>via Himalayas</sub> | Associate Principal, UX Research<br><sub>level unstated</sub> | Hong Kong | [Apply](https://himalayas.app/companies/pinnacle-lead-consulting-limited/jobs/associate-principal-ux-research) | 5d |
 | **Canonical** 🌐<br><sub>via Himalayas</sub> | Senior Design Researcher - User Science<br><sub>level unstated</sub> | Worldwide | [Apply](https://himalayas.app/companies/canonical/jobs/senior-design-researcher-user-science) | 6d |
@@ -314,7 +341,7 @@ Relevant roles whose link or source feed was not rechecked in the last 24 hours.
 | **Pathstream** 🌐<br><sub>via Himalayas</sub> | Product Researcher<br><sub>Junior · req 3y</sub> | United States | [Apply](https://himalayas.app/companies/pathstream/jobs/product-researcher) | 12d |
 | **gaji Digital** 🌐<br><sub>via Himalayas</sub> | Product Designer<br><sub>level unstated</sub> | United States | [Apply](https://himalayas.app/companies/gaji-digital/jobs/product-designer) | 12d |
 | **Conifer** 🌐<br><sub>via Himalayas</sub> | Design Researcher Openings<br><sub>Contract · level unstated</sub> | United States | [Apply](https://himalayas.app/companies/conifer/jobs/design-researcher-openings) | 13d |
-| **Geisinger** 🌐<br><sub>via Himalayas</sub> | Intern Undergraduate - Experience Designer<br><sub>Intern · level unstated</sub> | United States | [Apply](https://himalayas.app/companies/geisinger/jobs/intern-undergraduate-experience-designer) | 13d |
+| **Geisinger** 🌐<br><sub>via Himalayas</sub> | Intern Undergraduate - Experience Designer<br><sub>Intern · level unstated</sub> | United States | [Apply](https://himalayas.app/companies/geisinger/jobs/intern-undergraduate-experience-designer) | 14d |
 | **The Plum Tree Group** 🌐<br><sub>via Himalayas</sub> | AI-Forward UX Designer<br><sub>Junior · req 3y</sub> | Pakistan | [Apply](https://himalayas.app/companies/the-plum-tree-group/jobs/ai-forward-ux-designer-8335386500) | 14d |
 | **Orderly Network** 🌐<br><sub>via Himalayas</sub> | Product UX/UI Designer-Orderly<br><sub>level unstated</sub> | Worldwide | [Apply](https://himalayas.app/companies/orderly-network/jobs/product-ux-ui-designer-orderly-9085181060) | 16d |
 | **PROJXON** 🌐<br><sub>via Himalayas</sub> | UI/UX Intern<br><sub>Intern · level unstated</sub> | United States | [Apply](https://himalayas.app/companies/projxon/jobs/ui-ux-intern) | 16d |
@@ -330,9 +357,9 @@ Relevant roles whose link or source feed was not rechecked in the last 24 hours.
 | **Jobs for Humanity** 🌐<br><sub>via Himalayas</sub> | Senior Product Designer (UX/UI)<br><sub>level unstated</sub> | United States | [Apply](https://himalayas.app/companies/jobs-for-humanity/jobs/senior-product-designer-ux-ui-9458922244) | 18d |
 | **OGC Global** 🌐<br><sub>via Himalayas</sub> | Quantitative UX Researcher<br><sub>Contract · Junior · req 2y</sub> | Worldwide | [Apply](https://himalayas.app/companies/ogc-global/jobs/quantitative-ux-researcher) | 18d |
 | **XKTalent Inc. - Rimutee** 🌐<br><sub>via Himalayas</sub> | DISEÑADOR UX/UI<br><sub>Contract · level unstated</sub> | Argentina<br>Chile<br><sub>+5 more</sub> | [Apply](https://himalayas.app/companies/rekluti/jobs/disenador-ux-ui) | 18d |
-| **Airalo** 🌐<br><sub>via Himalayas</sub> | VP of Research and Design<br><sub>level unstated</sub> | United Kingdom | [Apply](https://himalayas.app/companies/airalo/jobs/vp-of-research-and-design) | 20d |
 | **Drip Agency** 🌐<br><sub>via Himalayas</sub> | CO Manager (m/w/d)<br><sub>level unstated</sub> | Worldwide | [Apply](https://himalayas.app/companies/drip-agency/jobs/co-manager-m-w-d) | 20d |
 | **Endear** 🌐<br><sub>via Himalayas</sub> | Product Designer<br><sub>Junior · req 2y</sub> | United States | [Apply](https://himalayas.app/companies/endear/jobs/product-designer) | 20d |
+| **Airalo** 🌐<br><sub>via Himalayas</sub> | VP of Research and Design<br><sub>level unstated</sub> | United Kingdom | [Apply](https://himalayas.app/companies/airalo/jobs/vp-of-research-and-design) | 21d |
 | **Bask Health** 🌐<br><sub>via Himalayas</sub> | Senior Product Designer<br><sub>level unstated</sub> | Argentina<br>Italy<br><sub>+3 more</sub> | [Apply](https://himalayas.app/companies/bask-health/jobs/senior-product-designer) | 21d |
 | **Blink Interactive, Inc.** 🌐<br><sub>via Himalayas</sub> | Senior UX Researcher- General Opportunity<br><sub>Contract · level unstated</sub> | United States | [Apply](https://himalayas.app/companies/blink-interactive-inc/jobs/senior-ux-researcher-general-opportunity-1440620425) | 21d |
 | **Cabin** 🌐<br><sub>via Himalayas</sub> | Senior Service Designer/Innovation Lead<br><sub>level unstated</sub> | United States | [Apply](https://himalayas.app/companies/cabin-com/jobs/senior-service-designer-innovation-lead) | 21d |
@@ -361,39 +388,31 @@ Relevant roles whose link or source feed was not rechecked in the last 24 hours.
 | **Dscout** 🌐<br><sub>via Himalayas</sub> | Manager, Customer Research Advisors - India<br><sub>Junior · req 2y</sub> | India | [Apply](https://himalayas.app/companies/dscout/jobs/manager-customer-research-advisors-india) | 1mo |
 | ↳ 🌐<br><sub>via Himalayas</sub> | Research Advisor - India<br><sub>Junior · req 1y</sub> | India | [Apply](https://himalayas.app/companies/dscout/jobs/research-advisor-india) | 1mo |
 | **1KOMMA5˚** 🌐<br><sub>via Himalayas</sub> | Working Student - Product Designer (m/f/d)<br><sub>Intern · level unstated</sub> | Germany | [Apply](https://himalayas.app/companies/1komma5/jobs/working-student-product-designer-m-f-d) | 1mo |
-| **Boardroom Appointments** 🌐<br><sub>via Himalayas</sub> | Specialist Customer Experience Design<br><sub>Junior · req 3y</sub> | South Africa | [Apply](https://himalayas.app/companies/boardroom-appointments/jobs/specialist-customer-experience-design) | 1mo |
 | **NetForemost, Inc** 🌐<br><sub>via Himalayas</sub> | UI/UX Designer<br><sub>level unstated</sub> | United States | [Apply](https://himalayas.app/companies/netforemost-inc/jobs/ui-ux-designer) | 1mo |
-| **apricot** 🌐<br><sub>via Himalayas</sub> | UX & Product Consutlant<br><sub>level unstated</sub> | United States | [Apply](https://himalayas.app/companies/apricot/jobs/ux-product-consutlant) | 1mo |
+| **Boardroom Appointments** 🌐<br><sub>via Himalayas</sub> | Specialist Customer Experience Design<br><sub>Junior · req 3y</sub> | South Africa | [Apply](https://himalayas.app/companies/boardroom-appointments/jobs/specialist-customer-experience-design) | 1mo |
 | **Careerswift** 🌐<br><sub>via Himalayas</sub> | Conversion Rate Optimization Specialist<br><sub>Junior · req 3y</sub> | United States | [Apply](https://himalayas.app/companies/careerswift/jobs/conversion-rate-optimization-specialist) | 1mo |
 | **Ipsos** 🌐<br><sub>via Himalayas</sub> | UX Manager<br><sub>level unstated · pref 5y</sub> | Vietnam | [Apply](https://himalayas.app/companies/ipsos/jobs/ux-manager) | 1mo |
 | ↳ 🌐<br><sub>via Himalayas</sub> | UX Research Executive<br><sub>Junior · req 1y</sub> | Thailand | [Apply](https://himalayas.app/companies/ipsos/jobs/ux-research-executive) | 1mo |
 | **Kainos** 🌐<br><sub>via Himalayas</sub> | Service Designer<br><sub>level unstated</sub> | United Kingdom | [Apply](https://himalayas.app/companies/kainos/jobs/service-designer) | 1mo |
+| **apricot** 🌐<br><sub>via Himalayas</sub> | UX & Product Consutlant<br><sub>level unstated</sub> | United States | [Apply](https://himalayas.app/companies/apricot/jobs/ux-product-consutlant) | 1mo |
 | **Boostdraft** 🌐<br><sub>via Himalayas</sub> | Head of Design / Principle Designer<br><sub>level unstated</sub> | Japan | [Apply](https://himalayas.app/companies/boostdraft/jobs/head-of-design-principle-designer) | 1mo |
 | **Kainos** 🌐<br><sub>via Himalayas</sub> | User Researcher (Defence)<br><sub>level unstated</sub> | United Kingdom | [Apply](https://himalayas.app/companies/kainos/jobs/user-researcher-defence) | 1mo |
 | **NielsenIQ** | Senior Analyst - Qualitative  ⚠️<br><sub>Junior · req 1y</sub> | Shanghai, SH, CN | [Apply](https://jobs.smartrecruiters.com/NielsenIQ/744000130237370-senior-analyst-qualitative-) | 4mo |
-| **AnswerLab** 🌐<br><sub>via Himalayas</sub> | UX Researcher ／ India 🛂<br><sub>Mid · req 4y</sub> | India | [Apply](https://himalayas.app/companies/answerlab/jobs/ux-researcher-india) | 3d |
-| **Black Financial Consult** 🌐<br><sub>via Himalayas</sub> | UI/UX DESIGNER<br><sub>Contract · Senior · req 6y</sub> | United States | [Apply](https://himalayas.app/companies/black-financial-consult/jobs/ui-ux-designer) | 3d |
-| ↳ 🌐<br><sub>via Himalayas</sub> | UI/UX LEAD<br><sub>Contract · Staff · req 9y</sub> | United States | [Apply](https://himalayas.app/companies/black-financial-consult/jobs/ui-ux-lead) | 3d |
-| **Clera** 🌐<br><sub>via Himalayas</sub> | Freelance Product Designer (Fractional) 🛂<br><sub>Senior · req 5y</sub> | Worldwide | [Apply](https://himalayas.app/companies/clera/jobs/freelance-product-designer-fractional) | 3d |
-| **Kainos** 🌐<br><sub>via Himalayas</sub> | UX Designer (12 months FTC)<br><sub>Contract · level unstated</sub> | United Kingdom | [Apply](https://himalayas.app/companies/kainos/jobs/ux-designer-12-months-ftc) | 3d |
-| **Luxury Presence** 🌐<br><sub>via Jobicy</sub> | Senior Data Analyst, GTM Analytics - CANADA<br><sub>Senior · req 5y</sub> | Canada | [Apply](https://jobicy.com/jobs/152606-senior-data-analyst-gtm-analytics-canada) | 3d |
-| **NEXGEN TECHNOLOGIES** 🌐<br><sub>via Himalayas</sub> | Vice President of Product Management<br><sub>Senior · req 5y</sub> | United States | [Apply](https://himalayas.app/companies/nxgentek/jobs/vice-president-of-product-management) | 3d |
-| **Scopely** 🌐<br><sub>via Himalayas</sub> | Director of Product (Features) - Star Trek Fleet Command<br><sub>level unstated</sub> | United Kingdom | [Apply](https://himalayas.app/companies/scopely/jobs/director-of-product-features-star-trek-fleet-command) | 3d |
-| **Serko Ltd** 🌐<br><sub>via Himalayas</sub> | Principal Product Designer<br><sub>level unstated</sub> | United States | [Apply](https://himalayas.app/companies/serko-ltd/jobs/principal-product-designer) | 3d |
-| **The CE Shop** 🌐<br><sub>via Himalayas</sub> | New Venture Director<br><sub>level unstated</sub> | United States | [Apply](https://himalayas.app/companies/the-ce-shop/jobs/new-venture-director) | 3d |
-| **Adobe** | 2027 Intern - Applied and Research Scientist/Engineer<br><sub>Intern · level unstated</sub> | San Jose<br>College Park<br><sub>+4 more</sub> | [Apply](https://adobe.wd5.myworkdayjobs.com/external_experienced/job/San-Jose/XMLNAME-2027-Intern---Applied-and-Research-Scientist-Engineer_R172064) | 4d |
-| ↳ | Digital Analyst<br><sub>Junior · req 2y</sub> | Bangalore | [Apply](https://adobe.wd5.myworkdayjobs.com/external_experienced/job/Bangalore/Data-Science-Engineer_R171428) | 4d |
-| ↳ | Forward Deployed AI Engineer, Marketing Intelligence & Consumer Insights<br><sub>Senior · req 5y</sub> | San Jose<br>Seattle<br><sub>+1 more</sub> | [Apply](https://adobe.wd5.myworkdayjobs.com/external_experienced/job/San-Jose/Forward-Deployed-AI-Engineer--Marketing-Intelligence---Consumer-Insights_R172095) | 4d |
-| **Canonical** 🌐<br><sub>via Jobicy</sub> | Talent Scientist - Graduate Lead<br><sub>level unstated</sub> | EMEA | [Apply](https://jobicy.com/jobs/150122-talent-scientist-graduate-lead) | 4d |
-| **Consilio LLC** 🌐<br><sub>via Himalayas</sub> | Lead UX Designer<br><sub>Staff · req 8y</sub> | United States | [Apply](https://himalayas.app/companies/consilio-llc/jobs/lead-ux-designer) | 4d |
-| **CookUnity** 🌐<br><sub>via Himalayas</sub> | Senior Growth Designer, Acquisition & Offers ⚠️<br><sub>Mid · req 4y</sub> | Argentina | [Apply](https://himalayas.app/companies/cookunity/jobs/senior-growth-designer-acquisition-offers) | 4d |
-| **Peraton** 🌐<br><sub>via Himalayas</sub> | UX Analyst - AI Enabled Designer 🇺🇸<br><sub>Mid · req 4y</sub> | United States | [Apply](https://himalayas.app/companies/peraton/jobs/ux-analyst-ai-enabled-designer) | 4d |
-| **Sephora** 🌐<br><sub>via Himalayas</sub> | Manager, Product Design (Remote, CA, US, USA_519431)<br><sub>Senior · req 5y</sub> | United States | [Apply](https://himalayas.app/companies/sephora/jobs/manager-product-design-remote-ca-us-usa_519431) | 4d |
-| **WRS Health** 🌐<br><sub>via Himalayas</sub> | Technical Project Manager<br><sub>Contract · level unstated</sub> | Philippines | [Apply](https://himalayas.app/companies/wrs-health/jobs/technical-project-manager) | 4d |
-| **AlphaSense** 🌐<br><sub>via Himalayas</sub> | Senior/Staff Product Designer<br><sub>Staff · req 10y</sub> | United States | [Apply](https://himalayas.app/companies/alphasense/jobs/senior-staff-product-designer-7779182954) | 5d |
-| **Babylist** 🌐<br><sub>via Himalayas</sub> | Director, Product Design (AI Builder)<br><sub>level unstated</sub> | United States | [Apply](https://himalayas.app/companies/babylist/jobs/director-product-design-ai-builder) | 5d |
+| **1KOMMA5˚** 🌐<br><sub>via Arbeitnow</sub> | Praktikant:in Produkt Management & AI Enablement - Solar (m/w/d)<br><sub>Intern · level unstated</sub> | Berlin | [Apply](https://www.arbeitnow.com/jobs/companies/1komma50/praktikantin-produkt-management-ai-enablement-solar-berlin-299425) | 0d |
+| **Bermuda Digital Studio** 🌐<br><sub>via Arbeitnow</sub> | Product Manager (m/w/d)<br><sub>level unstated</sub> | Bochum | [Apply](https://www.arbeitnow.com/jobs/companies/bermuda-digital-studio/product-manager-ai-bochum-439791) | 0d |
+| **Geordie AI** 🌐<br><sub>via Arbeitnow</sub> | Product Designer<br><sub>level unstated</sub> | United Kingdom Remote | [Apply](https://www.arbeitnow.co.uk/jobs/companies/geordie-ai/product-designer-united-kingdom-420425) | 0d |
+| **Hypori** 🌐<br><sub>via Arbeitnow</sub> | Product Manager (UK)<br><sub>Mid · req 4y</sub> | unknown | [Apply](https://www.arbeitnow.co.uk/jobs/companies/hypori/product-manager-uk-292697) | 0d |
+| **Juro** 🌐<br><sub>via Arbeitnow</sub> | Senior Product Manager<br><sub>level unstated</sub> | London (UK) | [Apply](https://www.arbeitnow.co.uk/jobs/companies/juro/senior-product-manager-london-261358) | 0d |
+| **Pigment** 🌐<br><sub>via Arbeitnow</sub> | Lead Product Designer - Agentic AI<br><sub>Staff · req 8y</sub> | London | [Apply](https://www.arbeitnow.co.uk/jobs/companies/pigment/lead-product-designer-agentic-ai-london-326280) | 0d |
+| **hellofresh** 🌐<br><sub>via Arbeitnow</sub> | Senior Data Scientist, Growth (f/m/x) ⚠️<br><sub>Junior · req 3y</sub> | Berlin, Berlin | [Apply](https://www.arbeitnow.com/jobs/companies/hellofresh/senior-data-scientist-growth-berlin-berlin-308972) | 0d |
+| ↳ 🌐<br><sub>via Arbeitnow</sub> | Senior Product Designer, Growth & Consumer UX (f/m/x)<br><sub>level unstated · pref 4y</sub> | Berlin, Berlin | [Apply](https://www.arbeitnow.com/jobs/companies/hellofresh/senior-product-designer-growth-consumer-ux-berlin-berlin-60375) | 0d |
+| **Adobe** | 2027 MBA University Graduate - Product Manager<br><sub>Junior · req 2y</sub> | San Jose<br>San Francisco | [Apply](https://adobe.wd5.myworkdayjobs.com/external_experienced/job/San-Jose/XMLNAME-2027-MBA-University-Graduate---Product-Manager_R171900) | 1d |
+| **DoorDash** | Senior Manager, Strategy & Operations, DoorDash for Business   ⚠️<br><sub>Staff · req 10y</sub> | New York, NY | [Apply](https://job-boards.greenhouse.io/doordashusa/jobs/8262815) | 1d |
+| **Apollo** 🌐<br><sub>via Himalayas</sub> | Researcher<br><sub>Senior · req 5y</sub> | United States | [Apply](https://himalayas.app/companies/apollo/jobs/researcher) | 1d |
+| **Binance** 🌐<br><sub>via Jobicy</sub> | Binance Accelerator Programm - Product Manager (meme)<br><sub>Intern · level unstated</sub> | Hong Kong | [Apply](https://jobicy.com/jobs/154830-binance-accelerator-programm-product-manager-meme) | 1d |
+| **Bixal** 🌐<br><sub>via Himalayas</sub> | Content Strategist 🛂<br><sub>Senior · req 6y</sub> | United States | [Apply](https://himalayas.app/companies/bixal/jobs/content-strategist-2975071791) | 1d |
 
-508 more in this section are listed in [positions.jsonl](positions.jsonl); the table shows the first 100 in this order.
+593 more in this section are listed in [positions.jsonl](positions.jsonl); the table shows the first 100 in this order.
 
 </details>
 
@@ -407,7 +426,7 @@ Relevant roles whose link or source feed was not rechecked in the last 24 hours.
 - This is information retrieval, not final eligibility screening. Relevant roles stay visible even with unknown experience or qualification gaps, and no applicant eligibility is inferred. Free-text model reasons, notes and uncertainties are withheld. Source quotes in positions.jsonl are not a complete eligibility check; downstream reviewers must inspect the original posting.
 - Every public posting returned by configured feeds enters the model queue. Title terms and, when installed, an on-device CLM-v0.1-8B relevance score affect processing order only; neither rejects a posting. Cached judgments are reused only for identical content, anonymous collection policy, model and prompt. A partial queue is not complete coverage. Large backlogs may be judged on a rented notebook GPU running the official release of the same weights; each positions.jsonl record names the exact weights.
 
-Reviewed with current configuration: 11917; clearly unrelated: 10229; failed attempts retained without fit claims: 0. All judgments and raw model outputs are retained locally in SQLite; relevant fit-gap roles remain above. Omitted from the lists: 75 postings a maintainer judged not to be direct openings and 18 aggregator postings that duplicate an official listing.
+Reviewed with current configuration: 17149; clearly unrelated: 15100; failed attempts retained without fit claims: 0. All judgments and raw model outputs are retained locally in SQLite; relevant fit-gap roles remain above. Omitted from the lists: 79 postings a maintainer judged not to be direct openings and 22 aggregator postings that duplicate an official listing.
 
 ## Source health
 
@@ -416,58 +435,58 @@ Reviewed with current configuration: 11917; clearly unrelated: 10229; failed att
 | Source | Last successful fetch | Jobs | Error |
 |---|---|---|---|
 | adobe | 2026-10-09 11:10 EDT | 185 | none |
-| affirm | 2026-10-09 11:08 EDT | 192 | none |
-| airbnb | 2026-10-09 11:07 EDT | 160 | none |
-| airtable | 2026-10-09 11:08 EDT | 4 | none |
-| amazon | 2026-10-09 11:08 EDT | 1008 | none |
-| anthropic | 2026-10-09 11:08 EDT | 644 | none |
+| affirm | 2026-10-09 12:14 EDT | 193 | none |
+| airbnb | 2026-10-09 12:14 EDT | 160 | none |
+| airtable | 2026-10-09 12:14 EDT | 4 | none |
+| amazon | 2026-10-09 12:14 EDT | 1006 | none |
+| anthropic | 2026-10-09 12:14 EDT | 645 | none |
 | arbeitnow | 2026-10-09 11:11 EDT | 3495 | none |
-| asana | 2026-10-09 11:08 EDT | 101 | none |
-| backmarket | 2026-10-09 11:07 EDT | 32 | none |
-| bpcs | 2026-10-09 11:07 EDT | 27 | none |
-| bunq | 2026-10-09 11:10 EDT | 19 | none |
-| cohere | 2026-10-09 11:08 EDT | 120 | none |
-| coinbase | 2026-10-09 11:08 EDT | 220 | none |
-| coursera | 2026-10-09 11:08 EDT | 16 | none |
-| cursor | 2026-10-09 11:07 EDT | 135 | none |
-| databricks | 2026-10-09 11:08 EDT | 893 | none |
-| discord | 2026-10-09 11:07 EDT | 48 | none |
-| doordash | 2026-10-09 11:08 EDT | 466 | none |
-| dropbox | 2026-10-09 11:08 EDT | 32 | none |
-| duolingo | 2026-10-09 11:07 EDT | 58 | none |
-| elastic | 2026-10-09 11:08 EDT | 422 | none |
-| elevenlabs | 2026-10-09 11:08 EDT | 130 | none |
-| emergent | 2026-10-09 11:07 EDT | 45 | none |
-| figma | 2026-10-09 11:07 EDT | 153 | none |
-| google | 2026-10-09 11:07 EDT | 65 | none |
+| asana | 2026-10-09 12:14 EDT | 102 | none |
+| backmarket | 2026-10-09 12:13 EDT | 32 | none |
+| bpcs | 2026-10-09 12:13 EDT | 27 | none |
+| bunq | 2026-10-09 12:14 EDT | 19 | none |
+| cohere | 2026-10-09 12:14 EDT | 120 | none |
+| coinbase | 2026-10-09 12:14 EDT | 220 | none |
+| coursera | 2026-10-09 12:14 EDT | 16 | none |
+| cursor | 2026-10-09 12:14 EDT | 135 | none |
+| databricks | 2026-10-09 12:14 EDT | 893 | none |
+| discord | 2026-10-09 12:14 EDT | 48 | none |
+| doordash | 2026-10-09 12:14 EDT | 466 | none |
+| dropbox | 2026-10-09 12:14 EDT | 32 | none |
+| duolingo | 2026-10-09 12:14 EDT | 58 | none |
+| elastic | 2026-10-09 12:14 EDT | 422 | none |
+| elevenlabs | 2026-10-09 12:14 EDT | 130 | none |
+| emergent | 2026-10-09 12:14 EDT | 45 | none |
+| figma | 2026-10-09 12:13 EDT | 153 | none |
+| google | 2026-10-09 12:14 EDT | 66 | none |
 | himalayas | 2026-10-08 00:10 EDT | 810 | source_fetch_failed |
-| hoyoverse | 2026-10-09 11:07 EDT | 15 | none |
-| instacart | 2026-10-09 11:08 EDT | 120 | none |
+| hoyoverse | 2026-10-09 12:13 EDT | 15 | none |
+| instacart | 2026-10-09 12:14 EDT | 120 | none |
 | jobicy | 2026-10-09 11:10 EDT | 730 | none |
-| linear | 2026-10-09 11:08 EDT | 31 | none |
-| lyft | 2026-10-09 11:08 EDT | 190 | none |
-| mongodb | 2026-10-09 11:08 EDT | 392 | none |
+| linear | 2026-10-09 12:14 EDT | 31 | none |
+| lyft | 2026-10-09 12:14 EDT | 190 | none |
+| mongodb | 2026-10-09 12:14 EDT | 391 | none |
 | nielseniq | 2026-10-09 11:10 EDT | 305 | none |
-| notion | 2026-10-09 11:07 EDT | 133 | none |
+| notion | 2026-10-09 12:13 EDT | 133 | none |
 | nvidia | 2026-10-08 05:24 EDT | 925 | source_fetch_failed |
-| okta | 2026-10-09 11:08 EDT | 379 | none |
-| openai | 2026-10-09 11:07 EDT | 819 | none |
-| perplexity | 2026-10-09 11:08 EDT | 132 | none |
-| pinterest | 2026-10-09 11:08 EDT | 179 | none |
-| ramp | 2026-10-09 11:08 EDT | 163 | none |
-| reddit | 2026-10-09 11:07 EDT | 155 | none |
+| okta | 2026-10-09 12:14 EDT | 378 | none |
+| openai | 2026-10-09 12:14 EDT | 818 | none |
+| perplexity | 2026-10-09 12:14 EDT | 132 | none |
+| pinterest | 2026-10-09 12:14 EDT | 179 | none |
+| ramp | 2026-10-09 12:14 EDT | 163 | none |
+| reddit | 2026-10-09 12:14 EDT | 155 | none |
 | remoteok | 2026-10-09 11:10 EDT | 99 | none |
 | remotive | 2026-10-09 11:10 EDT | 17 | none |
-| replit | 2026-10-09 11:08 EDT | 73 | none |
-| roblox | 2026-10-09 11:07 EDT | 262 | none |
-| saviynt | 2026-10-09 11:08 EDT | 72 | none |
-| scale | 2026-10-09 11:08 EDT | 181 | none |
+| replit | 2026-10-09 12:14 EDT | 73 | none |
+| roblox | 2026-10-09 12:13 EDT | 262 | none |
+| saviynt | 2026-10-09 12:14 EDT | 72 | none |
+| scale | 2026-10-09 12:14 EDT | 182 | none |
 | servicenow | 2026-10-09 11:13 EDT | 706 | none |
-| spotify | 2026-10-09 11:08 EDT | 79 | none |
-| stripe | 2026-10-09 11:08 EDT | 729 | none |
-| twilio | 2026-10-09 11:08 EDT | 138 | none |
+| spotify | 2026-10-09 12:14 EDT | 81 | none |
+| stripe | 2026-10-09 12:14 EDT | 728 | none |
+| twilio | 2026-10-09 12:14 EDT | 140 | none |
 | ubisoft | 2026-10-09 11:10 EDT | 226 | none |
-| vanta | 2026-10-09 11:08 EDT | 84 | none |
+| vanta | 2026-10-09 12:14 EDT | 84 | none |
 
 </details>
 
